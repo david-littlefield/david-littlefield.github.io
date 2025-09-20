@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.davidlittlefield.nfccoredemo",
+      "sha256_cert_fingerprints": [
+        "17:43:E0:60:3A:E1:33:FA:6A:92:7C:4F:61:7E:AD:D2:1E:FD:1B:95:FB:C1:19:97:EC:68:5A:B3:6F:24:CF:90"
+      ]
+    }
+  }
+]
