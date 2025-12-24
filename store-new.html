@@ -1,0 +1,4606 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>STŌR — Store</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      /* ===== Theme Variables ===== */
+      :root {
+        /* Colors - Core Palette */
+        --color-canvas: #fffcf9;
+        --color-surface: #fff9f4;
+        --color-surface-raised: #fff7f1;
+        --color-background: #f5f0eb;
+        --color-white: #ffffff;
+
+        /* Colors - Text Hierarchy */
+        --color-text-primary: #4d3f33;
+        --color-text-secondary: #937b65;
+        --color-text-tertiary: #a89d94;
+        --color-text-whisper: #c4b5a8;
+        --color-text-ghost: #d9cfc6;
+        --color-text-inverse: #fffcf9;
+
+        /* Colors - Accent */
+        --color-accent-primary: #b38b6d;
+        --color-accent-secondary: #c4a27a;
+        --color-accent-nude: #e6d4c6;
+        --color-accent-blush: #e8d5cc;
+        --color-accent-clay: #d4b8a0;
+        --color-accent-sand: #f0e6dd;
+
+        /* Colors - Interactive States */
+        --color-interactive-hover: #a67d5f;
+        --color-interactive-pressed: #967052;
+
+        /* Colors - Borders */
+        --color-border-invisible: rgba(196, 162, 122, 0.04);
+        --color-border-light: rgba(196, 162, 122, 0.08);
+        --color-border-medium: rgba(196, 162, 122, 0.15);
+        --color-border-strong: rgba(196, 162, 122, 0.25);
+        --color-border-focused: rgba(179, 139, 109, 0.4);
+
+        /* Colors - Overlays */
+        --color-overlay-subtle: rgba(196, 162, 122, 0.03);
+        --color-overlay-light: rgba(196, 162, 122, 0.06);
+        --color-overlay-medium: rgba(196, 162, 122, 0.1);
+        --color-overlay-heavy: rgba(77, 63, 51, 0.4);
+        --color-overlay-pressed: rgba(179, 139, 109, 0.15);
+
+        /* Colors - Semantic */
+        --color-semantic-error: #c67b5c;
+        --color-semantic-success: #8fa67a;
+
+        /* Spacing Scale (8px base) */
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 20px;
+        --space-6: 24px;
+        --space-8: 32px;
+        --space-12: 48px;
+
+        /* Spacing - Semantic Aliases */
+        --space-micro: var(--space-1);
+        --space-tiny: var(--space-2);
+        --space-small: var(--space-3);
+        --space-base: var(--space-4);
+        --space-medium: var(--space-5);
+        --space-large: var(--space-6);
+        --space-gutter: var(--space-6);
+        --space-xlarge: var(--space-8);
+        --space-xxlarge: var(--space-12);
+
+        /* Heights */
+        --height-header: 60px;
+        --height-input: 52px;
+        --height-button: 52px;
+        --height-pill: 40px;
+        --height-icon-button: 48px;
+        --height-modal-header: 60px;
+        --height-modal-footer: 60px;
+        --height-list-item-compact: 48px;
+        --height-dot-medium: 6px;
+
+        /* Icon Sizes */
+        --icon-size-small: 16px;
+        --icon-size-default: 20px;
+        --icon-size-medium: 24px;
+        --icon-size-large: 32px;
+        --icon-size-extra-large: 48px;
+
+        /* Border Radius */
+        --radius-xs: 4px;
+        --radius-sm: 8px;
+        --radius-base: 12px;
+        --radius-md: 16px;
+        --radius-lg: 20px;
+        --radius-xl: 24px;
+        --radius-full: 9999px;
+
+        /* Border Radius - Legacy Aliases */
+        --radius-micro: var(--radius-xs);
+        --radius-small: var(--radius-sm);
+        --radius-large: var(--radius-md);
+        --radius-xlarge: var(--radius-lg);
+        --radius-xxlarge: var(--radius-xl);
+        --radius-round: var(--radius-full);
+
+        /* Border Width */
+        --border-thin: 1px;
+        --border-subtle: 1.5px;
+
+        /* Typography - Font Family */
+        --font-family: "SF Pro Display", "SF Pro Text", system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+          sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+        /* Typography - Font Sizes */
+        --font-size-2xs: 10px;
+        --font-size-xs: 11px;
+        --font-size-sm: 13px;
+        --font-size-base: 15px;
+        --font-size-md: 16px;
+        --font-size-lg: 18px;
+        --font-size-xl: 21px;
+        --font-size-2xl: 24px;
+
+        /* Typography - Legacy Aliases */
+        --font-size-screen-header: var(--font-size-md);
+        --font-size-modal-header: var(--font-size-md);
+        --font-size-list-title: var(--font-size-md);
+        --font-size-list-subtitle: var(--font-size-sm);
+        --font-size-input: var(--font-size-md);
+        --font-size-button: 14px;
+        --font-size-micro: var(--font-size-xs);
+
+        /* Typography - Font Weights */
+        --font-weight-light: 300;
+        --font-weight-regular: 400;
+        --font-weight-medium: 500;
+        --font-weight-semibold: 600;
+
+        /* Typography - Line Heights */
+        --line-height-none: 1;
+        --line-height-tight: 1.2;
+        --line-height-snug: 1.35;
+        --line-height-normal: 1.5;
+        --line-height-relaxed: 1.6;
+
+        /* Typography - Letter Spacing */
+        --letter-spacing-tight: -0.02em;
+        --letter-spacing-normal: 0;
+        --letter-spacing-wide: 0.02em;
+        --letter-spacing-wider: 0.05em;
+        --letter-spacing-widest: 0.1em;
+
+        /* Shadows (warm-tinted) */
+        --shadow-sm: 0 1px 3px rgba(77, 63, 51, 0.06),
+          0 1px 2px rgba(77, 63, 51, 0.04);
+        --shadow-md: 0 10px 15px -3px rgba(77, 63, 51, 0.06),
+          0 4px 6px -2px rgba(77, 63, 51, 0.03);
+        --shadow-lg: 0 -8px 40px rgba(77, 63, 51, 0.3);
+        --shadow-focus: 0 0 0 2px var(--color-canvas),
+          0 0 0 5px rgba(179, 139, 109, 0.4);
+        --shadow-focus-error: 0 0 0 2px var(--color-canvas),
+          0 0 0 5px var(--color-semantic-error);
+
+        /* Transitions */
+        --duration-fast: 100ms;
+        --duration-normal: 200ms;
+        --duration-slow: 300ms;
+        --ease-out: cubic-bezier(0, 0, 0.2, 1);
+        --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-colors: color var(--duration-fast) var(--ease-out),
+          background-color var(--duration-fast) var(--ease-out),
+          border-color var(--duration-fast) var(--ease-out);
+
+        /* Z-Index Scale */
+        --z-below: -1;
+        --z-base: 0;
+        --z-raised: 1;
+        --z-dropdown: 10;
+        --z-sticky: 20;
+        --z-header: 30;
+        --z-overlay: 40;
+        --z-modal: 50;
+        --z-toast: 60;
+        --z-tooltip: 70;
+        --z-max: 100;
+
+        /* Safe Area */
+        --safe-top: env(safe-area-inset-top, 0px);
+        --safe-bottom: env(safe-area-inset-bottom, 0px);
+        --max-width: 480px;
+      }
+
+      /* ===== Base Styles ===== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      html,
+      body {
+        background: var(--color-canvas);
+        color: var(--color-text-primary);
+        font-family: var(--font-family);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+      }
+
+      body {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      fieldset {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        min-width: 0;
+      }
+
+      button:focus,
+      a:focus,
+      [tabindex]:focus {
+        outline: none;
+      }
+
+      :focus-visible {
+        box-shadow: var(--shadow-focus);
+      }
+
+      a:focus-visible,
+      [tabindex]:focus-visible {
+        border-radius: var(--radius-sm);
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      /* ===== Accessibility ===== */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      /* ===== Layout ===== */
+      .container {
+        max-width: var(--max-width);
+        margin-inline: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        background: var(--color-canvas);
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== Header ===== */
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: var(--z-header);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        height: calc(var(--height-header) + var(--safe-top));
+        padding: var(--safe-top) var(--space-gutter) 0;
+        background: var(--color-canvas);
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+      }
+
+      .header__left {
+        justify-self: start;
+        margin-left: -14px;
+      }
+
+      .header__center {
+        justify-self: center;
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+      }
+
+      .header__right {
+        justify-self: end;
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-right: -14px;
+      }
+
+      /* ===== Icon Button ===== */
+      .icon-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: var(--height-icon-button);
+        height: var(--height-icon-button);
+        min-width: var(--height-icon-button);
+        min-height: var(--height-icon-button);
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: var(--radius-sm);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .icon-button:hover {
+        background: var(--color-overlay-light);
+      }
+
+      .icon-button:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      .icon-button i {
+        font-size: var(--icon-size-default);
+        line-height: 1;
+      }
+
+      .icon-button--badge[data-badge]::after {
+        content: attr(data-badge);
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        display: grid;
+        place-items: center;
+        border-radius: var(--radius-full);
+        background: var(--color-accent-primary);
+        color: var(--color-text-inverse);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
+        line-height: 1;
+      }
+
+      .icon-button--badge[data-badge="0"]::after {
+        display: none;
+      }
+
+      /* ===== Store Banner ===== */
+      .store-banner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: var(--space-large);
+        background: var(--color-surface);
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+      }
+
+      .store-banner__avatar {
+        width: 80px;
+        height: 80px;
+        position: relative;
+        border-radius: var(--radius-full);
+        overflow: hidden;
+        border: var(--border-thin) solid var(--color-border-medium);
+        background: radial-gradient(
+          circle at 50% 50%,
+          var(--color-accent-nude) 0%,
+          #cfbeb2 100%
+        );
+        flex-shrink: 0;
+      }
+
+      .store-banner__avatar-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .store-banner__meta {
+        display: grid;
+        gap: var(--space-micro);
+        margin-top: var(--space-small);
+      }
+
+      .store-banner__name {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        line-height: var(--line-height-normal);
+      }
+
+      .store-banner__location {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .store-banner__description {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+        line-height: var(--line-height-normal);
+        margin-top: var(--space-tiny);
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .store-banner__description--expanded {
+        -webkit-line-clamp: unset;
+        line-clamp: unset;
+        overflow: visible;
+      }
+
+      .store-banner__toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-self: center;
+        gap: var(--space-tiny);
+        padding: var(--space-tiny) var(--space-small);
+        margin: 0;
+        background: none;
+        border: 0;
+        font-family: var(--font-family);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        border-radius: var(--radius-sm);
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .store-banner__toggle:hover .store-banner__toggle-text {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .store-banner__toggle i {
+        font-size: var(--font-size-md);
+        line-height: 1;
+        transition: transform var(--duration-fast) var(--ease-out);
+      }
+
+      .store-banner__toggle[aria-expanded="true"] i {
+        transform: rotate(180deg);
+      }
+
+      .store-banner__fulfillment {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-tiny);
+        justify-content: center;
+        margin-top: var(--space-large);
+      }
+
+      .store-banner__fulfillment-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-micro);
+        padding: var(--space-micro) var(--space-small);
+        background: transparent;
+        border: var(--border-thin) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        font-size: var(--font-size-2xs);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-secondary);
+        white-space: nowrap;
+      }
+
+      .store-banner__fulfillment-badge i {
+        font-size: 14px;
+      }
+
+      .store-banner__action {
+        margin-top: var(--space-small);
+      }
+
+      .btn-follow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--height-pill);
+        padding: 0 var(--space-base);
+        background: var(--color-accent-nude);
+        border: var(--border-thin) solid var(--color-accent-nude);
+        border-radius: var(--radius-sm);
+        color: var(--color-text-primary);
+        font-family: var(--font-family);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: var(--transition-colors);
+        flex-shrink: 0;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .btn-follow:hover {
+        background: var(--color-accent-blush);
+        border-color: var(--color-accent-blush);
+      }
+
+      .btn-follow:active {
+        background: var(--color-accent-clay);
+        border-color: var(--color-accent-clay);
+      }
+
+      .phone-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        justify-self: center;
+        gap: var(--space-tiny);
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .phone-link:hover {
+        color: var(--color-text-primary);
+      }
+
+      .phone-link .ph {
+        font-size: 14px;
+        line-height: 1;
+      }
+
+      .phone-link__text {
+        font-variant-numeric: tabular-nums lining-nums;
+      }
+
+      /* ===== Controls Section ===== */
+      .controls {
+        display: grid;
+        gap: var(--space-medium);
+        padding: var(--space-large);
+        background: var(--color-canvas);
+        position: sticky;
+        top: calc(var(--height-header) + var(--safe-top) - var(--border-thin));
+        z-index: var(--z-sticky);
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+      }
+
+      /* ===== Search Input ===== */
+      .search {
+        display: grid;
+        grid-template-columns: min-content 1fr 24px;
+        align-items: center;
+        gap: var(--space-small);
+        height: var(--height-input);
+        padding: 0 var(--space-base);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        background: var(--color-canvas);
+        transition: border-color var(--duration-fast) var(--ease-out);
+      }
+
+      .search:focus-within {
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      .search svg {
+        color: var(--color-text-tertiary);
+      }
+
+      .search input {
+        border: 0;
+        outline: 0;
+        font-size: var(--font-size-md);
+        font-family: var(--font-family);
+        width: 100%;
+        color: var(--color-text-primary);
+        background: transparent;
+      }
+
+      .search input:focus,
+      .search input:focus-visible {
+        outline: none;
+        box-shadow: none;
+      }
+
+      .search input::placeholder {
+        color: var(--color-text-whisper);
+      }
+
+      .search__clear {
+        width: 24px;
+        height: 24px;
+        display: inline-grid;
+        place-items: center;
+        border: 0;
+        background: transparent;
+        border-radius: var(--radius-sm);
+        padding: 0;
+        cursor: pointer;
+        color: var(--color-text-tertiary);
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .search__clear:hover {
+        color: var(--color-text-secondary);
+        background: var(--color-overlay-light);
+      }
+
+      .search__clear:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      /* ===== Meta Row (Filter + Count + View Toggle) ===== */
+      .meta-row {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: var(--space-small);
+      }
+
+      .filter-button {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-tiny);
+        padding: 0;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        color: var(--color-text-primary);
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        font-family: var(--font-family);
+        letter-spacing: 0.1px;
+        border-radius: var(--radius-sm);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .filter-button i {
+        font-size: var(--icon-size-default);
+        color: var(--color-text-secondary);
+      }
+
+      .filter-button:active {
+        opacity: 0.8;
+      }
+
+      .item-count {
+        justify-self: center;
+        font-size: var(--font-size-md);
+        color: var(--color-text-primary);
+        letter-spacing: 0.1px;
+      }
+
+      .view-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-self: end;
+        gap: var(--space-tiny);
+      }
+
+      .view-toggle__button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--color-text-tertiary);
+        line-height: 1;
+        cursor: pointer;
+        border-radius: var(--radius-sm);
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .view-toggle__button i {
+        font-size: var(--icon-size-medium);
+        display: block;
+      }
+
+      .view-toggle__button:hover {
+        color: var(--color-text-secondary);
+      }
+
+      .view-toggle__button:active {
+        opacity: 0.8;
+      }
+
+      .view-toggle__button--active {
+        color: var(--color-text-primary);
+      }
+
+      /* ===== Utility ===== */
+      .visually-hidden {
+        position: absolute !important;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+
+      /* ===== Items Grid/List ===== */
+      .items {
+        flex: 1;
+        padding: var(--space-large);
+      }
+
+      .items-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-large);
+      }
+
+      .items-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--space-large);
+      }
+
+      /* ===== Item Card ===== */
+      .item-card {
+        display: grid;
+      }
+
+      .item-card:active {
+        opacity: 0.8;
+      }
+
+      .item-card__image {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        background: var(--color-background);
+        border-radius: var(--radius-md);
+        border: var(--border-thin) solid var(--color-border-medium);
+        display: grid;
+        place-items: center;
+        color: var(--color-text-tertiary);
+        font-size: var(--font-size-2xs);
+        letter-spacing: var(--letter-spacing-widest);
+        text-transform: uppercase;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .item-card__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .item-card__badges {
+        position: absolute;
+        top: var(--space-small);
+        left: var(--space-small);
+        display: flex;
+        gap: var(--space-tiny);
+        z-index: var(--z-raised);
+        pointer-events: none;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 22px;
+        padding: 0 10px;
+        border-radius: var(--radius-full);
+        border: var(--border-thin) solid var(--color-border-strong);
+        background: rgba(255, 255, 255, 0.88);
+        color: var(--color-text-primary);
+        font-size: var(--font-size-micro);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        line-height: 1;
+      }
+
+      .item-card__title {
+        margin-top: var(--space-micro);
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        align-self: start;
+      }
+
+      .items-list .item-card__title {
+        margin-top: var(--space-tiny);
+      }
+
+      .item-card__meta {
+        margin-top: var(--space-micro);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .item-card__price {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .item-card__condition {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* ===== End Indicator ===== */
+      .end-indicator {
+        padding: var(--space-xxlarge) 0 var(--space-large);
+        margin: 0 calc(var(--space-large) * -1);
+        text-align: center;
+        background: var(--color-canvas);
+      }
+
+      .end-indicator__icon {
+        display: block;
+        font-size: var(--icon-size-medium);
+        margin-bottom: var(--space-small);
+        color: var(--color-text-secondary);
+        line-height: 1;
+      }
+
+      .end-indicator__text {
+        font-size: var(--font-size-md);
+        color: var(--color-text-primary);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: 0.1px;
+      }
+
+      /* ===== Footer ===== */
+      .footer {
+        background: var(--color-surface);
+      }
+
+      .footer__links {
+        border-top: var(--border-thin) solid var(--color-border-medium);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-base);
+        padding: var(--space-large) var(--space-gutter);
+      }
+
+      .footer__links a {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: var(--transition-colors);
+      }
+
+      .footer__links a:hover {
+        color: var(--color-text-secondary);
+      }
+
+      .footer__links a:active {
+        color: var(--color-text-primary);
+      }
+
+      .footer__copyright {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        text-align: center;
+        padding: 0 var(--space-gutter) var(--space-large);
+      }
+
+      /* ===== Body Lock ===== */
+      .body-lock {
+        overflow: hidden;
+        height: 100%;
+      }
+
+      /* ===== Full-Screen Menu Overlay ===== */
+      .menu-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: var(--z-modal);
+        background: var(--color-canvas);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+      }
+
+      .menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .menu-overlay__container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .menu-overlay__header {
+        display: grid;
+        grid-template-columns: var(--height-icon-button) 1fr var(
+            --height-icon-button
+          );
+        align-items: center;
+        height: calc(var(--height-header) + var(--safe-top));
+        padding: var(--safe-top) var(--space-gutter) 0;
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+        background: var(--color-canvas);
+      }
+
+      .menu-overlay__header-left {
+        justify-self: start;
+        margin-left: -14px;
+      }
+
+      .menu-overlay__header-center {
+        justify-self: center;
+      }
+
+      .menu-overlay__header-title {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        color: var(--color-text-primary);
+      }
+
+      .menu-overlay__header-right {
+        justify-self: end;
+        margin-right: -14px;
+      }
+
+      .menu-overlay__close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--height-icon-button);
+        height: var(--height-icon-button);
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        color: var(--color-text-primary);
+        border-radius: var(--radius-sm);
+        -webkit-tap-highlight-color: transparent;
+        transition: var(--transition-colors);
+      }
+
+      .menu-overlay__close:hover {
+        background: var(--color-overlay-light);
+      }
+
+      .menu-overlay__close:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      .menu-overlay__close i {
+        font-size: var(--icon-size-default);
+        line-height: 1;
+      }
+
+      .menu-overlay__body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: var(--safe-bottom);
+      }
+
+      .menu-overlay__nav {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .menu-overlay__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--space-medium) var(--space-gutter);
+        border-bottom: var(--border-thin) solid var(--color-border-light);
+        text-decoration: none;
+        color: var(--color-text-secondary);
+        -webkit-tap-highlight-color: transparent;
+        transition: var(--transition-colors);
+      }
+
+      .menu-overlay__item:active {
+        background: var(--color-overlay-light);
+      }
+
+      .menu-overlay__label {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: var(--letter-spacing-widest);
+        line-height: var(--line-height-normal);
+        text-transform: uppercase;
+      }
+
+      .menu-overlay__caret {
+        width: var(--icon-size-default);
+        height: var(--icon-size-default);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-text-tertiary);
+      }
+
+      .menu-overlay__caret svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ===== Full-Screen Search Overlay ===== */
+      .search-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: var(--z-modal);
+        background: var(--color-canvas);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+      }
+
+      .search-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .search-overlay__container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .search-overlay__header {
+        display: grid;
+        grid-template-columns: var(--height-icon-button) 1fr var(
+            --height-icon-button
+          );
+        align-items: center;
+        height: calc(var(--height-header) + var(--safe-top));
+        padding: var(--safe-top) var(--space-gutter) 0;
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+        background: var(--color-canvas);
+      }
+
+      .search-overlay__header-left {
+        justify-self: start;
+        margin-left: -14px;
+      }
+
+      .search-overlay__header-center {
+        justify-self: center;
+      }
+
+      .search-overlay__header-title {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        color: var(--color-text-primary);
+      }
+
+      .search-overlay__header-right {
+        justify-self: end;
+        margin-right: -14px;
+      }
+
+      .search-overlay__close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--height-icon-button);
+        height: var(--height-icon-button);
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        color: var(--color-text-primary);
+        border-radius: var(--radius-sm);
+        -webkit-tap-highlight-color: transparent;
+        transition: var(--transition-colors);
+      }
+
+      .search-overlay__close:hover {
+        background: var(--color-overlay-light);
+      }
+
+      .search-overlay__close:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      .search-overlay__close i {
+        font-size: var(--icon-size-default);
+        line-height: 1;
+      }
+
+      .search-overlay__body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: var(--space-large);
+        padding-bottom: var(--safe-bottom);
+      }
+
+      .search-overlay__form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-large);
+      }
+
+      .search-overlay__input-wrap {
+        display: grid;
+        grid-template-columns: min-content 1fr min-content;
+        align-items: center;
+        gap: var(--space-small);
+        height: var(--height-input);
+        padding: 0 var(--space-base);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        background: var(--color-canvas);
+        transition: border-color var(--duration-fast) var(--ease-out);
+      }
+
+      .search-overlay__input-wrap:focus-within {
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      .search-overlay__input-wrap svg {
+        color: var(--color-text-tertiary);
+      }
+
+      .search-overlay__input {
+        border: 0;
+        outline: 0;
+        font-size: var(--font-size-md);
+        font-family: var(--font-family);
+        width: 100%;
+        color: var(--color-text-primary);
+        background: transparent;
+      }
+
+      .search-overlay__input::placeholder {
+        color: var(--color-text-whisper);
+      }
+
+      .search-overlay__input:focus,
+      .search-overlay__input:focus-visible {
+        outline: none;
+        box-shadow: none;
+      }
+
+      .search-overlay__clear {
+        width: 24px;
+        height: 24px;
+        display: inline-grid;
+        place-items: center;
+        border: 0;
+        background: transparent;
+        border-radius: var(--radius-sm);
+        padding: 0;
+        cursor: pointer;
+        color: var(--color-text-tertiary);
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .search-overlay__clear[hidden] {
+        display: none;
+      }
+
+      .search-overlay__clear:hover {
+        color: var(--color-text-secondary);
+        background: var(--color-overlay-light);
+      }
+
+      .search-overlay__clear:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      /* ===== Select Modal (Filter Modal) ===== */
+      .select-modal {
+        position: fixed;
+        inset: 0;
+        z-index: var(--z-modal);
+        pointer-events: none;
+      }
+
+      .select-modal.active {
+        pointer-events: auto;
+      }
+
+      .select-modal__backdrop {
+        position: fixed;
+        inset: 0;
+        background: var(--color-overlay-heavy);
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .select-modal.active .select-modal__backdrop {
+        opacity: 1;
+      }
+
+      .select-modal__container {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        max-width: var(--max-width);
+        margin: 0 auto;
+        transform: translateY(100%);
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .select-modal.active .select-modal__container {
+        transform: translateY(0);
+      }
+
+      .select-modal__sheet {
+        background: var(--color-canvas);
+        border: var(--border-thin) solid var(--color-border-light);
+        border-top-left-radius: var(--radius-xlarge);
+        border-top-right-radius: var(--radius-xlarge);
+        overflow: hidden;
+        max-height: 85vh;
+        max-height: 85dvh;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: var(--safe-bottom);
+        box-shadow: var(--shadow-lg);
+      }
+
+      /* ===== Modal Header ===== */
+      .select-modal__header {
+        display: grid;
+        grid-template-columns: 40px 1fr 40px;
+        align-items: center;
+        height: var(--height-modal-header);
+        padding: 0 var(--space-large);
+        border-bottom: var(--border-thin) solid var(--color-border-light);
+        background: var(--color-canvas);
+        flex-shrink: 0;
+      }
+
+      .select-modal__header-left {
+        justify-self: start;
+      }
+
+      .select-modal__header-center {
+        justify-self: center;
+        text-align: center;
+      }
+
+      .select-modal__header-title {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: 0.8px;
+        line-height: 22px;
+        text-transform: uppercase;
+        color: var(--color-text-primary);
+        margin: 0;
+      }
+
+      .select-modal__header-right {
+        justify-self: end;
+      }
+
+      .select-modal__close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        color: var(--color-text-tertiary);
+        border-radius: var(--radius-sm);
+      }
+
+      .select-modal__close:hover {
+        background: var(--color-overlay-light);
+      }
+
+      .select-modal__close:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      .select-modal__close i {
+        font-size: var(--icon-size-default);
+        line-height: 1;
+      }
+
+      /* ===== Modal Body ===== */
+      .select-modal__body {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        background: var(--color-canvas);
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* ===== Modal Footer ===== */
+      .select-modal__footer {
+        border-top: var(--border-thin) solid var(--color-border-light);
+        background: var(--color-canvas);
+        min-height: var(--height-modal-footer);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 var(--space-large);
+      }
+
+      .select-modal__footer:empty {
+        display: none;
+      }
+
+      .clear-button {
+        padding: var(--space-tiny) var(--space-base);
+        background: transparent;
+        border: none;
+        font-size: var(--font-size-button);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.3px;
+        line-height: 20px;
+        color: var(--color-text-secondary);
+        cursor: pointer;
+        transition: opacity 0.2s;
+        font-family: var(--font-family);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .clear-button:hover {
+        opacity: 0.7;
+      }
+
+      .clear-button:active {
+        opacity: 0.8;
+      }
+
+      /* ===== Follow Modal Header Title Variant ===== */
+      .select-modal__header-title--name {
+        text-transform: none;
+        letter-spacing: 0.1px;
+      }
+
+      /* ===== Follow Modal Body ===== */
+      .follow-modal__body {
+        padding: var(--space-large);
+        background: var(--color-canvas);
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        flex-shrink: 1;
+      }
+
+      /* ===== Follow Modal Content ===== */
+      .follow-email-section {
+        margin-bottom: var(--space-large);
+      }
+
+      .follow-email-input {
+        width: 100%;
+        height: var(--height-input);
+        padding: 0 var(--space-base);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-text-primary);
+        font-family: var(--font-family);
+        transition: border-color 150ms ease;
+        outline: none;
+      }
+
+      .follow-email-input::placeholder {
+        color: var(--color-text-whisper);
+      }
+
+      .follow-email-input:hover:not(:focus):not(:disabled) {
+        border-color: var(--color-border-strong);
+      }
+
+      .follow-email-input:focus {
+        outline: none;
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      .follow-email-input:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .follow-email-input.error {
+        border-color: var(--color-semantic-error);
+      }
+
+      .follow-email-input.error:focus {
+        border-color: var(--color-semantic-error);
+        box-shadow: var(--shadow-focus-error);
+      }
+
+      .follow-error-message {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.2px;
+        line-height: var(--line-height-none);
+        color: var(--color-semantic-error);
+        margin-top: 11px;
+        margin-bottom: -8px;
+        display: none;
+      }
+
+      .follow-error-message.visible {
+        display: block;
+      }
+
+      .follow-section-label {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: var(--letter-spacing-widest);
+        text-transform: uppercase;
+        line-height: var(--line-height-normal);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-small);
+      }
+
+      .follow-category-error {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.2px;
+        line-height: var(--line-height-none);
+        color: var(--color-semantic-error);
+        margin-top: var(--space-tiny);
+        display: none;
+      }
+
+      .follow-category-error.visible {
+        display: block;
+      }
+
+      .follow-category-list {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .follow-category-row {
+        display: flex;
+        align-items: center;
+        gap: var(--space-small);
+        height: 48px;
+      }
+
+      .follow-category-label {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-primary);
+        cursor: pointer;
+      }
+
+      .follow-category-toggle {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-text-tertiary);
+        transition: transform 150ms var(--ease-in-out);
+        flex-shrink: 0;
+        cursor: pointer;
+        margin-left: auto;
+        margin-right: -8px;
+        border-radius: var(--radius-sm);
+      }
+
+      .follow-category-toggle:hover {
+        opacity: 0.7;
+      }
+
+      .follow-category-toggle:active {
+        opacity: 0.5;
+      }
+
+      .follow-category-toggle i {
+        font-size: var(--font-size-md);
+        line-height: 1;
+      }
+
+      .follow-category-row.expanded .follow-category-toggle {
+        transform: rotate(180deg);
+      }
+
+      .follow-checkbox {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: var(--radius-xs);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        background: var(--color-white);
+        display: inline-grid;
+        place-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: border-color 150ms var(--ease-in-out),
+          background-color 150ms var(--ease-in-out);
+      }
+
+      .follow-checkbox::after {
+        content: "";
+        width: 12px;
+        height: 9px;
+        background-color: var(--color-text-primary);
+        opacity: 0;
+        -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 18'><path d='M4 9.5 L9.5 15 L20 4.5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+          no-repeat center / 100% 100%;
+        mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 18'><path d='M4 9.5 L9.5 15 L20 4.5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+          no-repeat center / 100% 100%;
+        transition: opacity var(--duration-fast) ease;
+      }
+
+      .follow-checkbox:checked {
+        background: var(--color-accent-nude);
+        border-color: var(--color-accent-nude);
+      }
+
+      .follow-checkbox:checked::after {
+        opacity: 1;
+      }
+
+      .follow-checkbox:focus {
+        outline: none;
+      }
+
+      .follow-checkbox:focus-visible {
+        outline: none;
+        box-shadow: var(--shadow-focus);
+      }
+
+      .follow-subcategory-list {
+        display: none;
+        padding-left: 32px;
+      }
+
+      .follow-subcategory-list.visible {
+        display: block;
+        margin-bottom: var(--space-tiny);
+      }
+
+      .follow-subcategory-row {
+        display: flex;
+        align-items: center;
+        gap: var(--space-small);
+        padding: var(--space-tiny) 0;
+      }
+
+      .follow-subcategory-row:first-child {
+        padding-top: var(--space-tiny);
+      }
+
+      .follow-subcategory-row:last-child {
+        padding-bottom: var(--space-tiny);
+      }
+
+      .follow-subcategory-label {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-primary);
+        cursor: pointer;
+      }
+
+      .follow-modal__footer {
+        border-top: var(--border-thin) solid var(--color-border-light);
+        background: var(--color-canvas);
+        flex-shrink: 0;
+        padding: var(--space-large);
+      }
+
+      .follow-modal__footer:empty {
+        display: none;
+      }
+
+      .follow-modal__footer--spacer:empty {
+        display: block;
+        height: var(--height-modal-footer);
+        padding: 0;
+      }
+
+      .follow-submit-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-tiny);
+        width: 100%;
+        height: var(--height-button);
+        padding: 0 var(--space-large);
+        background: var(--color-accent-nude);
+        border: var(--border-subtle) solid var(--color-accent-nude);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        color: var(--color-text-primary);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+
+      .follow-submit-btn:hover {
+        background: var(--color-accent-blush);
+        border-color: var(--color-accent-blush);
+      }
+
+      .follow-submit-btn:active {
+        background: var(--color-accent-clay);
+        border-color: var(--color-accent-clay);
+        transform: scale(0.98);
+      }
+
+      .follow-submit-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .follow-success-message {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: var(--space-xlarge) 0;
+        padding-bottom: var(--space-xxlarge);
+        gap: var(--space-base);
+        min-height: 200px;
+      }
+
+      .follow-success-message i {
+        font-size: 52px;
+        color: var(--color-accent-primary);
+      }
+
+      .follow-success-message__text {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-primary);
+      }
+
+      .follow-success-message__text strong {
+        font-weight: var(--font-weight-medium);
+      }
+
+      /* ===== Filter Sections ===== */
+      .filter-section {
+        /* Borders handled by section-header */
+      }
+
+      .section-header {
+        padding: var(--space-medium) var(--space-large);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        background: none;
+        border: none;
+        border-top: var(--border-thin) solid var(--color-border-light);
+        border-bottom: var(--border-thin) solid var(--color-border-light);
+        width: 100%;
+        text-align: left;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .filter-section:first-child .section-header {
+        border-top: 0;
+      }
+
+      .filter-section:not(.expanded) + .filter-section .section-header {
+        border-top: 0;
+      }
+
+      .filter-section:last-child:not(.expanded) .section-header {
+        border-bottom: 0;
+      }
+
+      .section-header:active {
+        background: var(--color-overlay-light);
+      }
+
+      .section-header-left {
+        display: flex;
+        align-items: center;
+        gap: var(--space-tiny);
+      }
+
+      .section-title {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: var(--letter-spacing-widest);
+        line-height: var(--line-height-normal);
+        text-transform: uppercase;
+        color: var(--color-text-secondary);
+      }
+
+      .section-icon {
+        width: var(--icon-size-default);
+        height: var(--icon-size-default);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transform: rotate(90deg);
+        flex-shrink: 0;
+        color: var(--color-text-tertiary);
+        transition: transform var(--duration-fast) var(--ease-out);
+      }
+
+      .section-icon svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .filter-section.expanded .section-icon {
+        transform: rotate(-90deg);
+      }
+
+      .section-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height var(--duration-normal) var(--ease-out),
+          padding var(--duration-normal) var(--ease-out);
+      }
+
+      .filter-section.expanded .section-content {
+        max-height: 1000px;
+        padding-top: var(--space-tiny);
+        padding-bottom: var(--space-tiny);
+      }
+
+      /* ===== Filter Options ===== */
+      .option-item {
+        display: flex;
+        align-items: center;
+        gap: var(--space-small);
+        height: 48px;
+        padding: 0 var(--space-large);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .option-item__trigger {
+        display: flex;
+        align-items: center;
+        gap: var(--space-small);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .option-item__trigger:hover {
+        opacity: 0.8;
+      }
+
+      /* ===== Checkbox ===== */
+      .checkbox {
+        width: 20px;
+        height: 20px;
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-xs);
+        background: var(--color-white);
+        display: inline-grid;
+        place-content: center;
+        flex-shrink: 0;
+        transition: border-color 150ms var(--ease-in-out),
+          background-color 150ms var(--ease-in-out);
+      }
+
+      .checkbox.checked {
+        background: var(--color-accent-nude);
+        border-color: var(--color-accent-nude);
+      }
+
+      .checkbox::after {
+        content: "";
+        width: 12px;
+        height: 9px;
+        background-color: var(--color-text-primary);
+        opacity: 0;
+        -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 18'><path d='M4 9.5 L9.5 15 L20 4.5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+          no-repeat center / 100% 100%;
+        mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 18'><path d='M4 9.5 L9.5 15 L20 4.5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+          no-repeat center / 100% 100%;
+        transition: opacity var(--duration-fast) ease;
+      }
+
+      .checkbox.checked::after {
+        opacity: 1;
+      }
+
+      .checkbox:focus {
+        outline: none;
+      }
+
+      .checkbox:focus-visible {
+        outline: none;
+        box-shadow: var(--shadow-focus);
+      }
+
+      .option-label {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-primary);
+      }
+
+      .option-count {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.2px;
+        line-height: 18px;
+        color: var(--color-text-tertiary);
+        margin-left: auto;
+      }
+
+      /* ===== Subcategories ===== */
+      .subcategory-container {
+        padding-left: 56px;
+        display: none;
+      }
+
+      .subcategory-container.visible {
+        display: block;
+        margin-bottom: var(--space-tiny);
+      }
+
+      .subcategory-item {
+        padding: var(--space-tiny) var(--space-large) var(--space-tiny) 0;
+        display: flex;
+        align-items: center;
+        gap: var(--space-small);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .subcategory-item__trigger {
+        display: flex;
+        align-items: center;
+        gap: var(--space-small);
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .subcategory-item__trigger:hover {
+        opacity: 0.8;
+      }
+
+      .subcategory-item:first-child {
+        padding-top: var(--space-tiny);
+      }
+
+      .subcategory-item:last-child {
+        padding-bottom: var(--space-tiny);
+      }
+
+      .section-content
+        > .subcategory-container:last-child
+        .subcategory-item:last-child {
+        padding-bottom: var(--space-medium);
+      }
+
+      .subcategory-label {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-primary);
+      }
+
+      .subcategory-count {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.2px;
+        line-height: 18px;
+        color: var(--color-text-tertiary);
+        margin-left: auto;
+      }
+
+      /* ===== Price Inputs ===== */
+      .price-container {
+        padding: var(--space-base) var(--space-large);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-base);
+      }
+
+      .price-inputs {
+        display: flex;
+        align-items: center;
+        gap: var(--space-small);
+        width: 100%;
+      }
+
+      .price-input {
+        flex: 1;
+        min-width: 0;
+        padding: var(--space-base) var(--space-small);
+        height: var(--height-input);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        background: var(--color-canvas);
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-normal);
+        color: var(--color-text-primary);
+        font-family: var(--font-family);
+        transition: border-color var(--duration-fast) var(--ease-out);
+      }
+
+      .price-input::placeholder {
+        color: var(--color-text-whisper);
+      }
+
+      .price-input:hover:not(:focus) {
+        border-color: var(--color-border-strong);
+      }
+
+      .price-input:focus {
+        outline: none;
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      /* ===== Price Slider ===== */
+      .price-slider-container {
+        position: relative;
+        width: 100%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+      }
+
+      .price-slider-track {
+        position: absolute;
+        left: 15px;
+        right: 15px;
+        height: 4px;
+        background: var(--color-border-medium);
+        border-radius: 2px;
+      }
+
+      .price-slider-range {
+        position: absolute;
+        height: 4px;
+        background: var(--color-accent-nude);
+        border-radius: 2px;
+        left: 15px;
+        right: 50%;
+      }
+
+      .price-slider-thumb {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: var(--color-white);
+        border: var(--border-thin) solid var(--color-accent-nude);
+        border-radius: var(--radius-full);
+        cursor: pointer;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        transition: transform var(--duration-normal) var(--ease-out);
+        z-index: var(--z-raised);
+      }
+
+      .price-slider-thumb:hover {
+        transform: translate(-50%, -50%) scale(1.15);
+      }
+
+      .price-slider-thumb.min {
+        left: 15px;
+      }
+
+      .price-slider-thumb.max {
+        left: calc(50% + 7.5px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header__left">
+          <button
+            class="icon-button"
+            aria-label="Menu"
+            type="button"
+            onclick="openMenuOverlay()"
+          >
+            <i class="ph ph-list" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="header__center">STŌR</div>
+        <div class="header__right">
+          <button
+            class="icon-button"
+            aria-label="Search marketplace"
+            type="button"
+            onclick="openSearchOverlay()"
+          >
+            <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+          </button>
+          <button
+            class="icon-button icon-button--badge"
+            aria-label="Shopping cart"
+            data-badge="3"
+            type="button"
+          >
+            <i class="ph ph-basket" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Store Banner -->
+      <section class="store-banner" aria-labelledby="seller-name">
+        <div class="store-banner__avatar">
+          <img
+            class="store-banner__avatar-image"
+            src="https://picsum.photos/id/100/200"
+            alt="Good Finds NYC — store photo"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <div class="store-banner__meta">
+          <div id="seller-name" class="store-banner__name">Good Finds NYC</div>
+          <div class="store-banner__location">Brooklyn, New York</div>
+          <a
+            class="phone-link"
+            href="tel:+15551234567"
+            aria-label="Call Good Finds NYC at (555) 123-4567"
+          >
+            <i class="ph ph-phone" aria-hidden="true"></i>
+            <span class="phone-link__text">(555) 123-4567</span>
+          </a>
+          <div id="seller-description" class="store-banner__description">
+            Vintage and secondhand clothing, plus select furniture and home
+            finds. Think 90s minimalism, earthy tones, and interesting textures.
+            All clothing is cleaned and steamed before shipping. Orders usually
+            ship within 1–2 days.
+          </div>
+          <button
+            class="store-banner__toggle"
+            type="button"
+            aria-expanded="false"
+            aria-controls="seller-description"
+            id="description-toggle"
+          >
+            <span class="store-banner__toggle-text">More</span>
+            <i class="ph ph-caret-down" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="store-banner__action">
+          <button class="btn-follow" type="button" aria-haspopup="dialog">
+            Follow
+          </button>
+        </div>
+
+        <div class="store-banner__fulfillment">
+          <span class="store-banner__fulfillment-badge">
+            <i class="ph-fill ph-package"></i>
+            Shipping
+          </span>
+          <span class="store-banner__fulfillment-badge">
+            <i class="ph-fill ph-map-pin"></i>
+            Pickup
+          </span>
+        </div>
+      </section>
+
+      <!-- Controls -->
+      <section class="controls">
+        <div class="search" role="search">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <circle
+              cx="11"
+              cy="11"
+              r="7"
+              stroke="currentColor"
+              stroke-width="1.5"
+            ></circle>
+            <path
+              d="M20 20l-3.5-3.5"
+              stroke="currentColor"
+              stroke-width="1.5"
+            ></path>
+          </svg>
+          <input
+            id="search-input"
+            placeholder="Search this store"
+            aria-label="Search this store"
+          />
+          <button
+            class="search__clear"
+            id="search-clear"
+            type="button"
+            aria-label="Clear search"
+            hidden
+          >
+            <i class="ph ph-x" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="meta-row" aria-label="Item controls">
+          <button
+            class="filter-button"
+            type="button"
+            aria-label="Open filters"
+            onclick="openFilterModal()"
+          >
+            <i class="ph ph-sliders-horizontal" aria-hidden="true"></i>
+            <span class="label">Filter</span>
+          </button>
+
+          <div class="item-count"><span id="item-count">27</span> items</div>
+
+          <div class="view-toggle" role="group" aria-label="Change item view">
+            <button
+              class="view-toggle__button view-toggle__button--active"
+              id="grid-view-button"
+              aria-pressed="true"
+              type="button"
+            >
+              <i class="ph ph-squares-four" aria-hidden="true"></i>
+              <span class="visually-hidden">Grid</span>
+            </button>
+            <button
+              class="view-toggle__button"
+              id="list-view-button"
+              aria-pressed="false"
+              type="button"
+            >
+              <i class="ph ph-square" aria-hidden="true"></i>
+              <span class="visually-hidden">Full</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Items -->
+      <main class="items">
+        <div id="items-grid" class="items-grid"></div>
+        <div id="items-list" class="items-list" style="display: none"></div>
+        <section class="end-indicator" aria-label="End of items">
+          <i
+            class="ph-bold ph-check end-indicator__icon"
+            aria-hidden="true"
+          ></i>
+          <div class="end-indicator__text">That's everything!</div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer__links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+        <p class="footer__copyright">© 2025 STŌR</p>
+      </footer>
+
+      <!-- Filter Modal -->
+      <div id="filterOverlay" class="select-modal" onclick="closeFilterModal()">
+        <div class="select-modal__backdrop"></div>
+        <div class="select-modal__container" onclick="event.stopPropagation()">
+          <div class="select-modal__sheet">
+            <!-- Header -->
+            <div class="select-modal__header">
+              <div class="select-modal__header-left"></div>
+              <div class="select-modal__header-center">
+                <h2 class="select-modal__header-title">Filter</h2>
+              </div>
+              <div class="select-modal__header-right">
+                <button
+                  class="select-modal__close"
+                  onclick="closeFilterModal()"
+                  aria-label="Close"
+                >
+                  <i class="ph ph-light ph-x"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Body -->
+            <div class="select-modal__body">
+              <!-- Categories Section (EXPANDED BY DEFAULT) -->
+              <div class="filter-section expanded" id="categories-section">
+                <button
+                  class="section-header"
+                  onclick="toggleSection('categories')"
+                >
+                  <div class="section-header-left">
+                    <span class="section-title">Categories</span>
+                  </div>
+                  <span class="section-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 256 256"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+                      ></path>
+                    </svg>
+                  </span>
+                </button>
+                <div class="section-content">
+                  <!-- Clothing -->
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="toggleCategory('clothing')"
+                    >
+                      <div class="checkbox" data-category="clothing"></div>
+                      <div class="option-label">Clothing</div>
+                    </div>
+                    <span class="option-count">(0)</span>
+                  </div>
+                  <div class="subcategory-container" id="clothing-subs">
+                    <div class="subcategory-item">
+                      <div
+                        class="subcategory-item__trigger"
+                        onclick="toggleSubcategory('dresses')"
+                      >
+                        <div class="checkbox" data-subcategory="dresses"></div>
+                        <div class="subcategory-label">Dresses</div>
+                      </div>
+                      <span class="subcategory-count">(0)</span>
+                    </div>
+                    <div class="subcategory-item">
+                      <div
+                        class="subcategory-item__trigger"
+                        onclick="toggleSubcategory('tops')"
+                      >
+                        <div class="checkbox" data-subcategory="tops"></div>
+                        <div class="subcategory-label">Tops</div>
+                      </div>
+                      <span class="subcategory-count">(0)</span>
+                    </div>
+                    <div class="subcategory-item">
+                      <div
+                        class="subcategory-item__trigger"
+                        onclick="toggleSubcategory('bottoms')"
+                      >
+                        <div class="checkbox" data-subcategory="bottoms"></div>
+                        <div class="subcategory-label">Bottoms</div>
+                      </div>
+                      <span class="subcategory-count">(0)</span>
+                    </div>
+                  </div>
+
+                  <!-- Furniture -->
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="toggleCategory('furniture')"
+                    >
+                      <div class="checkbox" data-category="furniture"></div>
+                      <div class="option-label">Furniture</div>
+                    </div>
+                    <span class="option-count">(0)</span>
+                  </div>
+                  <div class="subcategory-container" id="furniture-subs">
+                    <div class="subcategory-item">
+                      <div
+                        class="subcategory-item__trigger"
+                        onclick="toggleSubcategory('sofas')"
+                      >
+                        <div class="checkbox" data-subcategory="sofas"></div>
+                        <div class="subcategory-label">Sofas</div>
+                      </div>
+                      <span class="subcategory-count">(0)</span>
+                    </div>
+                    <div class="subcategory-item">
+                      <div
+                        class="subcategory-item__trigger"
+                        onclick="toggleSubcategory('chairs')"
+                      >
+                        <div class="checkbox" data-subcategory="chairs"></div>
+                        <div class="subcategory-label">Chairs</div>
+                      </div>
+                      <span class="subcategory-count">(0)</span>
+                    </div>
+                  </div>
+
+                  <!-- Accessories -->
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="toggleCategory('accessories')"
+                    >
+                      <div class="checkbox" data-category="accessories"></div>
+                      <div class="option-label">Accessories</div>
+                    </div>
+                    <span class="option-count">(0)</span>
+                  </div>
+
+                  <!-- Home -->
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="toggleCategory('home')"
+                    >
+                      <div class="checkbox" data-category="home"></div>
+                      <div class="option-label">Home Decor</div>
+                    </div>
+                    <span class="option-count">(0)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Price Section -->
+              <div class="filter-section" id="price-section">
+                <button class="section-header" onclick="toggleSection('price')">
+                  <div class="section-header-left">
+                    <span class="section-title">Price</span>
+                  </div>
+                  <span class="section-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 256 256"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+                      ></path>
+                    </svg>
+                  </span>
+                </button>
+                <div class="section-content">
+                  <div class="price-container">
+                    <div class="price-inputs">
+                      <input
+                        type="text"
+                        class="price-input"
+                        id="minInput"
+                        placeholder="$0"
+                        value="$0"
+                        oninput="updateSliderFromInput('min')"
+                      />
+                      <input
+                        type="text"
+                        class="price-input"
+                        id="maxInput"
+                        placeholder="$100"
+                        value="$100"
+                        oninput="updateSliderFromInput('max')"
+                      />
+                    </div>
+                    <div class="price-slider-container">
+                      <div class="price-slider-track"></div>
+                      <div class="price-slider-range" id="sliderRange"></div>
+                      <div
+                        class="price-slider-thumb min"
+                        id="minThumb"
+                        onmousedown="startDrag('min', event)"
+                      ></div>
+                      <div
+                        class="price-slider-thumb max"
+                        id="maxThumb"
+                        onmousedown="startDrag('max', event)"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Condition Section -->
+              <div class="filter-section" id="condition-section">
+                <button
+                  class="section-header"
+                  onclick="toggleSection('condition')"
+                >
+                  <div class="section-header-left">
+                    <span class="section-title">Condition</span>
+                  </div>
+                  <span class="section-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 256 256"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+                      ></path>
+                    </svg>
+                  </span>
+                </button>
+                <div class="section-content">
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="toggleCondition('new')"
+                    >
+                      <div class="checkbox" data-condition="new"></div>
+                      <div class="option-label">New</div>
+                    </div>
+                    <span class="option-count">(0)</span>
+                  </div>
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="toggleCondition('like-new')"
+                    >
+                      <div class="checkbox" data-condition="like-new"></div>
+                      <div class="option-label">Like New</div>
+                    </div>
+                    <span class="option-count">(0)</span>
+                  </div>
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="toggleCondition('excellent')"
+                    >
+                      <div class="checkbox" data-condition="excellent"></div>
+                      <div class="option-label">Excellent</div>
+                    </div>
+                    <span class="option-count">(0)</span>
+                  </div>
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="toggleCondition('good')"
+                    >
+                      <div class="checkbox" data-condition="good"></div>
+                      <div class="option-label">Good</div>
+                    </div>
+                    <span class="option-count">(0)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Delivery Section -->
+              <div class="filter-section" id="delivery-section">
+                <button
+                  class="section-header"
+                  onclick="toggleSection('delivery')"
+                >
+                  <div class="section-header-left">
+                    <span class="section-title">Delivery Method</span>
+                  </div>
+                  <span class="section-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 256 256"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+                      ></path>
+                    </svg>
+                  </span>
+                </button>
+                <div class="section-content">
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="toggleDelivery('shipping')"
+                    >
+                      <div class="checkbox" data-delivery="shipping"></div>
+                      <div class="option-label">Shipping / Pickup</div>
+                    </div>
+                    <span class="option-count">(0)</span>
+                  </div>
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="toggleDelivery('pickup-only')"
+                    >
+                      <div class="checkbox" data-delivery="pickup-only"></div>
+                      <div class="option-label">Pickup Only</div>
+                    </div>
+                    <span class="option-count">(0)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sort By Section -->
+              <div class="filter-section" id="sort-section">
+                <button class="section-header" onclick="toggleSection('sort')">
+                  <div class="section-header-left">
+                    <span class="section-title">Sort By</span>
+                  </div>
+                  <span class="section-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 256 256"
+                      fill="currentColor"
+                    >
+                      <path
+                        d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+                      ></path>
+                    </svg>
+                  </span>
+                </button>
+                <div class="section-content">
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="selectSort('featured')"
+                    >
+                      <div class="checkbox checked" data-sort="featured"></div>
+                      <div class="option-label">Featured</div>
+                    </div>
+                  </div>
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="selectSort('price-low')"
+                    >
+                      <div class="checkbox" data-sort="price-low"></div>
+                      <div class="option-label">Lowest Price</div>
+                    </div>
+                  </div>
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="selectSort('price-high')"
+                    >
+                      <div class="checkbox" data-sort="price-high"></div>
+                      <div class="option-label">Highest Price</div>
+                    </div>
+                  </div>
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="selectSort('newest')"
+                    >
+                      <div class="checkbox" data-sort="newest"></div>
+                      <div class="option-label">Newest First</div>
+                    </div>
+                  </div>
+                  <div class="option-item">
+                    <div
+                      class="option-item__trigger"
+                      onclick="selectSort('oldest')"
+                    >
+                      <div class="checkbox" data-sort="oldest"></div>
+                      <div class="option-label">Oldest First</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="select-modal__footer">
+              <button class="clear-button" onclick="clearAllFilters()">
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Follow Modal -->
+      <div
+        id="followOverlay"
+        class="select-modal"
+        onclick="handleFollowOverlayClick(event)"
+      >
+        <div class="select-modal__backdrop"></div>
+        <div class="select-modal__container" onclick="event.stopPropagation()">
+          <div
+            class="select-modal__sheet"
+            id="follow-select-modal__sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="follow-select-modal__header-title"
+          >
+            <div class="select-modal__header">
+              <div class="select-modal__header-left"></div>
+              <div class="select-modal__header-center">
+                <h2
+                  id="follow-select-modal__header-title"
+                  class="select-modal__header-title select-modal__header-title--name"
+                >
+                  Good Finds NYC
+                </h2>
+              </div>
+              <div class="select-modal__header-right">
+                <button
+                  type="button"
+                  class="select-modal__close"
+                  id="follow-modal-close"
+                  aria-label="Close"
+                >
+                  <i class="ph ph-light ph-x" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="follow-modal__body" id="follow-select-modal__body">
+              <div class="follow-email-section">
+                <input
+                  type="email"
+                  class="follow-email-input"
+                  id="follow-email"
+                  placeholder="Email"
+                  required
+                />
+                <div class="follow-error-message" id="follow-email-error">
+                  Enter your email
+                </div>
+              </div>
+
+              <div class="follow-section-label">I'm interested in</div>
+              <div class="follow-category-list" id="follow-category-list">
+                <!-- Clothing with subcategories -->
+                <div
+                  class="follow-category-row"
+                  id="follow-category-clothing-row"
+                >
+                  <input
+                    type="checkbox"
+                    class="follow-checkbox"
+                    id="follow-category-clothing"
+                    data-follow-category="clothing"
+                    checked
+                  />
+                  <label
+                    class="follow-category-label"
+                    for="follow-category-clothing"
+                    >Clothing</label
+                  >
+                  <span
+                    class="follow-category-toggle"
+                    data-follow-toggle="clothing"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Toggle clothing subcategories"
+                  >
+                    <i
+                      class="ph ph-regular ph-caret-down"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div class="follow-subcategory-list" id="follow-clothing-subs">
+                  <div class="follow-subcategory-row">
+                    <input
+                      type="checkbox"
+                      class="follow-checkbox"
+                      id="follow-sub-dresses"
+                      data-follow-subcategory="clothing"
+                    />
+                    <label
+                      class="follow-subcategory-label"
+                      for="follow-sub-dresses"
+                      >Dresses</label
+                    >
+                  </div>
+                  <div class="follow-subcategory-row">
+                    <input
+                      type="checkbox"
+                      class="follow-checkbox"
+                      id="follow-sub-tops"
+                      data-follow-subcategory="clothing"
+                    />
+                    <label
+                      class="follow-subcategory-label"
+                      for="follow-sub-tops"
+                      >Tops</label
+                    >
+                  </div>
+                  <div class="follow-subcategory-row">
+                    <input
+                      type="checkbox"
+                      class="follow-checkbox"
+                      id="follow-sub-bottoms"
+                      data-follow-subcategory="clothing"
+                    />
+                    <label
+                      class="follow-subcategory-label"
+                      for="follow-sub-bottoms"
+                      >Bottoms</label
+                    >
+                  </div>
+                </div>
+
+                <!-- Furniture with subcategories -->
+                <div
+                  class="follow-category-row"
+                  id="follow-category-furniture-row"
+                >
+                  <input
+                    type="checkbox"
+                    class="follow-checkbox"
+                    id="follow-category-furniture"
+                    data-follow-category="furniture"
+                    checked
+                  />
+                  <label
+                    class="follow-category-label"
+                    for="follow-category-furniture"
+                    >Furniture</label
+                  >
+                  <span
+                    class="follow-category-toggle"
+                    data-follow-toggle="furniture"
+                    role="button"
+                    tabindex="0"
+                    aria-label="Toggle furniture subcategories"
+                  >
+                    <i
+                      class="ph ph-regular ph-caret-down"
+                      aria-hidden="true"
+                    ></i>
+                  </span>
+                </div>
+                <div class="follow-subcategory-list" id="follow-furniture-subs">
+                  <div class="follow-subcategory-row">
+                    <input
+                      type="checkbox"
+                      class="follow-checkbox"
+                      id="follow-sub-sofas"
+                      data-follow-subcategory="furniture"
+                    />
+                    <label
+                      class="follow-subcategory-label"
+                      for="follow-sub-sofas"
+                      >Sofas</label
+                    >
+                  </div>
+                  <div class="follow-subcategory-row">
+                    <input
+                      type="checkbox"
+                      class="follow-checkbox"
+                      id="follow-sub-chairs"
+                      data-follow-subcategory="furniture"
+                    />
+                    <label
+                      class="follow-subcategory-label"
+                      for="follow-sub-chairs"
+                      >Chairs</label
+                    >
+                  </div>
+                </div>
+
+                <!-- Accessories (no subcategories) -->
+                <div class="follow-category-row">
+                  <input
+                    type="checkbox"
+                    class="follow-checkbox"
+                    id="follow-category-accessories"
+                    data-follow-category="accessories"
+                    checked
+                  />
+                  <label
+                    class="follow-category-label"
+                    for="follow-category-accessories"
+                    >Accessories</label
+                  >
+                </div>
+
+                <!-- Home Decor (no subcategories) -->
+                <div class="follow-category-row">
+                  <input
+                    type="checkbox"
+                    class="follow-checkbox"
+                    id="follow-category-home"
+                    data-follow-category="home"
+                    checked
+                  />
+                  <label
+                    class="follow-category-label"
+                    for="follow-category-home"
+                    >Home Decor</label
+                  >
+                </div>
+              </div>
+              <div class="follow-category-error" id="follow-category-error">
+                Select a category or subcategory
+              </div>
+            </div>
+
+            <div class="follow-modal__footer" id="follow-select-modal__footer">
+              <button
+                type="button"
+                class="follow-submit-btn"
+                id="follow-submit"
+              >
+                Follow
+              </button>
+            </div>
+
+            <!-- Success State (replaces body + footer) -->
+            <div
+              class="follow-modal__body"
+              id="follow-success"
+              role="status"
+              aria-live="polite"
+              hidden
+            >
+              <div class="follow-success-message">
+                <i class="ph ph-thin ph-check-circle" aria-hidden="true"></i>
+                <span class="follow-success-message__text">
+                  Following <strong>Good Finds NYC</strong>
+                </span>
+              </div>
+            </div>
+
+            <!-- Empty footer for spacing in success state -->
+            <div
+              class="follow-modal__footer follow-modal__footer--spacer"
+              id="follow-success-footer"
+              hidden
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full-Screen Menu Overlay -->
+    <div class="menu-overlay" id="menu-overlay">
+      <div class="menu-overlay__container">
+        <div class="menu-overlay__header">
+          <div class="menu-overlay__header-left"></div>
+          <div class="menu-overlay__header-center">
+            <span class="menu-overlay__header-title">STŌR</span>
+          </div>
+          <div class="menu-overlay__header-right">
+            <button
+              class="menu-overlay__close"
+              type="button"
+              onclick="closeMenuOverlay()"
+              aria-label="Close"
+            >
+              <i class="ph ph-x" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="menu-overlay__body">
+          <nav class="menu-overlay__nav">
+            <a href="#" class="menu-overlay__item">
+              <span class="menu-overlay__label">Home</span>
+              <span class="menu-overlay__caret">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 256 256"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+                  ></path>
+                </svg>
+              </span>
+            </a>
+            <a href="#" class="menu-overlay__item">
+              <span class="menu-overlay__label">Categories</span>
+              <span class="menu-overlay__caret">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 256 256"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+                  ></path>
+                </svg>
+              </span>
+            </a>
+            <a href="#" class="menu-overlay__item">
+              <span class="menu-overlay__label">Account</span>
+              <span class="menu-overlay__caret">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 256 256"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+                  ></path>
+                </svg>
+              </span>
+            </a>
+            <a href="#" class="menu-overlay__item">
+              <span class="menu-overlay__label">Orders</span>
+              <span class="menu-overlay__caret">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 256 256"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+                  ></path>
+                </svg>
+              </span>
+            </a>
+            <a href="#" class="menu-overlay__item">
+              <span class="menu-overlay__label">Settings</span>
+              <span class="menu-overlay__caret">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 256 256"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"
+                  ></path>
+                </svg>
+              </span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full-Screen Search Overlay -->
+    <div class="search-overlay" id="search-overlay">
+      <div class="search-overlay__container">
+        <div class="search-overlay__header">
+          <div class="search-overlay__header-left"></div>
+          <div class="search-overlay__header-center">
+            <span class="search-overlay__header-title">STŌR</span>
+          </div>
+          <div class="search-overlay__header-right">
+            <button
+              class="search-overlay__close"
+              type="button"
+              onclick="closeSearchOverlay()"
+              aria-label="Close"
+            >
+              <i class="ph ph-x" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="search-overlay__body">
+          <form
+            class="search-overlay__form"
+            onsubmit="handleSearchSubmit(event)"
+          >
+            <div class="search-overlay__input-wrap">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="7"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                ></circle>
+                <path
+                  d="M20 20l-3.5-3.5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                ></path>
+              </svg>
+              <input
+                id="marketplace-search-input"
+                class="search-overlay__input"
+                type="text"
+                placeholder="Search marketplace"
+                aria-label="Search marketplace"
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                class="search-overlay__clear"
+                id="marketplace-search-clear"
+                aria-label="Clear search"
+                hidden
+              >
+                <i class="ph ph-x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ===== Constants =====
+      const ITEMS = [
+        // Clothing - Dresses (5 items)
+        {
+          id: "1",
+          title: "Floral Midi Dress",
+          price: "$45",
+          condition: "new",
+          badge: "featured",
+          category: "clothing",
+          subcategory: "dresses",
+          priceValue: 45,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "2",
+          title: "Vintage Silk Dress",
+          price: "$65",
+          condition: "like-new",
+          badge: null,
+          category: "clothing",
+          subcategory: "dresses",
+          priceValue: 65,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "3",
+          title: "Summer Maxi Dress",
+          price: "$38",
+          condition: "excellent",
+          badge: null,
+          category: "clothing",
+          subcategory: "dresses",
+          priceValue: 38,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "4",
+          title: "Evening Gown",
+          price: "$120",
+          condition: "new",
+          badge: "featured",
+          category: "clothing",
+          subcategory: "dresses",
+          priceValue: 120,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "5",
+          title: "Cotton Day Dress",
+          price: "$28",
+          condition: "good",
+          badge: null,
+          category: "clothing",
+          subcategory: "dresses",
+          priceValue: 28,
+          delivery: ["shipping", "pickup"],
+        },
+
+        // Clothing - Tops (5 items)
+        {
+          id: "6",
+          title: "Linen Blouse",
+          price: "$32",
+          condition: "new",
+          badge: null,
+          category: "clothing",
+          subcategory: "tops",
+          priceValue: 32,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "7",
+          title: "Silk Camisole",
+          price: "$42",
+          condition: "like-new",
+          badge: null,
+          category: "clothing",
+          subcategory: "tops",
+          priceValue: 42,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "8",
+          title: "Cashmere Sweater",
+          price: "$85",
+          condition: "excellent",
+          badge: "featured",
+          category: "clothing",
+          subcategory: "tops",
+          priceValue: 85,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "9",
+          title: "Wool Cardigan",
+          price: "$68",
+          condition: "new",
+          badge: null,
+          category: "clothing",
+          subcategory: "tops",
+          priceValue: 68,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "10",
+          title: "Cotton T-Shirt",
+          price: "$18",
+          condition: "good",
+          badge: null,
+          category: "clothing",
+          subcategory: "tops",
+          priceValue: 18,
+          delivery: ["shipping", "pickup"],
+        },
+
+        // Clothing - Bottoms (4 items)
+        {
+          id: "11",
+          title: "Denim Jeans",
+          price: "$55",
+          condition: "new",
+          badge: null,
+          category: "clothing",
+          subcategory: "bottoms",
+          priceValue: 55,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "12",
+          title: "Linen Pants",
+          price: "$48",
+          condition: "like-new",
+          badge: "featured",
+          category: "clothing",
+          subcategory: "bottoms",
+          priceValue: 48,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "13",
+          title: "Wool Trousers",
+          price: "$72",
+          condition: "excellent",
+          badge: null,
+          category: "clothing",
+          subcategory: "bottoms",
+          priceValue: 72,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "14",
+          title: "Leather Skirt",
+          price: "$95",
+          condition: "excellent",
+          badge: null,
+          category: "clothing",
+          subcategory: "bottoms",
+          priceValue: 95,
+          delivery: ["shipping", "pickup"],
+        },
+
+        // Furniture - Sofas (4 items) - ALL PICKUP ONLY (too large to ship)
+        {
+          id: "15",
+          title: "Velvet Sofa",
+          price: "$850",
+          condition: "new",
+          badge: null,
+          category: "furniture",
+          subcategory: "sofas",
+          priceValue: 850,
+          delivery: ["pickup"],
+        },
+        {
+          id: "16",
+          title: "Leather Couch",
+          price: "$650",
+          condition: "like-new",
+          badge: null,
+          category: "furniture",
+          subcategory: "sofas",
+          priceValue: 650,
+          delivery: ["pickup"],
+        },
+        {
+          id: "17",
+          title: "Sectional Sofa",
+          price: "$480",
+          condition: "excellent",
+          badge: null,
+          category: "furniture",
+          subcategory: "sofas",
+          priceValue: 480,
+          delivery: ["pickup"],
+        },
+        {
+          id: "18",
+          title: "Modern Loveseat",
+          price: "$320",
+          condition: "good",
+          badge: null,
+          category: "furniture",
+          subcategory: "sofas",
+          priceValue: 320,
+          delivery: ["pickup"],
+        },
+
+        // Furniture - Chairs (3 items) - MIXED
+        {
+          id: "19",
+          title: "Dining Chair Set",
+          price: "$180",
+          condition: "new",
+          badge: null,
+          category: "furniture",
+          subcategory: "chairs",
+          priceValue: 180,
+          delivery: ["pickup"],
+        },
+        {
+          id: "20",
+          title: "Office Chair",
+          price: "$125",
+          condition: "like-new",
+          badge: null,
+          category: "furniture",
+          subcategory: "chairs",
+          priceValue: 125,
+          delivery: ["pickup"],
+        },
+        {
+          id: "21",
+          title: "Accent Chair",
+          price: "$95",
+          condition: "excellent",
+          badge: null,
+          category: "furniture",
+          subcategory: "chairs",
+          priceValue: 95,
+          delivery: ["shipping", "pickup"],
+        },
+
+        // Accessories (3 items) - ALL CAN SHIP
+        {
+          id: "22",
+          title: "Leather Belt",
+          price: "$42",
+          condition: "new",
+          badge: null,
+          category: "accessories",
+          subcategory: null,
+          priceValue: 42,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "23",
+          title: "Silk Scarf",
+          price: "$35",
+          condition: "like-new",
+          badge: null,
+          category: "accessories",
+          subcategory: null,
+          priceValue: 35,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "24",
+          title: "Canvas Tote Bag",
+          price: "$28",
+          condition: "excellent",
+          badge: null,
+          category: "accessories",
+          subcategory: null,
+          priceValue: 28,
+          delivery: ["shipping", "pickup"],
+        },
+
+        // Home (3 items) - MIXED
+        {
+          id: "25",
+          title: "Ceramic Vase",
+          price: "$48",
+          condition: "new",
+          badge: null,
+          category: "home",
+          subcategory: null,
+          priceValue: 48,
+          delivery: ["pickup"],
+        },
+        {
+          id: "26",
+          title: "Brass Watering Can",
+          price: "$38",
+          condition: "like-new",
+          badge: null,
+          category: "home",
+          subcategory: null,
+          priceValue: 38,
+          delivery: ["shipping", "pickup"],
+        },
+        {
+          id: "27",
+          title: "Wooden Picture Frame",
+          price: "$22",
+          condition: "excellent",
+          badge: null,
+          category: "home",
+          subcategory: null,
+          priceValue: 22,
+          delivery: ["shipping", "pickup"],
+        },
+      ];
+
+      const ALLOWED_BADGES = ["featured", "new"];
+
+      function getMaxPrice() {
+        if (!ITEMS.length) return 100;
+        return Math.max(...ITEMS.map((item) => item.priceValue));
+      }
+
+      // ===== DOM Elements =====
+      const elements = {
+        // Description toggle
+        descriptionElement: document.getElementById("seller-description"),
+        descriptionToggle: document.getElementById("description-toggle"),
+
+        // Search
+        searchInput: document.getElementById("search-input"),
+        searchClear: document.getElementById("search-clear"),
+
+        // View toggle
+        gridViewButton: document.getElementById("grid-view-button"),
+        listViewButton: document.getElementById("list-view-button"),
+        itemsGrid: document.getElementById("items-grid"),
+        itemsList: document.getElementById("items-list"),
+        itemCount: document.getElementById("item-count"),
+      };
+
+      // ===== Utilities =====
+      function normalizeBadge(badge) {
+        if (!badge) return null;
+        const key = String(badge).toLowerCase().trim();
+        return ALLOWED_BADGES.includes(key) ? key : null;
+      }
+
+      function renderBadge(badge) {
+        const key = normalizeBadge(badge);
+        if (!key) return "";
+        const label = key === "featured" ? "Featured" : "New";
+        return `<div class="item-card__badges" aria-hidden="true"><span class="badge">${label}</span></div>`;
+      }
+
+      function getLineHeightPixels(element) {
+        const computedStyle = getComputedStyle(element);
+        const fontSize = parseFloat(computedStyle.fontSize) || 16;
+        const lineHeight = computedStyle.lineHeight;
+        if (!lineHeight || lineHeight === "normal") return fontSize * 1.4;
+        if (lineHeight.endsWith("px")) return parseFloat(lineHeight);
+        const number = parseFloat(lineHeight);
+        return !Number.isNaN(number) ? number * fontSize : fontSize * 1.4;
+      }
+
+      function countLines(element) {
+        if (!element) return 0;
+
+        const clone = element.cloneNode(true);
+        clone.removeAttribute("id");
+        clone.style.position = "absolute";
+        clone.style.visibility = "hidden";
+        clone.style.pointerEvents = "none";
+        clone.style.zIndex = "-1";
+        clone.style.left = "-99999px";
+        clone.style.top = "0";
+        clone.style.width = element.clientWidth + "px";
+        clone.style.display = "block";
+        clone.style.whiteSpace = "normal";
+        clone.style.overflow = "visible";
+        clone.style.margin = "0";
+        clone.style.padding = "0";
+        clone.style.border = "0";
+        clone.style.setProperty("-webkit-line-clamp", "unset");
+        clone.style.setProperty("-webkit-box-orient", "unset");
+
+        (element.parentNode || document.body).appendChild(clone);
+
+        let lines = 0;
+
+        try {
+          const range = document.createRange();
+          range.selectNodeContents(clone);
+          const rectangles = Array.from(range.getClientRects()).sort(
+            (a, b) => a.top - b.top
+          );
+
+          const unique = [];
+          for (const rectangle of rectangles) {
+            const last = unique[unique.length - 1];
+            if (!last || Math.abs(rectangle.top - last.top) > 0.5) {
+              unique.push(rectangle);
+            }
+          }
+          lines = unique.length;
+        } catch {
+          lines = 0;
+        }
+
+        if (!lines) {
+          const lineHeightPixels = getLineHeightPixels(element);
+          lines = Math.floor((clone.scrollHeight + 0.5) / lineHeightPixels);
+        }
+
+        clone.remove();
+        return lines;
+      }
+
+      function countLinesForTitle(element) {
+        const clone = element.cloneNode(true);
+        clone.style.position = "absolute";
+        clone.style.visibility = "hidden";
+        clone.style.pointerEvents = "none";
+        clone.style.left = "-99999px";
+        clone.style.top = "0";
+        clone.style.width = element.clientWidth + "px";
+        clone.style.display = "block";
+        clone.style.overflow = "visible";
+        clone.style.margin = "0";
+        clone.style.padding = "0";
+        clone.style.border = "0";
+        clone.style.setProperty("-webkit-line-clamp", "unset");
+        clone.style.setProperty("-webkit-box-orient", "unset");
+
+        element.parentNode.appendChild(clone);
+        const lineHeight = getLineHeightPixels(element);
+        const lines = Math.max(1, Math.round(clone.scrollHeight / lineHeight));
+        clone.remove();
+        return Math.min(2, lines);
+      }
+
+      // ===== Item Rendering =====
+      function renderCards(container) {
+        container.innerHTML = ITEMS.map((item, index) => {
+          const seed = encodeURIComponent(`${item.title}-${item.id}`);
+          return `
+            <article class="item-card" tabindex="0">
+              <div class="item-card__image">
+                ${renderBadge(item.badge)}
+                <img
+                  src="https://picsum.photos/seed/${seed}/600/600"
+                  srcset="
+                    https://picsum.photos/seed/${seed}/300/300 300w,
+                    https://picsum.photos/seed/${seed}/600/600 600w,
+                    https://picsum.photos/seed/${seed}/900/900 900w
+                  "
+                  sizes="(max-width: 520px) 45vw, 240px"
+                  alt="${item.title}"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="item-card__title">${item.title}</div>
+              <div class="item-card__meta">
+                <div class="item-card__price">${item.price}</div>
+<div class="item-card__condition">${item.condition
+            .split("-")
+            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(" ")}</div>
+              </div>
+            </article>
+          `;
+        }).join("");
+      }
+
+      function equalizeRowTitleHeights(container) {
+        if (!container) return;
+        if (getComputedStyle(container).display === "none") return;
+
+        const cards = Array.from(container.querySelectorAll(".item-card"));
+        if (!cards.length) return;
+
+        cards.forEach((card) => {
+          const title = card.querySelector(".item-card__title");
+          if (title) title.style.minHeight = "";
+        });
+
+        const rows = new Map();
+        cards.forEach((card) => {
+          const top = Math.round(card.offsetTop);
+          if (!rows.has(top)) rows.set(top, []);
+          rows.get(top).push(card);
+        });
+
+        rows.forEach((rowCards) => {
+          let maxLines = 1;
+          rowCards.forEach((card) => {
+            const title = card.querySelector(".item-card__title");
+            if (title) {
+              maxLines = Math.max(maxLines, countLinesForTitle(title));
+            }
+          });
+          const sample = rowCards[0].querySelector(".item-card__title");
+          const lineHeight = sample ? getLineHeightPixels(sample) : 0;
+          const targetMinimumPixels = lineHeight * maxLines;
+          rowCards.forEach((card) => {
+            const title = card.querySelector(".item-card__title");
+            if (title) title.style.minHeight = targetMinimumPixels + "px";
+          });
+        });
+      }
+
+      function equalizeAll() {
+        equalizeRowTitleHeights(elements.itemsGrid);
+        equalizeRowTitleHeights(elements.itemsList);
+      }
+
+      function bindImageLoadListeners(root = document) {
+        if (!root) return;
+        const images = root.querySelectorAll(".item-card__image img");
+        images.forEach((image) => {
+          if (image.dataset._equalizeBound) return;
+          image.dataset._equalizeBound = "1";
+          image.addEventListener("load", equalizeAll, { passive: true });
+          image.addEventListener("error", equalizeAll, { passive: true });
+        });
+      }
+
+      // ===== Description Toggle =====
+      function updateDescriptionToggle() {
+        if (!elements.descriptionElement || !elements.descriptionToggle) return;
+        const lines = countLines(elements.descriptionElement);
+        const shouldShow = lines > 3;
+        elements.descriptionToggle.hidden = !shouldShow;
+      }
+
+      function handleDescriptionToggle() {
+        const isExpanded =
+          elements.descriptionToggle.getAttribute("aria-expanded") === "true";
+        const nextState = !isExpanded;
+        elements.descriptionToggle.setAttribute(
+          "aria-expanded",
+          String(nextState)
+        );
+        const labelElement = elements.descriptionToggle.querySelector(
+          ".store-banner__toggle-text"
+        );
+        if (labelElement) {
+          labelElement.textContent = nextState ? "Less" : "More";
+        }
+        elements.descriptionElement.classList.toggle(
+          "store-banner__description--expanded",
+          nextState
+        );
+      }
+
+      // ===== Search =====
+      function updateSearchClear() {
+        const hasText =
+          !!elements.searchInput.value &&
+          elements.searchInput.value.trim().length > 0;
+        elements.searchClear.toggleAttribute("hidden", !hasText);
+      }
+
+      function handleSearchInput() {
+        searchQuery = elements.searchInput.value;
+        updateSearchClear();
+        applyFiltersToDisplay();
+      }
+
+      function handleSearchClear() {
+        elements.searchInput.value = "";
+        searchQuery = "";
+        updateSearchClear();
+        applyFiltersToDisplay();
+        elements.searchInput.focus();
+      }
+
+      // ===== View Toggle =====
+      function selectGrid() {
+        elements.itemsGrid.style.display = "grid";
+        elements.itemsList.style.display = "none";
+        elements.gridViewButton.classList.add("view-toggle__button--active");
+        elements.listViewButton.classList.remove("view-toggle__button--active");
+        elements.gridViewButton.setAttribute("aria-pressed", "true");
+        elements.listViewButton.setAttribute("aria-pressed", "false");
+        equalizeAll();
+      }
+
+      function selectList() {
+        elements.itemsGrid.style.display = "none";
+        elements.itemsList.style.display = "grid";
+        elements.gridViewButton.classList.remove("view-toggle__button--active");
+        elements.listViewButton.classList.add("view-toggle__button--active");
+        elements.gridViewButton.setAttribute("aria-pressed", "false");
+        elements.listViewButton.setAttribute("aria-pressed", "true");
+        equalizeAll();
+      }
+
+      // ===== Initialization =====
+      function initialize() {
+        // Render items
+        renderCards(elements.itemsGrid);
+        renderCards(elements.itemsList);
+        elements.itemCount.textContent = ITEMS.length;
+
+        // Equalize titles
+        equalizeAll();
+        bindImageLoadListeners();
+
+        // Description toggle
+        updateDescriptionToggle();
+        if (elements.descriptionToggle) {
+          elements.descriptionToggle.addEventListener(
+            "click",
+            handleDescriptionToggle
+          );
+        }
+
+        // Search
+        elements.searchInput.addEventListener("input", handleSearchInput);
+        elements.searchClear.addEventListener("click", handleSearchClear);
+        updateSearchClear();
+
+        // View toggle
+        elements.gridViewButton.addEventListener("click", selectGrid);
+        elements.listViewButton.addEventListener("click", selectList);
+
+        // Handle resize/fonts
+        let resizeAnimationFrame;
+        window.addEventListener("resize", () => {
+          cancelAnimationFrame(resizeAnimationFrame);
+          resizeAnimationFrame = requestAnimationFrame(() => {
+            equalizeAll();
+            updateDescriptionToggle();
+          });
+        });
+
+        if (
+          document.fonts &&
+          document.fonts.ready &&
+          typeof document.fonts.ready.then === "function"
+        ) {
+          document.fonts.ready.then(() => {
+            equalizeAll();
+            updateDescriptionToggle();
+          });
+        }
+
+        window.addEventListener("load", () => {
+          equalizeAll();
+          updateDescriptionToggle();
+        });
+
+        window.addEventListener("pageshow", updateSearchClear);
+      }
+
+      // Start app
+      initialize();
+
+      function getSelectedFilters() {
+        const filters = {
+          categories: [],
+          subcategories: [],
+          conditions: [],
+          delivery: [],
+          priceMin: priceState.currentMin,
+          priceMax: priceState.currentMax,
+        };
+        document
+          .querySelectorAll("[data-category].checked")
+          .forEach((cb) =>
+            filters.categories.push(cb.getAttribute("data-category"))
+          );
+        document
+          .querySelectorAll("[data-subcategory].checked")
+          .forEach((cb) =>
+            filters.subcategories.push(cb.getAttribute("data-subcategory"))
+          );
+        document
+          .querySelectorAll("[data-condition].checked")
+          .forEach((cb) =>
+            filters.conditions.push(cb.getAttribute("data-condition"))
+          );
+        document
+          .querySelectorAll("[data-delivery].checked")
+          .forEach((cb) =>
+            filters.delivery.push(cb.getAttribute("data-delivery"))
+          );
+        return filters;
+      }
+
+      function getFilteredItems() {
+        const filters = getSelectedFilters();
+        return ITEMS.filter((item) => {
+          // Search filter
+          if (searchQuery.trim()) {
+            const query = searchQuery.toLowerCase();
+            const titleMatch = item.title.toLowerCase().includes(query);
+            if (!titleMatch) {
+              return false;
+            }
+          }
+
+          // Category filter
+          if (
+            filters.categories.length > 0 &&
+            !filters.categories.includes(item.category)
+          ) {
+            return false;
+          }
+
+          // Subcategory filter
+          if (
+            filters.subcategories.length > 0 &&
+            !filters.subcategories.includes(item.subcategory)
+          ) {
+            return false;
+          }
+
+          // Condition filter
+          if (
+            filters.conditions.length > 0 &&
+            !filters.conditions.includes(item.condition)
+          ) {
+            return false;
+          }
+
+          // Price filter
+          if (
+            item.priceValue < filters.priceMin ||
+            item.priceValue > filters.priceMax
+          ) {
+            return false;
+          }
+
+          // Delivery filter
+          if (filters.delivery.length > 0) {
+            let matchesDelivery = false;
+
+            for (const method of filters.delivery) {
+              if (method === "pickup-only") {
+                // Pickup-only means item does NOT offer shipping
+                if (!item.delivery.includes("shipping")) {
+                  matchesDelivery = true;
+                  break;
+                }
+              } else {
+                // For "shipping", check if item supports it
+                if (item.delivery.includes(method)) {
+                  matchesDelivery = true;
+                  break;
+                }
+              }
+            }
+
+            if (!matchesDelivery) {
+              return false;
+            }
+          }
+
+          return true;
+        });
+      }
+
+      function countItemsForFilter(filterType, filterValue) {
+        const currentFilters = getSelectedFilters();
+
+        return ITEMS.filter((item) => {
+          // Price filter applies to all counts
+          if (
+            item.priceValue < currentFilters.priceMin ||
+            item.priceValue > currentFilters.priceMax
+          ) {
+            return false;
+          }
+
+          // Condition filter doesn't apply when counting conditions
+          if (filterType !== "condition") {
+            if (currentFilters.conditions.length > 0) {
+              if (!currentFilters.conditions.includes(item.condition)) {
+                return false;
+              }
+            }
+          }
+
+          if (filterType === "category") {
+            return item.category === filterValue;
+          } else if (filterType === "subcategory") {
+            // Apply category filter first if active
+            if (currentFilters.categories.length > 0) {
+              if (!currentFilters.categories.includes(item.category)) {
+                return false;
+              }
+            }
+            return item.subcategory === filterValue;
+          } else if (filterType === "condition") {
+            // Apply category and subcategory filters if active
+            if (currentFilters.categories.length > 0) {
+              if (!currentFilters.categories.includes(item.category)) {
+                return false;
+              }
+            }
+            if (currentFilters.subcategories.length > 0) {
+              if (!currentFilters.subcategories.includes(item.subcategory)) {
+                return false;
+              }
+            }
+            return item.condition === filterValue;
+          } else if (filterType === "delivery") {
+            // Apply other active filters first
+            if (currentFilters.categories.length > 0) {
+              if (!currentFilters.categories.includes(item.category)) {
+                return false;
+              }
+            }
+            if (currentFilters.subcategories.length > 0) {
+              if (!currentFilters.subcategories.includes(item.subcategory)) {
+                return false;
+              }
+            }
+            if (currentFilters.conditions.length > 0) {
+              if (!currentFilters.conditions.includes(item.condition)) {
+                return false;
+              }
+            }
+
+            // Handle pickup-only as special case
+            if (filterValue === "pickup-only") {
+              return !item.delivery.includes("shipping");
+            } else {
+              return item.delivery.includes(filterValue);
+            }
+          }
+
+          return false;
+        }).length;
+      }
+
+      function updateAllFilterCounts() {
+        updateCategoryCount("clothing");
+        updateCategoryCount("furniture");
+        updateCategoryCount("accessories");
+        updateCategoryCount("home");
+        updateSubcategoryCount("dresses");
+        updateSubcategoryCount("tops");
+        updateSubcategoryCount("bottoms");
+        updateSubcategoryCount("sofas");
+        updateSubcategoryCount("chairs");
+        updateConditionCount("new");
+        updateConditionCount("like-new");
+        updateConditionCount("excellent");
+        updateConditionCount("good");
+        updateDeliveryCount("shipping");
+        updateDeliveryCount("pickup-only");
+      }
+
+      function updateCategoryCount(categoryId) {
+        const count = countItemsForFilter("category", categoryId);
+        const checkbox = document.querySelector(
+          `[data-category="${categoryId}"]`
+        );
+        const countElement = checkbox
+          .closest(".option-item")
+          .querySelector(".option-count");
+        if (countElement) {
+          countElement.textContent = `(${count})`;
+          countElement.style.opacity = count === 0 ? "0.4" : "1";
+        }
+      }
+
+      function updateSubcategoryCount(subcategoryId) {
+        const count = countItemsForFilter("subcategory", subcategoryId);
+        const checkbox = document.querySelector(
+          `[data-subcategory="${subcategoryId}"]`
+        );
+        const countElement = checkbox
+          .closest(".subcategory-item")
+          .querySelector(".subcategory-count");
+        if (countElement) {
+          countElement.textContent = `(${count})`;
+          countElement.style.opacity = count === 0 ? "0.4" : "1";
+        }
+      }
+
+      function updateConditionCount(conditionId) {
+        const checkbox = document.querySelector(
+          `[data-condition="${conditionId}"]`
+        );
+        if (!checkbox) return;
+        const count = countItemsForFilter("condition", conditionId);
+        const countElement = checkbox
+          .closest(".option-item")
+          .querySelector(".option-count");
+        if (countElement) {
+          countElement.textContent = `(${count})`;
+          countElement.style.opacity = count === 0 ? "0.4" : "1";
+        }
+      }
+
+      function applyFiltersToDisplay() {
+        const filteredItems = getFilteredItems();
+
+        // Sort the filtered items
+        if (currentSort === "featured") {
+          filteredItems.sort((a, b) => {
+            const aIsFeatured = a.badge === "featured";
+            const bIsFeatured = b.badge === "featured";
+            // Featured items come first
+            if (aIsFeatured && !bIsFeatured) return -1;
+            if (!aIsFeatured && bIsFeatured) return 1;
+            // Within each group (featured or not), sort by newest first
+            return parseInt(b.id) - parseInt(a.id);
+          });
+        } else if (currentSort === "price-low") {
+          filteredItems.sort((a, b) => a.priceValue - b.priceValue);
+        } else if (currentSort === "price-high") {
+          filteredItems.sort((a, b) => b.priceValue - a.priceValue);
+        } else if (currentSort === "newest") {
+          filteredItems.sort((a, b) => parseInt(b.id) - parseInt(a.id));
+        } else if (currentSort === "oldest") {
+          filteredItems.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+        }
+
+        // Re-render both grid and list views with filtered items
+        elements.itemsGrid.innerHTML = filteredItems
+          .map((item, index) => {
+            const seed = encodeURIComponent(`${item.title}-${item.id}`);
+            return `
+      <article class="item-card" tabindex="0">
+        <div class="item-card__image">
+          ${renderBadge(item.badge)}
+          <img
+            src="https://picsum.photos/seed/${seed}/600/600"
+            srcset="
+              https://picsum.photos/seed/${seed}/300/300 300w,
+              https://picsum.photos/seed/${seed}/600/600 600w,
+              https://picsum.photos/seed/${seed}/900/900 900w
+            "
+            sizes="(max-width: 520px) 45vw, 240px"
+            alt="${item.title}"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="item-card__title">${item.title}</div>
+        <div class="item-card__meta">
+          <div class="item-card__price">${item.price}</div>
+          <div class="item-card__condition">${item.condition
+            .split("-")
+            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(" ")}</div>
+        </div>
+      </article>
+    `;
+          })
+          .join("");
+
+        elements.itemsList.innerHTML = elements.itemsGrid.innerHTML;
+
+        // Update item count
+        elements.itemCount.textContent = filteredItems.length;
+
+        // Re-equalize after rendering
+        setTimeout(() => {
+          equalizeAll();
+          bindImageLoadListeners();
+        }, 0);
+      }
+
+      const priceState = {
+        min: 0,
+        max: getMaxPrice(),
+        currentMin: 0,
+        currentMax: getMaxPrice(),
+        dragging: null,
+      };
+
+      let searchQuery = "";
+      let currentSort = "featured";
+
+      window.addEventListener("load", () => {
+        const maxPrice = priceState.max;
+        document.getElementById("maxInput").placeholder = `$${maxPrice}`;
+        document.getElementById("maxInput").value = `$${maxPrice}`;
+        updateSliderDisplay();
+        updateAllFilterCounts();
+      });
+
+      function openFilterModal() {
+        document.body.classList.add("body-lock");
+        document.getElementById("filterOverlay").classList.add("active");
+      }
+
+      function closeFilterModal() {
+        document.getElementById("filterOverlay").classList.remove("active");
+        document.body.classList.remove("body-lock");
+      }
+
+      function toggleSection(sectionId) {
+        const section = document.getElementById(sectionId + "-section");
+        const wasExpanded = section.classList.contains("expanded");
+        section.classList.toggle("expanded");
+        if (!wasExpanded) {
+          setTimeout(
+            () =>
+              section.scrollIntoView({ behavior: "smooth", block: "nearest" }),
+            100
+          );
+        }
+      }
+
+      function toggleCategory(categoryId) {
+        const checkbox = document.querySelector(
+          `[data-category="${categoryId}"]`
+        );
+        checkbox.classList.toggle("checked");
+        const subsContainer = document.getElementById(categoryId + "-subs");
+        if (subsContainer) {
+          subsContainer.classList.toggle("visible");
+          if (!checkbox.classList.contains("checked")) {
+            subsContainer
+              .querySelectorAll("[data-subcategory].checked")
+              .forEach((sub) => {
+                sub.classList.remove("checked");
+              });
+          }
+        }
+        updateAllFilterCounts();
+        applyFiltersToDisplay();
+      }
+
+      function toggleSubcategory(subId) {
+        document
+          .querySelector(`[data-subcategory="${subId}"]`)
+          .classList.toggle("checked");
+        updateAllFilterCounts();
+        applyFiltersToDisplay();
+      }
+
+      function toggleCondition(conditionId) {
+        document
+          .querySelector(`[data-condition="${conditionId}"]`)
+          .classList.toggle("checked");
+        updateAllFilterCounts();
+        applyFiltersToDisplay();
+      }
+
+      function toggleDelivery(deliveryId) {
+        document
+          .querySelector(`[data-delivery="${deliveryId}"]`)
+          .classList.toggle("checked");
+        updateAllFilterCounts();
+        applyFiltersToDisplay();
+      }
+
+      function updateDeliveryCount(deliveryId) {
+        const count = countItemsForFilter("delivery", deliveryId);
+        const checkbox = document.querySelector(
+          `[data-delivery="${deliveryId}"]`
+        );
+        const countElement = checkbox
+          .closest(".option-item")
+          .querySelector(".option-count");
+        if (countElement) {
+          countElement.textContent = `(${count})`;
+          countElement.style.opacity = count === 0 ? "0.4" : "1";
+        }
+      }
+
+      function selectSort(sortId) {
+        document
+          .querySelectorAll("[data-sort]")
+          .forEach((checkbox) => checkbox.classList.remove("checked"));
+        document
+          .querySelector(`[data-sort="${sortId}"]`)
+          .classList.add("checked");
+
+        currentSort = sortId;
+        applyFiltersToDisplay();
+      }
+
+      function clearAllFilters() {
+        document
+          .querySelectorAll("[data-category]")
+          .forEach((checkbox) => checkbox.classList.remove("checked"));
+        document
+          .querySelectorAll("[data-subcategory]")
+          .forEach((checkbox) => checkbox.classList.remove("checked"));
+        document
+          .querySelectorAll(".subcategory-container")
+          .forEach((container) => container.classList.remove("visible"));
+        document
+          .querySelectorAll("[data-condition]")
+          .forEach((checkbox) => checkbox.classList.remove("checked"));
+        document
+          .querySelectorAll("[data-delivery]")
+          .forEach((checkbox) => checkbox.classList.remove("checked"));
+        priceState.currentMin = 0;
+        priceState.currentMax = priceState.max;
+        updateSliderDisplay();
+        document
+          .querySelectorAll("[data-sort]")
+          .forEach((checkbox) => checkbox.classList.remove("checked"));
+        document
+          .querySelector('[data-sort="featured"]')
+          .classList.add("checked");
+        updateAllFilterCounts();
+        applyFiltersToDisplay();
+      }
+
+      function updateSliderDisplay() {
+        const minPercent =
+          ((priceState.currentMin - priceState.min) /
+            (priceState.max - priceState.min)) *
+          100;
+        const maxPercent =
+          ((priceState.currentMax - priceState.min) /
+            (priceState.max - priceState.min)) *
+          100;
+        const sliderWidth = document.querySelector(
+          ".price-slider-track"
+        ).offsetWidth;
+        const minPos = 15 + (minPercent / 100) * sliderWidth;
+        const maxPos = 15 + (maxPercent / 100) * sliderWidth;
+        document.getElementById("minThumb").style.left = minPos + "px";
+        document.getElementById("maxThumb").style.left = maxPos + "px";
+        const sliderRange = document.getElementById("sliderRange");
+        sliderRange.style.left = minPos + "px";
+        sliderRange.style.right = `calc(100% - ${maxPos}px)`;
+        document.getElementById("minInput").value = "$" + priceState.currentMin;
+        document.getElementById("maxInput").value = "$" + priceState.currentMax;
+        updateAllFilterCounts();
+        applyFiltersToDisplay();
+      }
+
+      function updateSliderFromInput(type) {
+        const minInputValue = document
+          .getElementById("minInput")
+          .value.replace(/\$/g, "")
+          .trim();
+        const maxInputValue = document
+          .getElementById("maxInput")
+          .value.replace(/\$/g, "")
+          .trim();
+        const minInput = parseInt(minInputValue) || 0;
+        const maxInput = parseInt(maxInputValue) || 100;
+        if (type === "min") {
+          priceState.currentMin = Math.max(
+            priceState.min,
+            Math.min(minInput, priceState.currentMax - 1)
+          );
+        } else {
+          priceState.currentMax = Math.min(
+            priceState.max,
+            Math.max(maxInput, priceState.currentMin + 1)
+          );
+        }
+        updateSliderDisplay();
+      }
+
+      function startDrag(type, event) {
+        event.preventDefault();
+        priceState.dragging = type;
+        const slider = document.querySelector(".price-slider-container");
+        const rect = slider.getBoundingClientRect();
+        const trackWidth = slider.offsetWidth - 30;
+
+        function onMouseMove(e) {
+          if (!priceState.dragging) return;
+          const x = e.clientX - rect.left - 15;
+          const percent = Math.max(0, Math.min(100, (x / trackWidth) * 100));
+          const value = Math.round(
+            (percent / 100) * (priceState.max - priceState.min) + priceState.min
+          );
+          if (priceState.dragging === "min") {
+            priceState.currentMin = Math.min(value, priceState.currentMax - 1);
+          } else {
+            priceState.currentMax = Math.max(value, priceState.currentMin + 1);
+          }
+          updateSliderDisplay();
+        }
+
+        function onMouseUp() {
+          priceState.dragging = null;
+          document.removeEventListener("mousemove", onMouseMove);
+          document.removeEventListener("mouseup", onMouseUp);
+        }
+
+        document.addEventListener("mousemove", onMouseMove);
+        document.addEventListener("mouseup", onMouseUp);
+      }
+
+      // ===== Follow Modal =====
+      const followModal = {
+        overlay: document.getElementById("followOverlay"),
+        sheet: document.getElementById("follow-select-modal__sheet"),
+        closeButton: document.getElementById("follow-modal-close"),
+        body: document.getElementById("follow-select-modal__body"),
+        footer: document.getElementById("follow-select-modal__footer"),
+        emailInput: document.getElementById("follow-email"),
+        emailError: document.getElementById("follow-email-error"),
+        categoryError: document.getElementById("follow-category-error"),
+        submitButton: document.getElementById("follow-submit"),
+        success: document.getElementById("follow-success"),
+        successFooter: document.getElementById("follow-success-footer"),
+        followButton: document.querySelector(".btn-follow"),
+        lastFocusedElement: null,
+      };
+
+      function openFollowModal() {
+        followModal.lastFocusedElement = document.activeElement;
+        document.body.classList.add("body-lock");
+
+        requestAnimationFrame(() => {
+          followModal.overlay.classList.add("active");
+          followModal.emailInput.focus();
+        });
+      }
+
+      function resetFollowModal() {
+        followModal.emailInput.value = "";
+        followModal.success.hidden = true;
+        followModal.successFooter.hidden = true;
+        followModal.body.hidden = false;
+        followModal.footer.hidden = false;
+
+        // Clear errors
+        followModal.emailInput.classList.remove("error");
+        followModal.emailError.classList.remove("visible");
+        followModal.categoryError.classList.remove("visible");
+
+        // Reset categories to checked
+        document.querySelectorAll("[data-follow-category]").forEach((cb) => {
+          cb.checked = true;
+        });
+
+        // Reset subcategories to unchecked (they're filters)
+        document.querySelectorAll("[data-follow-subcategory]").forEach((cb) => {
+          cb.checked = false;
+        });
+
+        // Collapse all subcategories
+        document
+          .querySelectorAll(".follow-subcategory-list")
+          .forEach((list) => {
+            list.classList.remove("visible");
+          });
+        document.querySelectorAll(".follow-category-row[id]").forEach((row) => {
+          row.classList.remove("expanded");
+        });
+      }
+
+      function closeFollowModal() {
+        followModal.overlay.classList.remove("active");
+        document.body.classList.remove("body-lock");
+
+        setTimeout(() => {
+          resetFollowModal();
+          if (followModal.lastFocusedElement) {
+            followModal.lastFocusedElement.focus();
+          }
+        }, 250);
+      }
+
+      function handleFollowOverlayClick(event) {
+        if (
+          event.target === followModal.overlay ||
+          event.target.classList.contains("select-modal__backdrop")
+        ) {
+          closeFollowModal();
+        }
+      }
+
+      function handleFollowModalKeydown(event) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeFollowModal();
+          return;
+        }
+
+        if (event.key !== "Tab") return;
+
+        const focusables = followModal.sheet.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const focusableList = Array.from(focusables).filter(
+          (el) => !el.disabled && el.offsetParent !== null
+        );
+
+        if (!focusableList.length) return;
+
+        const first = focusableList[0];
+        const last = focusableList[focusableList.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+
+      function handleFollowSubmit(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        let hasError = false;
+
+        // Validate email
+        if (!followModal.emailInput.value.length) {
+          followModal.emailInput.classList.add("error");
+          followModal.emailError.classList.add("visible");
+          hasError = true;
+        }
+
+        // Validate categories
+        const checkedCategories = document.querySelectorAll(
+          "[data-follow-category]:checked"
+        );
+        if (checkedCategories.length === 0) {
+          followModal.categoryError.classList.add("visible");
+          hasError = true;
+        }
+
+        if (hasError) {
+          // Focus the first error field
+          if (followModal.emailInput.classList.contains("error")) {
+            followModal.emailInput.focus();
+          }
+          return;
+        }
+
+        followModal.submitButton.disabled = true;
+
+        // Simulate API call
+        setTimeout(() => {
+          followModal.body.hidden = true;
+          followModal.footer.hidden = true;
+          followModal.success.hidden = false;
+          followModal.successFooter.hidden = false;
+          followModal.submitButton.disabled = false;
+        }, 450);
+      }
+
+      // Category toggle (expand/collapse subcategories)
+      function setupFollowCategoryToggles() {
+        const categoryRows = document.querySelectorAll(
+          ".follow-category-row[id]"
+        );
+
+        categoryRows.forEach((row) => {
+          const toggle = row.querySelector(".follow-category-toggle");
+          if (!toggle) return;
+
+          const categoryId = row.id
+            .replace("follow-category-", "")
+            .replace("-row", "");
+          const subsContainer = document.getElementById(
+            "follow-" + categoryId + "-subs"
+          );
+
+          if (!subsContainer) return;
+
+          // Click on toggle icon to expand/collapse
+          toggle.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            row.classList.toggle("expanded");
+            subsContainer.classList.toggle("visible");
+          });
+
+          // Keyboard support for toggle
+          toggle.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              row.classList.toggle("expanded");
+              subsContainer.classList.toggle("visible");
+            }
+          });
+        });
+      }
+
+      // Parent checkbox behavior
+      function setupFollowCategoryCheckboxes() {
+        const categoryCheckboxes = document.querySelectorAll(
+          "[data-follow-category]"
+        );
+
+        categoryCheckboxes.forEach((checkbox) => {
+          checkbox.addEventListener("change", () => {
+            const category = checkbox.dataset.followCategory;
+            const subCheckboxes = document.querySelectorAll(
+              `[data-follow-subcategory="${category}"]`
+            );
+
+            if (!checkbox.checked) {
+              // Unchecking parent: clear subcategory filters (but don't collapse)
+              subCheckboxes.forEach((sub) => {
+                sub.checked = false;
+              });
+            }
+            // Checking parent: do nothing to subs (parent checked = all items)
+          });
+        });
+
+        // Checking a subcategory also checks its parent
+        const subCheckboxes = document.querySelectorAll(
+          "[data-follow-subcategory]"
+        );
+        subCheckboxes.forEach((sub) => {
+          sub.addEventListener("change", () => {
+            if (sub.checked) {
+              const parentCategory = sub.dataset.followSubcategory;
+              const parentCheckbox = document.querySelector(
+                `[data-follow-category="${parentCategory}"]`
+              );
+              if (parentCheckbox && !parentCheckbox.checked) {
+                parentCheckbox.checked = true;
+              }
+            }
+          });
+        });
+      }
+
+      // Event Listeners for Follow Modal
+      followModal.followButton.addEventListener("click", openFollowModal);
+      followModal.closeButton.addEventListener("click", closeFollowModal);
+      followModal.sheet.addEventListener("keydown", handleFollowModalKeydown);
+      followModal.submitButton.addEventListener("click", handleFollowSubmit);
+
+      // Clear email error when user types
+      followModal.emailInput.addEventListener("input", () => {
+        followModal.emailInput.classList.remove("error");
+        followModal.emailError.classList.remove("visible");
+      });
+
+      // Clear category error when user checks a category or subcategory
+      document.querySelectorAll("[data-follow-category]").forEach((cb) => {
+        cb.addEventListener("change", () => {
+          followModal.categoryError.classList.remove("visible");
+        });
+      });
+      document.querySelectorAll("[data-follow-subcategory]").forEach((cb) => {
+        cb.addEventListener("change", () => {
+          if (cb.checked) {
+            followModal.categoryError.classList.remove("visible");
+          }
+        });
+      });
+
+      // Initialize follow category toggles and checkboxes
+      setupFollowCategoryToggles();
+      setupFollowCategoryCheckboxes();
+
+      // Listen for escape key on document when follow modal is open
+      document.addEventListener("keydown", (event) => {
+        if (
+          event.key === "Escape" &&
+          followModal.overlay.classList.contains("active")
+        ) {
+          closeFollowModal();
+        }
+      });
+
+      // ===== Menu Overlay Functions =====
+      function openMenuOverlay() {
+        document.body.classList.add("body-lock");
+        document.getElementById("menu-overlay").classList.add("active");
+      }
+
+      function closeMenuOverlay() {
+        document.getElementById("menu-overlay").classList.remove("active");
+        document.body.classList.remove("body-lock");
+      }
+
+      // ===== Search Overlay Functions =====
+      function openSearchOverlay() {
+        document.body.classList.add("body-lock");
+        document.getElementById("search-overlay").classList.add("active");
+        setTimeout(() => {
+          document.getElementById("marketplace-search-input").focus();
+        }, 100);
+      }
+
+      function closeSearchOverlay() {
+        document.getElementById("search-overlay").classList.remove("active");
+        document.body.classList.remove("body-lock");
+        document.getElementById("marketplace-search-input").value = "";
+        document
+          .getElementById("marketplace-search-clear")
+          .toggleAttribute("hidden", true);
+      }
+
+      function handleSearchSubmit(event) {
+        event.preventDefault();
+        const query = document
+          .getElementById("marketplace-search-input")
+          .value.trim();
+        if (query) {
+          alert("Would navigate to search results for: " + query);
+          closeSearchOverlay();
+        }
+      }
+
+      // Search overlay input listeners
+      const marketplaceSearchInput = document.getElementById(
+        "marketplace-search-input"
+      );
+      const marketplaceSearchClear = document.getElementById(
+        "marketplace-search-clear"
+      );
+
+      marketplaceSearchInput.addEventListener("input", () => {
+        marketplaceSearchClear.toggleAttribute(
+          "hidden",
+          marketplaceSearchInput.value.length === 0
+        );
+      });
+
+      marketplaceSearchClear.addEventListener("click", () => {
+        marketplaceSearchInput.value = "";
+        marketplaceSearchClear.toggleAttribute("hidden", true);
+        marketplaceSearchInput.focus();
+      });
+
+      // Listen for escape key to close overlays
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          if (
+            document.getElementById("menu-overlay").classList.contains("active")
+          ) {
+            closeMenuOverlay();
+          }
+          if (
+            document
+              .getElementById("search-overlay")
+              .classList.contains("active")
+          ) {
+            closeSearchOverlay();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>STŌR — Order Confirmation</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      /* ═══════════════════════════════════════════════════════════════════════
+         STŌR DESIGN SYSTEM — Embedded Tokens
+         ═══════════════════════════════════════════════════════════════════════ */
+      :root {
+        /* ─────────────────────────────────────────────────────────────────────
+           COLOR SYSTEM
+           ───────────────────────────────────────────────────────────────────── */
+
+        /* Canvas & Surfaces */
+        --color-canvas: #fffcf9;
+        --color-surface: #fff9f4;
+        --color-surface-raised: #fff7f1;
+        --color-background: #f5f0eb;
+        --color-background-subtle: #f9f5f1;
+        --color-white: #ffffff;
+
+        /* Text Hierarchy */
+        --color-text-primary: #4d3f33;
+        --color-text-secondary: #937b65;
+        --color-text-tertiary: #a89d94;
+        --color-text-whisper: #c4b5a8;
+        --color-text-ghost: #d9cfc6;
+        --color-text-inverse: #fffcf9;
+
+        /* Accent Colors */
+        --color-accent-primary: #b38b6d;
+        --color-accent-secondary: #c4a27a;
+        --color-accent-nude: #e6d4c6;
+        --color-accent-blush: #e8d5cc;
+        --color-accent-clay: #d4b8a0;
+        --color-accent-sand: #f0e6dd;
+
+        /* Interactive States */
+        --color-interactive-hover: #a67d5f;
+        --color-interactive-pressed: #967052;
+        --color-interactive-focus: rgba(179, 139, 109, 0.4);
+
+        /* Borders */
+        --color-border-invisible: rgba(196, 162, 122, 0.04);
+        --color-border-light: rgba(196, 162, 122, 0.08);
+        --color-border-medium: rgba(196, 162, 122, 0.15);
+        --color-border-strong: rgba(196, 162, 122, 0.25);
+        --color-border-focused: rgba(179, 139, 109, 0.4);
+
+        /* Overlays */
+        --color-overlay-subtle: rgba(196, 162, 122, 0.03);
+        --color-overlay-light: rgba(196, 162, 122, 0.06);
+        --color-overlay-medium: rgba(196, 162, 122, 0.1);
+        --color-overlay-heavy: rgba(77, 63, 51, 0.4);
+        --color-overlay-pressed: rgba(179, 139, 109, 0.15);
+
+        /* Semantic Colors */
+        --color-semantic-success: #8fa67a;
+        --color-semantic-success-soft: #f0f4ec;
+        --color-semantic-error: #c67b5c;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           TYPOGRAPHY
+           ───────────────────────────────────────────────────────────────────── */
+
+        --font-family: "SF Pro Display", "SF Pro Text", system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+          sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+        /* Font Weights */
+        --font-weight-light: 300;
+        --font-weight-regular: 400;
+        --font-weight-medium: 500;
+        --font-weight-semibold: 600;
+
+        /* Font Sizes */
+        --font-size-2xs: 10px;
+        --font-size-xs: 11px;
+        --font-size-sm: 13px;
+        --font-size-base: 15px;
+        --font-size-md: 16px;
+        --font-size-lg: 18px;
+        --font-size-xl: 21px;
+        --font-size-2xl: 24px;
+
+        /* Line Heights */
+        --line-height-none: 1;
+        --line-height-tight: 1.2;
+        --line-height-snug: 1.35;
+        --line-height-normal: 1.5;
+        --line-height-relaxed: 1.6;
+
+        /* Letter Spacing */
+        --letter-spacing-tight: -0.02em;
+        --letter-spacing-normal: 0;
+        --letter-spacing-wide: 0.02em;
+        --letter-spacing-wider: 0.05em;
+        --letter-spacing-widest: 0.1em;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           SPACING
+           ───────────────────────────────────────────────────────────────────── */
+
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 20px;
+        --space-6: 24px;
+        --space-8: 32px;
+        --space-10: 40px;
+        --space-12: 48px;
+
+        /* Semantic Aliases */
+        --space-micro: var(--space-1);
+        --space-tiny: var(--space-2);
+        --space-small: var(--space-3);
+        --space-base: var(--space-4);
+        --space-medium: var(--space-5);
+        --space-large: var(--space-6);
+        --space-xlarge: var(--space-8);
+        --space-xxlarge: var(--space-12);
+
+        --space-gutter: var(--space-6);
+
+        /* ─────────────────────────────────────────────────────────────────────
+           SIZING
+           ───────────────────────────────────────────────────────────────────── */
+
+        --height-header: 60px;
+        --height-button: 52px;
+        --height-icon-button: 48px;
+
+        --icon-size-small: 16px;
+        --icon-size-default: 20px;
+        --icon-size-medium: 24px;
+        --icon-size-large: 32px;
+        --icon-size-xlarge: 52px;
+
+        --max-width: 480px;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           BORDER RADIUS
+           ───────────────────────────────────────────────────────────────────── */
+
+        --radius-xs: 4px;
+        --radius-sm: 8px;
+        --radius-base: 12px;
+        --radius-md: 16px;
+        --radius-lg: 20px;
+        --radius-xl: 24px;
+        --radius-full: 9999px;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           BORDERS
+           ───────────────────────────────────────────────────────────────────── */
+
+        --border-thin: 1px;
+        --border-subtle: 1.5px;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           SHADOWS
+           ───────────────────────────────────────────────────────────────────── */
+
+        --shadow-focus: 0 0 0 2px var(--color-canvas),
+          0 0 0 5px var(--color-interactive-focus);
+
+        /* ─────────────────────────────────────────────────────────────────────
+           TRANSITIONS
+           ───────────────────────────────────────────────────────────────────── */
+
+        --duration-fast: 100ms;
+        --duration-normal: 200ms;
+        --duration-slow: 300ms;
+
+        --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+        --transition-colors: color var(--duration-fast) var(--ease-out),
+          background-color var(--duration-fast) var(--ease-out),
+          border-color var(--duration-fast) var(--ease-out);
+        --transition-transform: transform var(--duration-normal) var(--ease-out);
+
+        /* ─────────────────────────────────────────────────────────────────────
+           Z-INDEX
+           ───────────────────────────────────────────────────────────────────── */
+
+        --z-header: 30;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           SAFE AREAS
+           ───────────────────────────────────────────────────────────────────── */
+
+        --safe-top: env(safe-area-inset-top, 0px);
+        --safe-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         GLOBAL RESET & BASE
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      html,
+      body {
+        background: var(--color-canvas);
+        color: var(--color-text-primary);
+        font-family: var(--font-family);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+      }
+
+      body {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+
+      button:focus,
+      a:focus,
+      [tabindex]:focus {
+        outline: none;
+      }
+
+      :focus-visible {
+        box-shadow: var(--shadow-focus);
+      }
+
+      a:focus-visible,
+      [tabindex]:focus-visible {
+        border-radius: var(--radius-sm);
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         LAYOUT
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .container {
+        max-width: var(--max-width);
+        margin-inline: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        background: var(--color-canvas);
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         HEADER
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: var(--z-header);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        height: calc(var(--height-header) + var(--safe-top));
+        background: var(--color-canvas);
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+        padding: var(--safe-top) var(--space-gutter) 0;
+      }
+
+      .header__left {
+        justify-self: start;
+        margin-left: -14px;
+      }
+
+      .header__center {
+        justify-self: center;
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+      }
+
+      .header__right {
+        justify-self: end;
+        margin-right: -14px;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         ICON BUTTON
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .icon-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: var(--height-icon-button);
+        height: var(--height-icon-button);
+        min-width: var(--height-icon-button);
+        min-height: var(--height-icon-button);
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: var(--radius-sm);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .icon-button:hover {
+        background: var(--color-overlay-light);
+      }
+
+      .icon-button:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      .icon-button i {
+        font-size: var(--icon-size-default);
+        line-height: 1;
+      }
+
+      .icon-button--badge[data-badge]::after {
+        content: attr(data-badge);
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        display: grid;
+        place-items: center;
+        border-radius: var(--radius-full);
+        background: var(--color-accent-primary);
+        color: var(--color-text-inverse);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
+        line-height: 1;
+      }
+
+      .icon-button--badge[data-badge="0"]::after {
+        display: none;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         CONTENT
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 var(--space-gutter);
+        min-height: 500px;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         CONFIRMATION
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .confirmation {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 340px;
+      }
+
+      /* Hero Section */
+      .confirmation__hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: var(--space-xlarge);
+      }
+
+      .confirmation__icon {
+        font-size: var(--icon-size-xlarge);
+        color: var(--color-semantic-success);
+        margin-bottom: var(--space-base);
+      }
+
+      .confirmation__title {
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wide);
+        line-height: var(--line-height-snug);
+        color: var(--color-text-primary);
+        margin: 0 0 var(--space-micro) 0;
+      }
+
+      .confirmation__order-number {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: var(--letter-spacing-normal);
+        line-height: var(--line-height-normal);
+        color: var(--color-text-tertiary);
+        font-variant-numeric: tabular-nums;
+        margin: 0;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         INFO SECTION
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .confirmation__info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--space-medium);
+        margin-bottom: var(--space-xlarge);
+      }
+
+      .info-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-micro);
+      }
+
+      .info-group__label {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: var(--letter-spacing-widest);
+        text-transform: uppercase;
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-1);
+      }
+
+      .info-group__value {
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+        color: var(--color-text-primary);
+      }
+
+      .info-group__hint {
+        font-size: var(--font-size-base);
+        color: var(--color-text-tertiary);
+        line-height: var(--line-height-normal);
+        margin: 0;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         ACTIONS
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .actions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-tiny);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         BUTTON
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-tiny);
+        width: 100%;
+        height: var(--height-button);
+        padding: 0 var(--space-large);
+        font-family: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        text-decoration: none;
+        border: var(--border-subtle) solid transparent;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: var(--transition-colors), var(--transition-transform);
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+
+      .button:active {
+        transform: scale(0.98);
+      }
+
+      /* Secondary Button */
+      .button--secondary {
+        background: var(--color-accent-nude);
+        color: var(--color-text-primary);
+        border-color: var(--color-accent-nude);
+      }
+
+      .button--secondary:hover {
+        background: var(--color-accent-blush);
+        border-color: var(--color-accent-blush);
+      }
+
+      .button--secondary:active {
+        background: var(--color-accent-clay);
+        border-color: var(--color-accent-clay);
+      }
+
+      /* Tertiary Button (text-link style) */
+      .button--tertiary {
+        background: transparent;
+        border-color: transparent;
+        color: var(--color-text-secondary);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: var(--letter-spacing-wide);
+        text-transform: none;
+      }
+
+      .button--tertiary:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .button--tertiary:active {
+        opacity: 0.8;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .footer {
+        background: var(--color-surface);
+      }
+
+      .footer__links {
+        border-top: var(--border-thin) solid var(--color-border-medium);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-base);
+        padding: var(--space-large) var(--space-gutter);
+      }
+
+      .footer__links a {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: var(--transition-colors);
+      }
+
+      .footer__links a:hover {
+        color: var(--color-text-secondary);
+      }
+
+      .footer__links a:active {
+        color: var(--color-text-primary);
+      }
+
+      .footer__copyright {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        text-align: center;
+        padding: 0 var(--space-gutter) var(--space-large);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         ACCESSIBILITY
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // ===== TAP THE MENU ICON TO CYCLE BETWEEN STATES =====
+      const deliveryMethods = ["event", "local", "public", "shipping"];
+      let currentIndex = 1; // Start with 'local'
+      let deliveryMethod = deliveryMethods[currentIndex];
+      // ======================================================
+
+      function cycleDeliveryMethod() {
+        currentIndex = (currentIndex + 1) % deliveryMethods.length;
+        deliveryMethod = deliveryMethods[currentIndex];
+        updateConfirmation();
+      }
+
+      const content = {
+        event: {
+          locationLabel: "Pickup Location",
+          locationName: "Fremont Sunday Market",
+          locationDetails: ["3401 Evanston Ave N", "Seattle, WA 98103"],
+          stepsLabel: "Next Steps",
+          stepsText: "Call the seller to schedule your pickup",
+          stepsHint: "Your pickup QR code is in your inbox",
+        },
+        local: {
+          locationLabel: "Pickup Location",
+          locationName: "Good Finds NYC",
+          locationDetails: ["9209 Densmore Ave N", "Seattle, WA 98103"],
+          stepsLabel: "Next Steps",
+          stepsText: "Call the seller to schedule your pickup",
+          stepsHint: "Your pickup QR code is in your inbox",
+        },
+        public: {
+          locationLabel: "Pickup Location",
+          locationName: "Whole Foods Westlake",
+          locationDetails: ["1026 NE 64th St", "Seattle, WA 98115"],
+          stepsLabel: "Next Steps",
+          stepsText: "Call the seller to schedule your pickup",
+          stepsHint: "Your pickup QR code is in your inbox",
+        },
+        shipping: {
+          locationLabel: "Shipping Address",
+          locationName: "John Doe",
+          locationDetails: ["1234 SE Main St", "Portland, OR 97222"],
+          stepsLabel: "Estimated Delivery",
+          stepsText: "December 9–12",
+          stepsHint: "You'll get tracking when your order ships",
+        },
+      };
+
+      function updateConfirmation() {
+        const config = content[deliveryMethod];
+
+        if (!config) {
+          console.error(
+            `Invalid deliveryMethod: "${deliveryMethod}". Use 'event', 'local', 'public', or 'shipping'.`
+          );
+          return;
+        }
+
+        // Update location group
+        document.getElementById("locationLabel").textContent =
+          config.locationLabel;
+
+        const locationValues = document.getElementById("locationValues");
+        let locationHTML = "";
+        if (config.locationName) {
+          locationHTML += `<p class="info-group__value">${config.locationName}</p>`;
+        }
+        config.locationDetails.forEach((detail) => {
+          locationHTML += `<p class="info-group__value">${detail}</p>`;
+        });
+        locationValues.innerHTML = locationHTML;
+
+        // Update steps group
+        document.getElementById("stepsLabel").textContent = config.stepsLabel;
+        document.getElementById("stepsValue").textContent = config.stepsText;
+        document.getElementById("stepsHint").textContent = config.stepsHint;
+      }
+
+      // Run on page load
+      document.addEventListener("DOMContentLoaded", updateConfirmation);
+    </script>
+
+    <div class="container">
+      <header class="header">
+        <div class="header__left">
+          <button
+            class="icon-button"
+            aria-label="Go back"
+            type="button"
+            onclick="cycleDeliveryMethod()"
+          >
+            <i class="ph ph-regular ph-caret-left" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="header__center">STŌR</div>
+        <div class="header__right">
+          <button
+            class="icon-button icon-button--badge"
+            aria-label="Shopping cart"
+            data-badge="0"
+            type="button"
+          >
+            <i class="ph ph-regular ph-basket" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="confirmation">
+          <!-- Hero Section -->
+          <div class="confirmation__hero">
+            <i
+              class="confirmation__icon ph ph-fill ph-check-circle"
+              aria-hidden="true"
+            ></i>
+            <h1 class="confirmation__title">Order Confirmed</h1>
+            <p class="confirmation__order-number">#A7K2-M9P3-X4R1</p>
+          </div>
+
+          <!-- Info Section -->
+          <div class="confirmation__info">
+            <div class="info-group">
+              <p class="info-group__label" id="locationLabel">
+                Pickup Location
+              </p>
+              <div id="locationValues">
+                <p class="info-group__value">Good Finds NYC</p>
+                <p class="info-group__value">9209 Densmore Ave N</p>
+                <p class="info-group__value">Seattle, WA 98103</p>
+              </div>
+            </div>
+
+            <div class="info-group">
+              <p class="info-group__label" id="stepsLabel">Next Steps</p>
+              <p class="info-group__value" id="stepsValue">
+                Call the seller to schedule your pickup
+              </p>
+              <p class="info-group__hint" id="stepsHint">
+                We've sent the pickup QR code to your email
+              </p>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="actions">
+            <a href="tel:+15551234567" class="button button--secondary"
+              >Call Seller</a
+            >
+            <a href="#" class="button button--tertiary">View Order Details</a>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <div class="footer__links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+        <p class="footer__copyright">© 2025 STŌR</p>
+      </footer>
+    </div>
+  </body>
+</html>

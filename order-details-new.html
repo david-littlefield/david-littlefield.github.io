@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>STŌR</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      /* ═══════════════════════════════════════════════════════════════════════
+         STŌR DESIGN SYSTEM — Embedded Tokens
+         ═══════════════════════════════════════════════════════════════════════ */
+      :root {
+        /* ─────────────────────────────────────────────────────────────────────
+           COLOR SYSTEM
+           ───────────────────────────────────────────────────────────────────── */
+
+        /* Canvas & Surfaces */
+        --color-canvas: #fffcf9;
+        --color-surface: #fff9f4;
+        --color-surface-raised: #fff7f1;
+        --color-background: #f5f0eb;
+        --color-background-subtle: #f9f5f1;
+        --color-white: #ffffff;
+
+        /* Text Hierarchy */
+        --color-text-primary: #4d3f33;
+        --color-text-secondary: #937b65;
+        --color-text-tertiary: #a89d94;
+        --color-text-whisper: #c4b5a8;
+        --color-text-ghost: #d9cfc6;
+        --color-text-inverse: #fffcf9;
+
+        /* Accent Colors */
+        --color-accent-primary: #b38b6d;
+        --color-accent-secondary: #c4a27a;
+        --color-accent-nude: #e6d4c6;
+        --color-accent-blush: #e8d5cc;
+        --color-accent-clay: #d4b8a0;
+        --color-accent-sand: #f0e6dd;
+
+        /* Interactive States */
+        --color-interactive-hover: #a67d5f;
+        --color-interactive-pressed: #967052;
+        --color-interactive-focus: rgba(179, 139, 109, 0.4);
+
+        /* Borders */
+        --color-border-invisible: rgba(196, 162, 122, 0.04);
+        --color-border-light: rgba(196, 162, 122, 0.08);
+        --color-border-medium: rgba(196, 162, 122, 0.15);
+        --color-border-strong: rgba(196, 162, 122, 0.25);
+        --color-border-focused: rgba(179, 139, 109, 0.4);
+
+        /* Overlays */
+        --color-overlay-subtle: rgba(196, 162, 122, 0.03);
+        --color-overlay-light: rgba(196, 162, 122, 0.06);
+        --color-overlay-medium: rgba(196, 162, 122, 0.1);
+        --color-overlay-heavy: rgba(77, 63, 51, 0.4);
+        --color-overlay-pressed: rgba(179, 139, 109, 0.15);
+
+        /* Semantic Colors */
+        --color-semantic-success: #8fa67a;
+        --color-semantic-success-soft: #f0f4ec;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           TYPOGRAPHY
+           ───────────────────────────────────────────────────────────────────── */
+
+        --font-family: "SF Pro Display", "SF Pro Text", system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+          sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+        /* Font Weights */
+        --font-weight-light: 300;
+        --font-weight-regular: 400;
+        --font-weight-medium: 500;
+        --font-weight-semibold: 600;
+
+        /* Font Sizes */
+        --font-size-2xs: 10px;
+        --font-size-xs: 11px;
+        --font-size-sm: 13px;
+        --font-size-base: 15px;
+        --font-size-md: 16px;
+        --font-size-lg: 18px;
+        --font-size-xl: 21px;
+
+        /* Line Heights */
+        --line-height-tight: 1.2;
+        --line-height-snug: 1.35;
+        --line-height-normal: 1.5;
+
+        /* Letter Spacing */
+        --letter-spacing-tight: -0.02em;
+        --letter-spacing-normal: 0;
+        --letter-spacing-wide: 0.02em;
+        --letter-spacing-wider: 0.05em;
+        --letter-spacing-widest: 0.1em;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           SPACING
+           ───────────────────────────────────────────────────────────────────── */
+
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 20px;
+        --space-6: 24px;
+        --space-8: 32px;
+        --space-10: 40px;
+        --space-12: 48px;
+
+        /* Semantic Aliases */
+        --space-micro: var(--space-1);
+        --space-tiny: var(--space-2);
+        --space-small: var(--space-3);
+        --space-base: var(--space-4);
+        --space-medium: var(--space-5);
+        --space-large: var(--space-6);
+        --space-xlarge: var(--space-8);
+        --space-xxlarge: var(--space-12);
+
+        --space-gutter: var(--space-6);
+
+        /* ─────────────────────────────────────────────────────────────────────
+           SIZING
+           ───────────────────────────────────────────────────────────────────── */
+
+        --height-header: 60px;
+        --height-button: 52px;
+        --height-button-compact: 44px;
+        --height-icon-button: 48px;
+
+        --icon-size-default: 20px;
+        --icon-size-medium: 24px;
+
+        --max-width: 480px;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           BORDER RADIUS
+           ───────────────────────────────────────────────────────────────────── */
+
+        --radius-xs: 4px;
+        --radius-sm: 8px;
+        --radius-base: 12px;
+        --radius-md: 16px;
+        --radius-full: 9999px;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           BORDERS
+           ───────────────────────────────────────────────────────────────────── */
+
+        --border-thin: 1px;
+        --border-subtle: 1.5px;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           SHADOWS
+           ───────────────────────────────────────────────────────────────────── */
+
+        --shadow-focus: 0 0 0 2px var(--color-canvas),
+          0 0 0 5px var(--color-interactive-focus);
+
+        /* ─────────────────────────────────────────────────────────────────────
+           TRANSITIONS
+           ───────────────────────────────────────────────────────────────────── */
+
+        --duration-fast: 100ms;
+        --duration-normal: 200ms;
+        --duration-slow: 300ms;
+
+        --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+        --transition-colors: color var(--duration-fast) var(--ease-out),
+          background-color var(--duration-fast) var(--ease-out),
+          border-color var(--duration-fast) var(--ease-out);
+        --transition-transform: transform var(--duration-normal) var(--ease-out);
+
+        /* ─────────────────────────────────────────────────────────────────────
+           Z-INDEX
+           ───────────────────────────────────────────────────────────────────── */
+
+        --z-header: 30;
+
+        /* ─────────────────────────────────────────────────────────────────────
+           SAFE AREAS
+           ───────────────────────────────────────────────────────────────────── */
+
+        --safe-top: env(safe-area-inset-top, 0px);
+        --safe-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         GLOBAL RESET & BASE
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      html,
+      body {
+        background: var(--color-canvas);
+        color: var(--color-text-primary);
+        font-family: var(--font-family);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+      }
+
+      body {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+
+      button:focus,
+      a:focus,
+      [tabindex]:focus {
+        outline: none;
+      }
+
+      :focus-visible {
+        box-shadow: var(--shadow-focus);
+      }
+
+      a:focus-visible,
+      [tabindex]:focus-visible {
+        border-radius: var(--radius-sm);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         LAYOUT
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .container {
+        max-width: var(--max-width);
+        margin-inline: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        background: var(--color-canvas);
+        display: flex;
+        flex-direction: column;
+      }
+
+      main {
+        flex: 1;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         HEADER
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: var(--z-header);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        height: calc(var(--height-header) + var(--safe-top));
+        padding: var(--safe-top) var(--space-gutter) 0;
+        background: var(--color-canvas);
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+      }
+
+      .header__left {
+        justify-self: start;
+        margin-left: -14px;
+      }
+
+      .header__center {
+        justify-self: center;
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+      }
+
+      .header__right {
+        justify-self: end;
+        margin-right: -14px;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         ICON BUTTON
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .icon-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: var(--height-icon-button);
+        height: var(--height-icon-button);
+        min-width: var(--height-icon-button);
+        min-height: var(--height-icon-button);
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: var(--radius-sm);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .icon-button:hover {
+        background: var(--color-overlay-light);
+      }
+
+      .icon-button:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      .icon-button i {
+        font-size: var(--icon-size-default);
+        line-height: 1;
+      }
+
+      /* Badge on icon button */
+      .icon-button--badge[data-badge]::after {
+        content: attr(data-badge);
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        display: grid;
+        place-items: center;
+        border-radius: var(--radius-full);
+        background: var(--color-accent-primary);
+        color: var(--color-text-inverse);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
+        line-height: 1;
+      }
+
+      .icon-button--badge[data-badge="0"]::after {
+        display: none;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         SECTION
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .section {
+        padding: var(--space-large) var(--space-gutter);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-medium);
+      }
+
+      .section + .section {
+        border-top: var(--border-thin) solid var(--color-border-light);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         INFO GROUP
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .info-group {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-micro);
+      }
+
+      .info-group__label {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: var(--letter-spacing-widest);
+        text-transform: uppercase;
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-1);
+      }
+
+      .info-group__value {
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+        color: var(--color-text-primary);
+      }
+
+      .info-group__hint {
+        font-size: var(--font-size-base);
+        color: var(--color-text-tertiary);
+        line-height: var(--line-height-normal);
+        margin: 0;
+      }
+
+      /* Address styling */
+      .info-group__address {
+        font-size: var(--font-size-base);
+        line-height: var(--line-height-normal);
+        color: var(--color-text-primary);
+      }
+
+      /* Link styles */
+      .info-group__link {
+        display: inline;
+        align-self: flex-start;
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+        color: var(--color-text-primary);
+        text-decoration: none;
+        transition: var(--transition-colors);
+      }
+
+      .info-group__link:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .info-group__link:active {
+        opacity: 0.8;
+      }
+
+      /* Address link (multi-line) */
+      .info-group__address-link {
+        display: inline-flex;
+        flex-direction: column;
+        align-self: flex-start;
+        font-size: var(--font-size-base);
+        line-height: var(--line-height-normal);
+        color: var(--color-text-primary);
+        text-decoration: none;
+        transition: var(--transition-colors);
+      }
+
+      .info-group__address-link:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .info-group__address-link:active {
+        opacity: 0.8;
+      }
+
+      /* QR Code */
+      .info-group__qr {
+        width: 160px;
+        height: 160px;
+        background: var(--color-white);
+        border: var(--border-thin) solid var(--color-border-medium);
+        border-radius: var(--radius-md);
+        padding: var(--space-small);
+        margin-top: var(--space-tiny);
+      }
+
+      .info-group__qr img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         ITEMS LIST
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .items-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-small);
+      }
+
+      .item-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: var(--space-base);
+      }
+
+      .item-row__label {
+        font-size: var(--font-size-base);
+        line-height: var(--line-height-normal);
+        color: var(--color-text-primary);
+      }
+
+      .item-row__label a {
+        color: inherit;
+        text-decoration: none;
+        transition: var(--transition-colors);
+      }
+
+      .item-row__label a:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .item-row__label a:active {
+        opacity: 0.8;
+      }
+
+      .item-row__value {
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-medium);
+        line-height: var(--line-height-normal);
+        color: var(--color-text-primary);
+        font-variant-numeric: tabular-nums;
+        flex-shrink: 0;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         SUMMARY ROWS
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .summary-rows {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-small);
+      }
+
+      .summary-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-base);
+      }
+
+      .summary-row__label {
+        font-size: var(--font-size-base);
+        color: var(--color-text-secondary);
+      }
+
+      .summary-row__value {
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .summary-row--total .summary-row__label {
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         BUTTON
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-tiny);
+        width: 100%;
+        height: var(--height-button);
+        padding: 0 var(--space-large);
+        font-family: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        text-decoration: none;
+        border: var(--border-subtle) solid transparent;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: var(--transition-colors), var(--transition-transform);
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+
+      .button:active {
+        transform: scale(0.98);
+      }
+
+      /* Secondary Button — Default */
+      .button--secondary {
+        background: var(--color-accent-nude);
+        color: var(--color-text-primary);
+        border-color: var(--color-accent-nude);
+      }
+
+      .button--secondary:hover {
+        background: var(--color-accent-blush);
+        border-color: var(--color-accent-blush);
+      }
+
+      .button--secondary:active {
+        background: var(--color-accent-clay);
+        border-color: var(--color-accent-clay);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         TRACKING WIDGET
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .tracking-widget {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-base);
+        padding: var(--space-large) var(--space-gutter);
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+      }
+
+      .tracking-widget__status {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wide);
+        line-height: var(--line-height-snug);
+        color: var(--color-text-primary);
+      }
+
+      /* Callout Box */
+      .tracking-callout {
+        display: flex;
+        gap: var(--space-small);
+        align-items: flex-start;
+        padding: var(--space-base);
+        background: var(--color-background);
+        border-radius: var(--radius-base);
+      }
+
+      .tracking-callout__icon {
+        flex-shrink: 0;
+        width: var(--icon-size-medium);
+        height: var(--icon-size-medium);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .tracking-callout__icon i {
+        font-size: var(--icon-size-default);
+        color: var(--color-text-secondary);
+      }
+
+      .tracking-callout__text {
+        font-size: var(--font-size-sm);
+        line-height: var(--line-height-normal);
+        color: var(--color-text-secondary);
+      }
+
+      /* Progress Bar */
+      .tracking-progress {
+        display: flex;
+        flex-direction: column;
+        margin-top: var(--space-tiny);
+        margin-bottom: var(--space-tiny);
+      }
+
+      .tracking-progress__labels {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        width: 100%;
+        margin-bottom: var(--space-base);
+      }
+
+      .tracking-progress__label {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        line-height: var(--line-height-snug);
+        color: var(--color-text-whisper);
+        text-align: center;
+        transition: var(--transition-colors);
+      }
+
+      .tracking-progress__label--active {
+        color: var(--color-text-primary);
+        font-weight: var(--font-weight-medium);
+      }
+
+      .tracking-progress__bar {
+        position: relative;
+        height: 4px;
+        background: var(--color-border-medium);
+        border-radius: var(--radius-full);
+        overflow: visible;
+      }
+
+      .tracking-progress__fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: var(--color-accent-primary);
+        border-radius: var(--radius-full);
+        transition: width var(--duration-slow) var(--ease-out);
+      }
+
+      .tracking-progress__icon {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: var(--icon-size-medium);
+        height: var(--icon-size-medium);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: left var(--duration-slow) var(--ease-out);
+        background: var(--color-canvas);
+      }
+
+      .tracking-progress__icon i {
+        font-size: var(--icon-size-medium);
+        color: var(--color-text-primary);
+      }
+
+      /* Tracking Info */
+      .tracking-info {
+        font-size: var(--font-size-sm);
+        letter-spacing: var(--letter-spacing-wide);
+        line-height: var(--line-height-snug);
+        color: var(--color-text-secondary);
+        text-align: center;
+      }
+
+      .tracking-info__number {
+        font-variant-numeric: tabular-nums;
+        color: inherit;
+        text-decoration: none;
+        transition: var(--transition-colors);
+      }
+
+      .tracking-info__number:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .tracking-info__number:active {
+        opacity: 0.8;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         SUPPORT SECTION
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .support-section {
+        background: var(--color-surface);
+        padding: var(--space-xlarge) var(--space-gutter);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--space-micro);
+        border-top: var(--border-thin) solid var(--color-border-light);
+      }
+
+      .support-section__title {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wide);
+        line-height: var(--line-height-snug);
+        color: var(--color-text-primary);
+      }
+
+      .support-section__text {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        line-height: var(--line-height-normal);
+      }
+
+      .support-section__phone {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wide);
+        line-height: var(--line-height-snug);
+        color: var(--color-accent-primary);
+        text-decoration: none;
+        margin-top: var(--space-small);
+        transition: var(--transition-colors);
+      }
+
+      .support-section__phone:hover {
+        color: var(--color-interactive-hover);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .support-section__phone:active {
+        color: var(--color-interactive-pressed);
+      }
+
+      .support-section__hours {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        line-height: var(--line-height-normal);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         FOOTER
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .footer {
+        background: var(--color-surface);
+      }
+
+      .footer__links {
+        border-top: var(--border-thin) solid var(--color-border-medium);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-base);
+        padding: var(--space-large) var(--space-gutter);
+      }
+
+      .footer__links a {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: var(--transition-colors);
+      }
+
+      .footer__links a:hover {
+        color: var(--color-text-secondary);
+      }
+
+      .footer__links a:active {
+        color: var(--color-text-primary);
+      }
+
+      .footer__copyright {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        text-align: center;
+        padding: 0 var(--space-gutter) var(--space-large);
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         UTILITIES
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      .tabular-nums {
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* ═══════════════════════════════════════════════════════════════════════
+         REDUCED MOTION
+         ═══════════════════════════════════════════════════════════════════════ */
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header__left">
+          <button
+            class="icon-button"
+            aria-label="Go back"
+            type="button"
+            id="state-toggle"
+          >
+            <i class="ph ph-regular ph-caret-left" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="header__center">STŌR</div>
+        <div class="header__right">
+          <button
+            class="icon-button icon-button--badge"
+            aria-label="Shopping cart"
+            data-badge="0"
+            type="button"
+          >
+            <i class="ph ph-regular ph-basket" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Tracking Widget (Shipping only) -->
+      <div class="tracking-widget" id="tracking-widget" hidden>
+        <p class="tracking-widget__status" id="status-title">
+          Ordered November 24
+        </p>
+
+        <div class="tracking-callout" id="callout">
+          <div class="tracking-callout__icon">
+            <i class="ph ph-package" aria-hidden="true"></i>
+          </div>
+          <p class="tracking-callout__text">
+            The seller is preparing your order. You'll get tracking when it
+            ships.
+          </p>
+        </div>
+
+        <div class="tracking-progress">
+          <div class="tracking-progress__labels">
+            <p class="tracking-progress__label" id="label-ordered">Ordered</p>
+            <p class="tracking-progress__label" id="label-shipped">Shipped</p>
+            <p class="tracking-progress__label" id="label-arriving">Arriving</p>
+            <p class="tracking-progress__label" id="label-delivered">
+              Delivered
+            </p>
+          </div>
+          <div class="tracking-progress__bar">
+            <div class="tracking-progress__fill" id="progress-fill"></div>
+            <div class="tracking-progress__icon" id="progress-icon">
+              <i class="ph-fill ph-truck" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="button button--secondary"
+          type="button"
+          id="track-button"
+          style="display: none"
+        >
+          Track Shipment
+        </button>
+
+        <p class="tracking-info" id="tracking-info" style="display: none">
+          USPS • Tracking #
+          <a
+            href="https://tools.usps.com/go/TrackConfirmAction?tLabels=9405511206213876543210"
+            class="tracking-info__number"
+            target="_blank"
+            rel="noopener"
+            >9405511206213876543210</a
+          >
+        </p>
+      </div>
+
+      <main>
+        <!-- Order Section -->
+        <section class="section">
+          <div class="info-group">
+            <p class="info-group__label">Order Number</p>
+            <p class="info-group__value tabular-nums">#A7K2-M9P3-X4R1</p>
+          </div>
+
+          <div class="info-group">
+            <p class="info-group__label">Order Date</p>
+            <p class="info-group__value">November 24, 2025</p>
+          </div>
+
+          <!-- Items -->
+          <div class="info-group">
+            <p class="info-group__label">Items</p>
+            <div class="items-list">
+              <div class="item-row">
+                <span class="item-row__label">
+                  <a href="/items/vintage-denim-jacket-12345"
+                    >Vintage Denim Jacket</a
+                  >
+                </span>
+                <span class="item-row__value">$45.00</span>
+              </div>
+              <div class="item-row">
+                <span class="item-row__label">
+                  <a href="/items/leather-ankle-boots-67890"
+                    >Leather Ankle Boots</a
+                  >
+                </span>
+                <span class="item-row__value">$62.00</span>
+              </div>
+              <div class="item-row">
+                <span class="item-row__label">
+                  <a href="/items/silver-chain-necklace-11223"
+                    >Minimalist Silver Chain Necklace</a
+                  >
+                </span>
+                <span class="item-row__value">$28.00</span>
+              </div>
+              <div class="item-row">
+                <span class="item-row__label">
+                  <a href="/items/cashmere-scarf-44556"
+                    >Soft Gray Cashmere Scarf</a
+                  >
+                </span>
+                <span class="item-row__value">$85.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary -->
+          <div class="info-group">
+            <p class="info-group__label">Summary</p>
+            <div class="summary-rows" id="summary-rows">
+              <div class="summary-row">
+                <span class="summary-row__label">Subtotal</span>
+                <span class="summary-row__value">$220.00</span>
+              </div>
+              <div class="summary-row">
+                <span class="summary-row__label">Platform Fee</span>
+                <span class="summary-row__value">$1.00</span>
+              </div>
+              <div class="summary-row" id="shipping-row" hidden>
+                <span class="summary-row__label">Shipping</span>
+                <span class="summary-row__value">$12.77</span>
+              </div>
+              <div class="summary-row summary-row--total">
+                <span class="summary-row__label">Total</span>
+                <span class="summary-row__value" id="total-value">$221.00</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Delivery Section -->
+        <section class="section" id="delivery-section">
+          <!-- Content injected by JavaScript -->
+        </section>
+
+        <!-- Payment Section -->
+        <section class="section">
+          <div class="info-group">
+            <p class="info-group__label">Payment Method</p>
+            <p class="info-group__value">Visa ending in 1234</p>
+          </div>
+
+          <div class="info-group">
+            <p class="info-group__label">Billing Address</p>
+            <p class="info-group__address">John Doe</p>
+            <p class="info-group__address">1234 SE Main St</p>
+            <p class="info-group__address">Portland, OR 97222</p>
+          </div>
+        </section>
+
+        <!-- Seller Section -->
+        <section class="section">
+          <div class="info-group">
+            <p class="info-group__label">Seller</p>
+            <a href="/stores/good-finds-nyc" class="info-group__link"
+              >Good Finds NYC</a
+            >
+            <a href="tel:+15551234567" class="info-group__link"
+              >+1 (555) 123-4567</a
+            >
+            <p class="info-group__hint" id="pickup-hint">
+              Call the seller to schedule your pickup
+            </p>
+          </div>
+
+          <button class="button button--secondary" type="button">
+            Call Seller
+          </button>
+        </section>
+      </main>
+
+      <!-- Support Section -->
+      <aside class="support-section">
+        <h3 class="support-section__title">Need Help?</h3>
+        <p class="support-section__text">Contact STŌR support</p>
+        <a href="tel:18005551234" class="support-section__phone"
+          >1-800-555-1234</a
+        >
+        <p class="support-section__hours">Mon–Fri, 9am–5pm PST</p>
+      </aside>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <nav class="footer__links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </nav>
+        <p class="footer__copyright">© 2025 STŌR</p>
+      </footer>
+    </div>
+
+    <script>
+      // ============================================
+      // STATE CONFIGURATION
+      // ============================================
+      const STATES = [
+        {
+          id: "pickup-private",
+          title: "STŌR",
+          type: "pickup",
+          deliveryLabel: "Pickup: Private Location",
+          locationName: "Good Finds NYC",
+          locationDetails: null,
+          address: {
+            line1: "9209 Densmore Ave N",
+            line2: "Seattle, WA 98103",
+            geoUrl: "geo:0,0?q=9209+Densmore+Ave+N,+Seattle,+WA+98103",
+          },
+          total: "$221.00",
+        },
+        {
+          id: "pickup-public",
+          title: "STŌR",
+          type: "pickup",
+          deliveryLabel: "Pickup: Public Location",
+          locationName: "Whole Foods Westlake",
+          locationDetails: null,
+          address: {
+            line1: "1026 NE 64th St",
+            line2: "Seattle, WA 98115",
+            geoUrl: "geo:0,0?q=1026+NE+64th+St,+Seattle,+WA+98115",
+          },
+          total: "$221.00",
+        },
+        {
+          id: "pickup-event",
+          title: "STŌR",
+          type: "pickup",
+          deliveryLabel: "Pickup: Event Location",
+          locationName: "Fremont Sunday Market",
+          locationDetails: ["December 22, 2025", "10am–4pm"],
+          address: {
+            line1: "3401 Evanston Ave N",
+            line2: "Seattle, WA 98103",
+            geoUrl: "geo:0,0?q=3401+Evanston+Ave+N,+Seattle,+WA+98103",
+          },
+          total: "$221.00",
+        },
+        {
+          id: "shipping-ordered",
+          title: "STŌR",
+          type: "shipping",
+          shippingState: "ordered",
+          total: "$233.77",
+        },
+        {
+          id: "shipping-shipped",
+          title: "STŌR",
+          type: "shipping",
+          shippingState: "shipped",
+          total: "$233.77",
+        },
+        {
+          id: "shipping-arriving",
+          title: "STŌR",
+          type: "shipping",
+          shippingState: "arriving",
+          total: "$233.77",
+        },
+        {
+          id: "shipping-delivered",
+          title: "STŌR",
+          type: "shipping",
+          shippingState: "delivered",
+          total: "$233.77",
+        },
+      ];
+
+      const SHIPPING_STATES = {
+        ordered: {
+          title: "Ordered November 24",
+          progress: 12.5,
+          activeLabel: "ordered",
+          showButton: false,
+          showTracking: false,
+          showCallout: true,
+        },
+        shipped: {
+          title: "Shipped November 27",
+          progress: 37.5,
+          activeLabel: "shipped",
+          showButton: true,
+          showTracking: true,
+          showCallout: false,
+        },
+        arriving: {
+          title: "Arriving December 9–12",
+          progress: 62.5,
+          activeLabel: "arriving",
+          showButton: true,
+          showTracking: true,
+          showCallout: false,
+        },
+        delivered: {
+          title: "Delivered December 11",
+          progress: 87.5,
+          progressFill: 100,
+          activeLabel: "delivered",
+          showButton: false,
+          showTracking: true,
+          showCallout: false,
+        },
+      };
+
+      let currentStateIndex = 0;
+
+      // ============================================
+      // DOM ELEMENTS
+      // ============================================
+      const stateToggle = document.getElementById("state-toggle");
+      const trackingWidget = document.getElementById("tracking-widget");
+      const deliverySection = document.getElementById("delivery-section");
+      const shippingRow = document.getElementById("shipping-row");
+      const totalValue = document.getElementById("total-value");
+      const pickupHint = document.getElementById("pickup-hint");
+
+      // Tracking widget elements
+      const statusTitle = document.getElementById("status-title");
+      const callout = document.getElementById("callout");
+      const progressFill = document.getElementById("progress-fill");
+      const progressIcon = document.getElementById("progress-icon");
+      const trackButton = document.getElementById("track-button");
+      const trackingInfo = document.getElementById("tracking-info");
+
+      // ============================================
+      // RENDER FUNCTIONS
+      // ============================================
+      function getQRCodeHTML() {
+        return '<img src="https://raw.githubusercontent.com/david-littlefield/david-littlefield.github.io/refs/heads/main/0d8dc6f4-4038-4c80-8ace-ea1154cbad4d.png" alt="QR Code for order pickup">';
+      }
+
+      function renderPickupDelivery(state) {
+        let locationDetailsHTML = "";
+        if (state.locationDetails) {
+          locationDetailsHTML = state.locationDetails
+            .map((detail) => `<p class="info-group__address">${detail}</p>`)
+            .join("");
+        }
+
+        return `
+          <div class="info-group">
+            <p class="info-group__label">Delivery Method</p>
+            <p class="info-group__value">${state.deliveryLabel}</p>
+          </div>
+
+          <div class="info-group">
+            <p class="info-group__label">Location</p>
+          ${
+            state.id === "pickup-private"
+              ? `<a href="/stores/${state.locationName
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")}" class="info-group__link">${
+                  state.locationName
+                }</a>`
+              : `<p class="info-group__value">${state.locationName}</p>`
+          }
+            ${locationDetailsHTML}
+            <a
+              href="${state.address.geoUrl}"
+              class="info-group__address-link"
+            >
+              <span>${state.address.line1}</span>
+              <span>${state.address.line2}</span>
+            </a>
+          </div>
+
+          <div class="info-group">
+            <p class="info-group__label">QR Code</p>
+            <p class="info-group__value">Show this to the seller</p>
+            <div class="info-group__qr">
+              ${getQRCodeHTML()}
+            </div>
+          </div>
+        `;
+      }
+
+      function renderShippingDelivery() {
+        return `
+          <div class="info-group">
+            <p class="info-group__label">Delivery Method</p>
+            <p class="info-group__value">Shipping: Standard (8–11 business days)</p>
+          </div>
+
+          <div class="info-group">
+            <p class="info-group__label">Shipping Address</p>
+            <p class="info-group__address">John Doe</p>
+            <p class="info-group__address">1234 SE Main St</p>
+            <p class="info-group__address">Portland, OR 97222</p>
+          </div>
+        `;
+      }
+
+      function updateShippingWidget(shippingStateName) {
+        const shippingState = SHIPPING_STATES[shippingStateName];
+        if (!shippingState) return;
+
+        // Update title
+        statusTitle.textContent = shippingState.title;
+
+        // Update progress bar
+        const fillWidth =
+          shippingState.progressFill !== undefined
+            ? shippingState.progressFill
+            : shippingState.progress;
+        progressFill.style.width = `${fillWidth}%`;
+        progressIcon.style.left = `${shippingState.progress}%`;
+
+        // Update active label
+        ["ordered", "shipped", "arriving", "delivered"].forEach((label) => {
+          const element = document.getElementById(`label-${label}`);
+          if (label === shippingState.activeLabel) {
+            element.classList.add("tracking-progress__label--active");
+          } else {
+            element.classList.remove("tracking-progress__label--active");
+          }
+        });
+
+        // Show/hide button and tracking
+        trackButton.style.display = shippingState.showButton ? "flex" : "none";
+        trackingInfo.style.display = shippingState.showTracking
+          ? "block"
+          : "none";
+
+        // Show/hide callout
+        callout.style.display = shippingState.showCallout ? "flex" : "none";
+      }
+
+      function updateState() {
+        const state = STATES[currentStateIndex];
+
+        // Update document title
+        document.title = state.title;
+
+        // Update total
+        totalValue.textContent = state.total;
+
+        if (state.type === "pickup") {
+          // Hide tracking widget, show pickup content
+          trackingWidget.hidden = true;
+          shippingRow.hidden = true;
+          pickupHint.hidden = false;
+          deliverySection.innerHTML = renderPickupDelivery(state);
+        } else {
+          // Show tracking widget, show shipping content
+          trackingWidget.hidden = false;
+          shippingRow.hidden = false;
+          pickupHint.hidden = true;
+          deliverySection.innerHTML = renderShippingDelivery();
+          updateShippingWidget(state.shippingState);
+        }
+      }
+
+      function nextState() {
+        currentStateIndex = (currentStateIndex + 1) % STATES.length;
+        updateState();
+      }
+
+      // ============================================
+      // EVENT LISTENERS
+      // ============================================
+      stateToggle.addEventListener("click", nextState);
+
+      // ============================================
+      // INITIALIZE
+      // ============================================
+      updateState();
+    </script>
+  </body>
+</html>

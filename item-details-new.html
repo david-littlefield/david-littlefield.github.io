@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>STŌR — Soft Gray Cashmere Scarf</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      /* ===== Theme Variables ===== */
+      :root {
+        /* Colors - Core Palette */
+        --color-canvas: #fffcf9;
+        --color-surface: #fff9f4;
+        --color-surface-raised: #fff7f1;
+        --color-background: #f5f0eb;
+        --color-background-subtle: #f9f5f1;
+        --color-white: #ffffff;
+
+        /* Colors - Text Hierarchy */
+        --color-text-primary: #4d3f33;
+        --color-text-secondary: #937b65;
+        --color-text-tertiary: #a89d94;
+        --color-text-whisper: #c4b5a8;
+        --color-text-ghost: #d9cfc6;
+        --color-text-inverse: #fffcf9;
+
+        /* Colors - Accent */
+        --color-accent-primary: #b38b6d;
+        --color-accent-secondary: #c4a27a;
+        --color-accent-nude: #e6d4c6;
+        --color-accent-blush: #e8d5cc;
+        --color-accent-clay: #d4b8a0;
+        --color-accent-sand: #f0e6dd;
+
+        /* Colors - Interactive States */
+        --color-interactive-hover: #a67d5f;
+        --color-interactive-pressed: #967052;
+
+        /* Colors - Borders */
+        --color-border-invisible: rgba(196, 162, 122, 0.04);
+        --color-border-light: rgba(196, 162, 122, 0.08);
+        --color-border-medium: rgba(196, 162, 122, 0.15);
+        --color-border-strong: rgba(196, 162, 122, 0.25);
+        --color-border-focused: rgba(179, 139, 109, 0.4);
+
+        /* Colors - Overlays */
+        --color-overlay-subtle: rgba(196, 162, 122, 0.03);
+        --color-overlay-light: rgba(196, 162, 122, 0.06);
+        --color-overlay-medium: rgba(196, 162, 122, 0.1);
+        --color-overlay-heavy: rgba(77, 63, 51, 0.4);
+        --color-overlay-pressed: rgba(179, 139, 109, 0.15);
+
+        /* Colors - Semantic */
+        --color-semantic-error: #c67b5c;
+        --color-semantic-success: #8fa67a;
+
+        /* Spacing Scale (8px base) */
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 20px;
+        --space-6: 24px;
+        --space-8: 32px;
+        --space-12: 48px;
+
+        /* Spacing - Semantic Aliases */
+        --space-micro: var(--space-1);
+        --space-tiny: var(--space-2);
+        --space-small: var(--space-3);
+        --space-base: var(--space-4);
+        --space-medium: var(--space-5);
+        --space-large: var(--space-6);
+        --space-gutter: var(--space-6);
+        --space-xlarge: var(--space-8);
+        --space-xxlarge: var(--space-12);
+
+        /* Heights */
+        --height-header: 60px;
+        --height-input: 52px;
+        --height-button: 52px;
+        --height-pill: 40px;
+        --height-icon-button: 48px;
+        --height-select-modal__header: 60px;
+        --height-select-modal__footer: 60px;
+        --height-list-item-compact: 48px;
+        --height-dot-medium: 6px;
+
+        /* Icon Sizes */
+        --icon-size-small: 16px;
+        --icon-size-default: 20px;
+        --icon-size-medium: 24px;
+        --icon-size-large: 32px;
+        --icon-size-extra-large: 48px;
+
+        /* Border Radius */
+        --radius-xs: 4px;
+        --radius-sm: 8px;
+        --radius-base: 12px;
+        --radius-md: 16px;
+        --radius-lg: 20px;
+        --radius-xl: 24px;
+        --radius-full: 9999px;
+
+        /* Border Radius - Legacy Aliases */
+        --radius-micro: var(--radius-xs);
+        --radius-small: var(--radius-sm);
+        --radius-large: var(--radius-md);
+        --radius-xlarge: var(--radius-lg);
+        --radius-xxlarge: var(--radius-xl);
+        --radius-round: var(--radius-full);
+
+        /* Border Width */
+        --border-thin: 1px;
+        --border-subtle: 1.5px;
+
+        /* Typography - Font Family */
+        --font-family: "SF Pro Display", "SF Pro Text", system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+          sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+        /* Typography - Font Sizes */
+        --font-size-2xs: 10px;
+        --font-size-xs: 11px;
+        --font-size-sm: 13px;
+        --font-size-base: 15px;
+        --font-size-md: 16px;
+        --font-size-lg: 18px;
+        --font-size-xl: 21px;
+        --font-size-2xl: 24px;
+
+        /* Typography - Legacy Aliases */
+        --font-size-screen-header: var(--font-size-md);
+        --font-size-select-modal__header: var(--font-size-md);
+        --font-size-list-title: var(--font-size-md);
+        --font-size-list-subtitle: var(--font-size-sm);
+        --font-size-input: var(--font-size-md);
+        --font-size-button: 14px;
+        --font-size-micro: var(--font-size-xs);
+
+        /* Typography - Font Weights */
+        --font-weight-light: 300;
+        --font-weight-regular: 400;
+        --font-weight-medium: 500;
+        --font-weight-semibold: 600;
+
+        /* Typography - Line Heights */
+        --line-height-none: 1;
+        --line-height-tight: 1.2;
+        --line-height-snug: 1.35;
+        --line-height-normal: 1.5;
+        --line-height-relaxed: 1.6;
+
+        /* Typography - Letter Spacing */
+        --letter-spacing-tight: -0.02em;
+        --letter-spacing-normal: 0;
+        --letter-spacing-wide: 0.02em;
+        --letter-spacing-wider: 0.05em;
+        --letter-spacing-widest: 0.1em;
+
+        /* Shadows (warm-tinted) */
+        --shadow-sm: 0 1px 3px rgba(77, 63, 51, 0.06),
+          0 1px 2px rgba(77, 63, 51, 0.04);
+        --shadow-md: 0 10px 15px -3px rgba(77, 63, 51, 0.06),
+          0 4px 6px -2px rgba(77, 63, 51, 0.03);
+        --shadow-lg: 0 -8px 40px rgba(77, 63, 51, 0.3);
+        --shadow-focus: 0 0 0 2px var(--color-canvas),
+          0 0 0 5px rgba(179, 139, 109, 0.4);
+        --shadow-focus-error: 0 0 0 2px var(--color-canvas),
+          0 0 0 5px var(--color-semantic-error);
+
+        /* Transitions */
+        --duration-fast: 100ms;
+        --duration-normal: 200ms;
+        --duration-slow: 300ms;
+        --ease-out: cubic-bezier(0, 0, 0.2, 1);
+        --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-colors: color var(--duration-fast) var(--ease-out),
+          background-color var(--duration-fast) var(--ease-out),
+          border-color var(--duration-fast) var(--ease-out);
+
+        /* Z-Index Scale */
+        --z-below: -1;
+        --z-base: 0;
+        --z-raised: 1;
+        --z-dropdown: 10;
+        --z-sticky: 20;
+        --z-header: 30;
+        --z-overlay: 40;
+        --z-modal: 50;
+        --z-toast: 60;
+        --z-tooltip: 70;
+        --z-max: 100;
+
+        /* Safe Area */
+        --safe-top: env(safe-area-inset-top, 0px);
+        --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+        /* Layout */
+        --max-width: 480px;
+      }
+
+      /* ===== Reset ===== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      html,
+      body {
+        background: var(--color-canvas);
+        color: var(--color-text-primary);
+        font-family: var(--font-family);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+      }
+
+      body {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+
+      /* ===== Container ===== */
+      .container {
+        max-width: var(--max-width);
+        margin-inline: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        background: var(--color-canvas);
+        display: flex;
+        flex-direction: column;
+      }
+
+      button:focus,
+      a:focus,
+      [tabindex]:focus {
+        outline: none;
+      }
+
+      :focus-visible {
+        box-shadow: var(--shadow-focus);
+      }
+
+      a:focus-visible,
+      [tabindex]:focus-visible {
+        border-radius: var(--radius-sm);
+      }
+
+      /* ===== Header ===== */
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: var(--z-header);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        height: calc(var(--height-header) + var(--safe-top));
+        padding: var(--safe-top) var(--space-gutter) 0;
+        background: var(--color-canvas);
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+      }
+
+      .header__left {
+        justify-self: start;
+        margin-left: -14px;
+      }
+
+      .header__center {
+        justify-self: center;
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+      }
+
+      .header__right {
+        justify-self: end;
+        margin-right: -14px;
+      }
+
+      /* ===== Icon Button ===== */
+      .icon-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: var(--height-icon-button);
+        height: var(--height-icon-button);
+        min-width: var(--height-icon-button);
+        min-height: var(--height-icon-button);
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: var(--radius-sm);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .icon-button:hover {
+        background: var(--color-overlay-light);
+      }
+
+      .icon-button:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      .icon-button i {
+        font-size: var(--icon-size-default);
+        line-height: 1;
+      }
+
+      .icon-button--badge[data-badge]::after {
+        content: attr(data-badge);
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        display: grid;
+        place-items: center;
+        border-radius: var(--radius-full);
+        background: var(--color-accent-primary);
+        color: var(--color-text-inverse);
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
+        line-height: 1;
+      }
+
+      .icon-button--badge[data-badge="0"]::after {
+        display: none;
+      }
+
+      /* ===== Content ===== */
+      .content {
+        flex: 1;
+        padding-bottom: calc(
+          var(--height-button) + var(--space-large) * 2 + var(--safe-bottom)
+        );
+      }
+
+      /* ===== Gallery ===== */
+      .gallery {
+        position: relative;
+        aspect-ratio: 1;
+        background: var(--color-background);
+        overflow: hidden;
+        touch-action: pan-y pinch-zoom;
+        cursor: grab;
+        user-select: none;
+      }
+
+      .gallery:active {
+        cursor: grabbing;
+      }
+
+      .gallery__track {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        transition: transform var(--duration-slow) var(--ease-in-out);
+      }
+
+      .gallery__image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        flex-shrink: 0;
+        pointer-events: none;
+        -webkit-user-drag: none;
+      }
+
+      .gallery__dots {
+        position: absolute;
+        bottom: var(--space-base);
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: var(--space-tiny);
+      }
+
+      .gallery__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: var(--radius-round);
+        background: var(--color-white);
+        opacity: 0.5;
+        transition: opacity 150ms var(--ease-in-out);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      .gallery__dot--active {
+        opacity: 1;
+      }
+
+      /* ===== Item Section ===== */
+      .item {
+        padding: var(--space-large);
+      }
+
+      .item__title {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-normal);
+      }
+
+      .item__meta {
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-small);
+        margin-top: var(--space-tiny);
+      }
+
+      .item__price {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .item__condition {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+      }
+
+      .item__description {
+        font-size: var(--font-size-md);
+        line-height: var(--line-height-relaxed);
+        letter-spacing: 0.1px;
+        color: var(--color-text-primary);
+        margin: var(--space-base) 0 0;
+      }
+
+      /* ===== Section ===== */
+      .section {
+        padding: var(--space-large);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-base);
+        border-top: var(--border-thin) solid var(--color-border-medium);
+      }
+
+      .section__title {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: var(--letter-spacing-widest);
+        text-transform: uppercase;
+        line-height: var(--line-height-normal);
+        color: var(--color-text-secondary);
+        margin: 0;
+      }
+
+      /* ===== Delivery ===== */
+      .delivery {
+        display: flex;
+        gap: var(--space-medium);
+      }
+
+      .delivery__option {
+        display: flex;
+        align-items: center;
+        gap: var(--space-tiny);
+        font-size: var(--font-size-md);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-primary);
+      }
+
+      .delivery__option i {
+        font-size: var(--icon-size-default);
+        color: var(--color-text-tertiary);
+      }
+
+      /* ===== Protection ===== */
+      .protection {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-small);
+      }
+
+      .protection__text {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-primary);
+        margin: 0;
+      }
+
+      .protection__link {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        font-weight: var(--font-weight-medium);
+        transition: color var(--duration-fast) ease;
+      }
+
+      .protection__link:hover,
+      .protection__link:active {
+        color: var(--color-text-secondary);
+      }
+
+      /* ===== Seller Section ===== */
+      .seller-section {
+        padding: var(--space-large);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-base);
+        border-top: var(--border-thin) solid var(--color-border-medium);
+      }
+
+      /* ===== Seller ===== */
+      .seller {
+        display: flex;
+        align-items: center;
+        gap: var(--space-small);
+      }
+
+      .seller__avatar-link {
+        flex-shrink: 0;
+        border-radius: var(--radius-round);
+        transition: opacity var(--duration-fast) ease;
+      }
+
+      .seller__avatar-link:hover {
+        opacity: 0.8;
+      }
+
+      .seller__avatar-link:active {
+        opacity: 0.6;
+      }
+
+      .seller__avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: var(--radius-round);
+        border: var(--border-thin) solid var(--color-border-medium);
+        object-fit: cover;
+        display: block;
+      }
+
+      .seller__info {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-micro);
+      }
+
+      .seller__name {
+        display: inline;
+        align-self: flex-start;
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-normal);
+        color: var(--color-text-primary);
+        text-decoration: none;
+        transition: color var(--duration-fast) ease;
+      }
+
+      .seller__name:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .seller__name:active {
+        opacity: 0.8;
+      }
+
+      .seller__location {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.2px;
+        line-height: var(--line-height-normal);
+        color: var(--color-text-tertiary);
+      }
+
+      /* ===== Button ===== */
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-tiny);
+        width: 100%;
+        height: var(--height-button);
+        padding: 0 var(--space-large);
+        font-family: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        text-decoration: none;
+        border: var(--border-subtle) solid transparent;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+
+      .button:active {
+        transform: scale(0.98);
+      }
+
+      /* Secondary Button */
+      .button--secondary {
+        background: var(--color-accent-nude);
+        color: var(--color-text-primary);
+        border-color: var(--color-accent-nude);
+      }
+
+      .button--secondary:hover {
+        background: var(--color-accent-blush);
+        border-color: var(--color-accent-blush);
+      }
+
+      .button--secondary:active {
+        background: var(--color-accent-clay);
+        border-color: var(--color-accent-clay);
+      }
+
+      .button--small {
+        width: auto;
+        height: var(--height-pill);
+        padding: 0 var(--space-base);
+        flex-shrink: 0;
+        align-self: flex-start;
+      }
+
+      /* ===== Footer (Sticky CTA) ===== */
+      .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: var(--space-large);
+        padding-bottom: calc(var(--space-large) + var(--safe-bottom));
+        background: var(--color-canvas);
+        border-top: var(--border-thin) solid var(--color-border-medium);
+      }
+
+      .footer__btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-tiny);
+        width: 100%;
+        height: var(--height-button);
+        padding: 0 var(--space-large);
+        background: var(--color-accent-primary);
+        border: var(--border-subtle) solid var(--color-accent-primary);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        color: var(--color-text-inverse);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+
+      .footer__btn:hover {
+        background: var(--color-interactive-hover);
+        border-color: var(--color-interactive-hover);
+      }
+
+      .footer__btn:active {
+        background: var(--color-interactive-pressed);
+        border-color: var(--color-interactive-pressed);
+        transform: scale(0.98);
+      }
+
+      /* ===== Follow Modal ===== */
+      .select-modal {
+        position: fixed;
+        inset: 0;
+        background: var(--color-overlay-heavy);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.25s ease;
+        pointer-events: none;
+        z-index: var(--z-modal);
+      }
+
+      .select-modal.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .select-modal__sheet {
+        background: var(--color-canvas);
+        border: var(--border-thin) solid var(--color-border-light);
+        border-top-left-radius: var(--radius-xlarge);
+        border-top-right-radius: var(--radius-xlarge);
+        border-bottom: none;
+        width: 100%;
+        max-width: var(--max-width);
+        max-height: 85vh;
+        max-height: 85dvh;
+        transform: translateY(100%);
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        padding-bottom: var(--safe-bottom);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .select-modal.active .select-modal__sheet {
+        transform: translateY(0);
+      }
+
+      .select-modal__header {
+        display: grid;
+        grid-template-columns: 40px 1fr 40px;
+        align-items: center;
+        height: var(--height-select-modal__header);
+        padding: 0 var(--space-large);
+        border-bottom: var(--border-thin) solid var(--color-border-light);
+        background: var(--color-canvas);
+        flex-shrink: 0;
+      }
+
+      .select-modal__header-left {
+        justify-self: start;
+      }
+
+      .select-modal__header-center {
+        justify-self: center;
+        text-align: center;
+      }
+
+      .select-modal__header-right {
+        justify-self: end;
+      }
+
+      .select-modal__header-title {
+        font-size: var(--font-size-select-modal__header);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: 0.8px;
+        line-height: 22px;
+        text-transform: uppercase;
+        color: var(--color-text-primary);
+        margin: 0;
+      }
+
+      .select-modal__header-title--name {
+        text-transform: none;
+        letter-spacing: 0.1px;
+      }
+
+      .select-modal__body {
+        padding: var(--space-large);
+        background: var(--color-canvas);
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        flex-shrink: 1;
+      }
+
+      .select-modal__close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        color: var(--color-text-tertiary);
+        border-radius: var(--radius-small);
+      }
+
+      .select-modal__close i {
+        font-size: var(--icon-size-default);
+        line-height: 1;
+      }
+
+      .select-modal__close:hover {
+        background: var(--color-overlay-light);
+      }
+
+      .select-modal__close:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      /* ===== Follow Modal Content ===== */
+      .follow-email-section {
+        margin-bottom: var(--space-large);
+      }
+
+      .follow-email-input {
+        width: 100%;
+        height: var(--height-input);
+        padding: 0 var(--space-base);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-text-primary);
+        font-family: var(--font-family);
+        transition: border-color 150ms ease;
+        outline: none;
+      }
+
+      .follow-email-input::placeholder {
+        color: var(--color-text-whisper);
+      }
+
+      .follow-email-input:hover:not(:focus):not(:disabled) {
+        border-color: var(--color-border-strong);
+      }
+
+      .follow-email-input:focus {
+        outline: none;
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      .follow-email-input:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      /* Error state for input */
+      .follow-email-input.error {
+        border-color: var(--color-semantic-error);
+      }
+
+      .follow-email-input.error:focus {
+        border-color: var(--color-semantic-error);
+        box-shadow: var(--shadow-focus-error);
+      }
+
+      /* Error message — matches category error spacing */
+      .error-message {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.2px;
+        line-height: var(--line-height-none);
+        color: var(--color-semantic-error);
+        margin-top: 11px;
+        margin-bottom: -8px;
+        display: none;
+      }
+
+      .error-message.visible {
+        display: block;
+      }
+
+      .section-label {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: var(--letter-spacing-widest);
+        text-transform: uppercase;
+        line-height: var(--line-height-normal);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-small);
+      }
+
+      /* Category error message */
+      .category-error {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.2px;
+        line-height: var(--line-height-none);
+        color: var(--color-semantic-error);
+        margin-top: var(--space-tiny);
+        display: none;
+      }
+
+      .category-error.visible {
+        display: block;
+      }
+
+      .category-list {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Category row (parent) */
+      .category-row {
+        display: flex;
+        align-items: center;
+        gap: var(--space-small);
+        height: 48px;
+      }
+
+      .category-label {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-primary);
+        cursor: pointer;
+      }
+
+      .category-toggle {
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-text-tertiary);
+        transition: transform 150ms var(--ease-in-out);
+        flex-shrink: 0;
+        cursor: pointer;
+        margin-left: auto;
+        margin-right: -8px;
+        border-radius: var(--radius-sm);
+      }
+
+      .category-toggle:hover {
+        opacity: 0.7;
+      }
+
+      .category-toggle:active {
+        opacity: 0.5;
+      }
+
+      .category-toggle i {
+        font-size: var(--font-size-md);
+        line-height: 1;
+      }
+
+      .category-row.expanded .category-toggle {
+        transform: rotate(180deg);
+      }
+
+      /* Checkbox styling */
+      .follow-checkbox {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: var(--radius-xs);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        background: var(--color-white);
+        display: inline-grid;
+        place-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: border-color 150ms var(--ease-in-out),
+          background-color 150ms var(--ease-in-out);
+      }
+
+      .follow-checkbox::after {
+        content: "";
+        width: 12px;
+        height: 9px;
+        background-color: var(--color-text-primary);
+        opacity: 0;
+        -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 18'><path d='M4 9.5 L9.5 15 L20 4.5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+          no-repeat center / 100% 100%;
+        mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 18'><path d='M4 9.5 L9.5 15 L20 4.5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>")
+          no-repeat center / 100% 100%;
+        transition: opacity var(--duration-fast) ease;
+      }
+
+      .follow-checkbox:checked {
+        background: var(--color-accent-nude);
+        border-color: var(--color-accent-nude);
+      }
+
+      .follow-checkbox:checked::after {
+        opacity: 1;
+      }
+
+      .follow-checkbox:focus {
+        outline: none;
+      }
+
+      .follow-checkbox:focus-visible {
+        outline: none;
+        box-shadow: var(--shadow-focus);
+      }
+
+      /* Subcategory container */
+      .subcategory-list {
+        display: none;
+        padding-left: 32px;
+      }
+
+      .subcategory-list.visible {
+        display: block;
+        margin-bottom: var(--space-tiny);
+      }
+
+      .subcategory-row {
+        display: flex;
+        align-items: center;
+        gap: var(--space-small);
+        padding: var(--space-tiny) 0;
+      }
+
+      .subcategory-row:first-child {
+        padding-top: var(--space-tiny);
+      }
+
+      .subcategory-row:last-child {
+        padding-bottom: var(--space-tiny);
+      }
+
+      .subcategory-label {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-primary);
+        cursor: pointer;
+      }
+
+      /* Modal footer with button */
+      .select-modal__footer {
+        border-top: var(--border-thin) solid var(--color-border-light);
+        background: var(--color-canvas);
+        flex-shrink: 0;
+        padding: var(--space-large);
+      }
+
+      .select-modal__footer:empty {
+        display: none;
+      }
+
+      .select-modal__footer--spacer:empty {
+        display: block;
+        height: var(--height-select-modal__footer);
+        padding: 0;
+      }
+
+      .follow-submit-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-tiny);
+        width: 100%;
+        height: var(--height-button);
+        padding: 0 var(--space-large);
+        background: var(--color-accent-nude);
+        border: var(--border-subtle) solid var(--color-accent-nude);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        color: var(--color-text-primary);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+
+      .follow-submit-btn:hover {
+        background: var(--color-accent-blush);
+        border-color: var(--color-accent-blush);
+      }
+
+      .follow-submit-btn:active {
+        background: var(--color-accent-clay);
+        border-color: var(--color-accent-clay);
+        transform: scale(0.98);
+      }
+
+      .follow-submit-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      /* Success state */
+      .success-message {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: var(--space-xlarge) 0;
+        padding-bottom: var(--space-xxlarge);
+        gap: var(--space-base);
+        min-height: 200px;
+      }
+
+      .success-message i {
+        font-size: 52px;
+        color: var(--color-accent-primary);
+      }
+
+      .success-message__text {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.1px;
+        line-height: var(--line-height-relaxed);
+        color: var(--color-text-primary);
+      }
+
+      .success-message__text strong {
+        font-weight: var(--font-weight-medium);
+      }
+
+      /* ===== Body Lock ===== */
+      .body-lock {
+        overflow: hidden;
+        height: 100%;
+      }
+
+      /* ===== Visually Hidden (for accessibility) ===== */
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* ===== Reduced Motion ===== */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      [hidden] {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header__left">
+          <button class="icon-button" aria-label="Go back" type="button">
+            <i class="ph ph-regular ph-caret-left" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="header__center">STŌR</div>
+        <div class="header__right">
+          <button
+            class="icon-button icon-button--badge"
+            data-badge="3"
+            aria-label="Cart"
+            type="button"
+          >
+            <i class="ph ph-regular ph-basket" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+
+      <main class="content">
+        <div class="gallery" id="gallery">
+          <div class="gallery__track" id="gallery-track">
+            <img
+              class="gallery__image"
+              src="https://picsum.photos/seed/cashmere-scarf-gray-4/800/800"
+              alt="Soft Gray Cashmere Scarf - Main"
+            />
+            <img
+              class="gallery__image"
+              src="https://picsum.photos/seed/cashmere-scarf-detail-1/800/800"
+              alt="Soft Gray Cashmere Scarf - Weave Detail"
+            />
+            <img
+              class="gallery__image"
+              src="https://picsum.photos/seed/cashmere-scarf-fold-2/800/800"
+              alt="Soft Gray Cashmere Scarf - Folded"
+            />
+            <img
+              class="gallery__image"
+              src="https://picsum.photos/seed/cashmere-scarf-fringe-3/800/800"
+              alt="Soft Gray Cashmere Scarf - Fringe Detail"
+            />
+            <img
+              class="gallery__image"
+              src="https://picsum.photos/seed/cashmere-scarf-styled-5/800/800"
+              alt="Soft Gray Cashmere Scarf - Styled"
+            />
+          </div>
+          <div class="gallery__dots" id="gallery-dots">
+            <button
+              class="gallery__dot gallery__dot--active"
+              aria-label="Image 1"
+            ></button>
+            <button class="gallery__dot" aria-label="Image 2"></button>
+            <button class="gallery__dot" aria-label="Image 3"></button>
+            <button class="gallery__dot" aria-label="Image 4"></button>
+            <button class="gallery__dot" aria-label="Image 5"></button>
+          </div>
+        </div>
+
+        <section class="item">
+          <h1 class="item__title">Soft Gray Cashmere Scarf</h1>
+          <div class="item__meta">
+            <span class="item__price">$85.00</span>
+            <span class="item__condition">Like New</span>
+          </div>
+          <p class="item__description">
+            Luxuriously soft cashmere scarf in a versatile heather gray.
+            Lightweight yet warm, with a subtle twill weave and delicate fringe
+            detailing at both ends. Perfect for layering year-round.
+            <br />
+            <br />
+            Dimensions: 70" × 12"
+            <br />
+            Material: 100% Mongolian Cashmere
+            <br />
+            Weight: 2-ply
+            <br />
+            Care: Dry clean or hand wash cold
+          </p>
+        </section>
+
+        <section class="section">
+          <h2 class="section__title">Delivery</h2>
+          <div class="delivery">
+            <span class="delivery__option">
+              <i class="ph ph-regular ph-package" aria-hidden="true"></i>
+              Shipping
+            </span>
+            <span class="delivery__option">
+              <i class="ph ph-regular ph-map-pin" aria-hidden="true"></i>
+              Pickup
+            </span>
+          </div>
+        </section>
+
+        <section class="section">
+          <h2 class="section__title">Before You Buy</h2>
+          <div class="protection">
+            <p class="protection__text">
+              Sales are final, so
+              <a href="tel:+15551234567" class="protection__link"
+                >call the seller</a
+              >
+              if you need to clarify anything. If your item doesn't match the
+              description or arrives damaged, contact STŌR within 7 days of
+              delivery for a full refund.
+            </p>
+          </div>
+        </section>
+
+        <section class="seller-section">
+          <h2 class="section__title">Seller</h2>
+          <div class="seller">
+            <a href="/store/good-finds-nyc" class="seller__avatar-link">
+              <img
+                class="seller__avatar"
+                src="https://picsum.photos/id/100/200"
+                alt="Good Finds NYC"
+              />
+            </a>
+            <div class="seller__info">
+              <a
+                href="/store/good-finds-nyc"
+                class="seller__name"
+                id="seller-name"
+                >Good Finds NYC</a
+              >
+              <p class="seller__location">Brooklyn, New York</p>
+            </div>
+            <button
+              class="button button--secondary button--small"
+              type="button"
+              id="follow-button"
+              aria-haspopup="dialog"
+            >
+              Follow
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <button class="footer__btn" type="button" id="add-to-cart-btn">
+          Add to Cart
+        </button>
+      </footer>
+
+      <!-- Follow Modal -->
+      <div
+        id="follow-modal"
+        class="select-modal"
+        onclick="handleOverlayClick(event)"
+      >
+        <div
+          class="select-modal__sheet"
+          id="follow-select-modal__sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="follow-select-modal__header-title"
+          onclick="event.stopPropagation()"
+        >
+          <div class="select-modal__header">
+            <div class="select-modal__header-left"></div>
+            <div class="select-modal__header-center">
+              <h2
+                id="follow-select-modal__header-title"
+                class="select-modal__header-title select-modal__header-title--name"
+              >
+                Good Finds NYC
+              </h2>
+            </div>
+            <div class="select-modal__header-right">
+              <button
+                type="button"
+                class="select-modal__close"
+                id="follow-modal-close"
+                aria-label="Close"
+              >
+                <i class="ph ph-light ph-x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="select-modal__body" id="follow-select-modal__body">
+            <div class="follow-email-section">
+              <input
+                type="email"
+                class="follow-email-input"
+                id="follow-email"
+                placeholder="Email"
+                required
+              />
+              <div class="error-message" id="email-error">Enter your email</div>
+            </div>
+
+            <div class="section-label">I'm interested in</div>
+            <div class="category-list" id="category-list">
+              <!-- Clothing with subcategories -->
+              <div class="category-row" id="category-clothing-row">
+                <input
+                  type="checkbox"
+                  class="follow-checkbox"
+                  id="category-clothing"
+                  data-category="clothing"
+                  checked
+                />
+                <label class="category-label" for="category-clothing"
+                  >Clothing</label
+                >
+                <span
+                  class="category-toggle"
+                  data-toggle="clothing"
+                  role="button"
+                  tabindex="0"
+                  aria-label="Toggle clothing subcategories"
+                >
+                  <i class="ph ph-regular ph-caret-down" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="subcategory-list" id="clothing-subs">
+                <div class="subcategory-row">
+                  <input
+                    type="checkbox"
+                    class="follow-checkbox"
+                    id="sub-dresses"
+                    data-subcategory="clothing"
+                  />
+                  <label class="subcategory-label" for="sub-dresses"
+                    >Dresses</label
+                  >
+                </div>
+                <div class="subcategory-row">
+                  <input
+                    type="checkbox"
+                    class="follow-checkbox"
+                    id="sub-tops"
+                    data-subcategory="clothing"
+                  />
+                  <label class="subcategory-label" for="sub-tops">Tops</label>
+                </div>
+                <div class="subcategory-row">
+                  <input
+                    type="checkbox"
+                    class="follow-checkbox"
+                    id="sub-bottoms"
+                    data-subcategory="clothing"
+                  />
+                  <label class="subcategory-label" for="sub-bottoms"
+                    >Bottoms</label
+                  >
+                </div>
+              </div>
+
+              <!-- Furniture with subcategories -->
+              <div class="category-row" id="category-furniture-row">
+                <input
+                  type="checkbox"
+                  class="follow-checkbox"
+                  id="category-furniture"
+                  data-category="furniture"
+                  checked
+                />
+                <label class="category-label" for="category-furniture"
+                  >Furniture</label
+                >
+                <span
+                  class="category-toggle"
+                  data-toggle="furniture"
+                  role="button"
+                  tabindex="0"
+                  aria-label="Toggle furniture subcategories"
+                >
+                  <i class="ph ph-regular ph-caret-down" aria-hidden="true"></i>
+                </span>
+              </div>
+              <div class="subcategory-list" id="furniture-subs">
+                <div class="subcategory-row">
+                  <input
+                    type="checkbox"
+                    class="follow-checkbox"
+                    id="sub-sofas"
+                    data-subcategory="furniture"
+                  />
+                  <label class="subcategory-label" for="sub-sofas">Sofas</label>
+                </div>
+                <div class="subcategory-row">
+                  <input
+                    type="checkbox"
+                    class="follow-checkbox"
+                    id="sub-chairs"
+                    data-subcategory="furniture"
+                  />
+                  <label class="subcategory-label" for="sub-chairs"
+                    >Chairs</label
+                  >
+                </div>
+              </div>
+
+              <!-- Accessories (no subcategories) -->
+              <div class="category-row">
+                <input
+                  type="checkbox"
+                  class="follow-checkbox"
+                  id="category-accessories"
+                  data-category="accessories"
+                  checked
+                />
+                <label class="category-label" for="category-accessories"
+                  >Accessories</label
+                >
+              </div>
+
+              <!-- Home Decor (no subcategories) -->
+              <div class="category-row">
+                <input
+                  type="checkbox"
+                  class="follow-checkbox"
+                  id="category-home"
+                  data-category="home"
+                  checked
+                />
+                <label class="category-label" for="category-home"
+                  >Home Decor</label
+                >
+              </div>
+            </div>
+            <div class="category-error" id="category-error">
+              Select a category or subcategory
+            </div>
+          </div>
+
+          <div class="select-modal__footer" id="follow-select-modal__footer">
+            <button type="button" class="follow-submit-btn" id="follow-submit">
+              Follow
+            </button>
+          </div>
+
+          <!-- Success State (replaces body + footer) -->
+          <div
+            class="select-modal__body"
+            id="follow-success"
+            role="status"
+            aria-live="polite"
+            hidden
+          >
+            <div class="success-message">
+              <i class="ph ph-thin ph-check-circle" aria-hidden="true"></i>
+              <span class="success-message__text">
+                Following <strong>Good Finds NYC</strong>
+              </span>
+            </div>
+          </div>
+
+          <!-- Empty footer for spacing in success state -->
+          <div
+            class="select-modal__footer select-modal__footer--spacer"
+            id="follow-success-footer"
+            hidden
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ===== Follow Modal =====
+      const followModal = {
+        overlay: document.getElementById("follow-modal"),
+        sheet: document.getElementById("follow-select-modal__sheet"),
+        closeButton: document.getElementById("follow-modal-close"),
+        body: document.getElementById("follow-select-modal__body"),
+        footer: document.getElementById("follow-select-modal__footer"),
+        emailInput: document.getElementById("follow-email"),
+        emailError: document.getElementById("email-error"),
+        categoryError: document.getElementById("category-error"),
+        submitButton: document.getElementById("follow-submit"),
+        success: document.getElementById("follow-success"),
+        successFooter: document.getElementById("follow-success-footer"),
+        followButton: document.getElementById("follow-button"),
+        lastFocusedElement: null,
+      };
+
+      function openFollowModal() {
+        followModal.lastFocusedElement = document.activeElement;
+        document.body.classList.add("body-lock");
+
+        requestAnimationFrame(() => {
+          followModal.overlay.classList.add("active");
+          followModal.emailInput.focus();
+        });
+      }
+
+      function resetFollowModal() {
+        followModal.emailInput.value = "";
+        followModal.success.hidden = true;
+        followModal.successFooter.hidden = true;
+        followModal.body.hidden = false;
+        followModal.footer.hidden = false;
+
+        // Clear errors
+        followModal.emailInput.classList.remove("error");
+        followModal.emailError.classList.remove("visible");
+        followModal.categoryError.classList.remove("visible");
+
+        // Reset categories to checked
+        document.querySelectorAll("[data-category]").forEach((cb) => {
+          cb.checked = true;
+        });
+
+        // Reset subcategories to unchecked (they're filters)
+        document.querySelectorAll("[data-subcategory]").forEach((cb) => {
+          cb.checked = false;
+        });
+
+        // Collapse all subcategories
+        document.querySelectorAll(".subcategory-list").forEach((list) => {
+          list.classList.remove("visible");
+        });
+        document.querySelectorAll(".category-row[id]").forEach((row) => {
+          row.classList.remove("expanded");
+        });
+      }
+
+      function closeFollowModal() {
+        followModal.overlay.classList.remove("active");
+        document.body.classList.remove("body-lock");
+
+        setTimeout(() => {
+          resetFollowModal();
+          if (followModal.lastFocusedElement) {
+            followModal.lastFocusedElement.focus();
+          }
+        }, 250);
+      }
+
+      function handleOverlayClick(event) {
+        if (event.target === followModal.overlay) {
+          closeFollowModal();
+        }
+      }
+
+      function handleFollowModalKeydown(event) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeFollowModal();
+          return;
+        }
+
+        if (event.key !== "Tab") return;
+
+        const focusables = followModal.sheet.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const focusableList = Array.from(focusables).filter(
+          (el) => !el.disabled && el.offsetParent !== null
+        );
+
+        if (!focusableList.length) return;
+
+        const first = focusableList[0];
+        const last = focusableList[focusableList.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+
+      function handleFollowSubmit(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        let hasError = false;
+
+        // Validate email
+        if (!followModal.emailInput.value.length) {
+          followModal.emailInput.classList.add("error");
+          followModal.emailError.classList.add("visible");
+          hasError = true;
+        }
+
+        // Validate categories
+        const checkedCategories = document.querySelectorAll(
+          "[data-category]:checked"
+        );
+        if (checkedCategories.length === 0) {
+          followModal.categoryError.classList.add("visible");
+          hasError = true;
+        }
+
+        if (hasError) {
+          // Focus the first error field
+          if (followModal.emailInput.classList.contains("error")) {
+            followModal.emailInput.focus();
+          }
+          return;
+        }
+
+        followModal.submitButton.disabled = true;
+
+        // Simulate API call
+        setTimeout(() => {
+          followModal.body.hidden = true;
+          followModal.footer.hidden = true;
+          followModal.success.hidden = false;
+          followModal.successFooter.hidden = false;
+          followModal.submitButton.disabled = false;
+        }, 450);
+      }
+
+      // Category toggle (expand/collapse subcategories)
+      function setupCategoryToggles() {
+        const categoryRows = document.querySelectorAll(".category-row[id]");
+
+        categoryRows.forEach((row) => {
+          const toggle = row.querySelector(".category-toggle");
+          if (!toggle) return;
+
+          const categoryId = row.id
+            .replace("category-", "")
+            .replace("-row", "");
+          const subsContainer = document.getElementById(categoryId + "-subs");
+
+          if (!subsContainer) return;
+
+          // Click on toggle icon to expand/collapse
+          toggle.addEventListener("click", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            row.classList.toggle("expanded");
+            subsContainer.classList.toggle("visible");
+          });
+
+          // Keyboard support for toggle
+          toggle.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              row.classList.toggle("expanded");
+              subsContainer.classList.toggle("visible");
+            }
+          });
+        });
+      }
+
+      // Parent checkbox behavior
+      function setupCategoryCheckboxes() {
+        const categoryCheckboxes = document.querySelectorAll("[data-category]");
+
+        categoryCheckboxes.forEach((checkbox) => {
+          checkbox.addEventListener("change", () => {
+            const category = checkbox.dataset.category;
+            const subCheckboxes = document.querySelectorAll(
+              `[data-subcategory="${category}"]`
+            );
+
+            if (!checkbox.checked) {
+              // Unchecking parent: clear subcategory filters (but don't collapse)
+              subCheckboxes.forEach((sub) => {
+                sub.checked = false;
+              });
+            }
+            // Checking parent: do nothing to subs (parent checked = all items)
+          });
+        });
+
+        // Checking a subcategory also checks its parent
+        const subCheckboxes = document.querySelectorAll("[data-subcategory]");
+        subCheckboxes.forEach((sub) => {
+          sub.addEventListener("change", () => {
+            if (sub.checked) {
+              const parentCategory = sub.dataset.subcategory;
+              const parentCheckbox = document.querySelector(
+                `[data-category="${parentCategory}"]`
+              );
+              if (parentCheckbox && !parentCheckbox.checked) {
+                parentCheckbox.checked = true;
+              }
+            }
+          });
+        });
+      }
+
+      // Event Listeners
+      followModal.followButton.addEventListener("click", openFollowModal);
+      followModal.closeButton.addEventListener("click", closeFollowModal);
+      followModal.sheet.addEventListener("keydown", handleFollowModalKeydown);
+      followModal.submitButton.addEventListener("click", handleFollowSubmit);
+
+      // Clear email error when user types
+      followModal.emailInput.addEventListener("input", () => {
+        followModal.emailInput.classList.remove("error");
+        followModal.emailError.classList.remove("visible");
+      });
+
+      // Clear category error when user checks a category or subcategory
+      document.querySelectorAll("[data-category]").forEach((cb) => {
+        cb.addEventListener("change", () => {
+          followModal.categoryError.classList.remove("visible");
+        });
+      });
+      document.querySelectorAll("[data-subcategory]").forEach((cb) => {
+        cb.addEventListener("change", () => {
+          if (cb.checked) {
+            followModal.categoryError.classList.remove("visible");
+          }
+        });
+      });
+
+      // Initialize category toggles and checkboxes
+      setupCategoryToggles();
+      setupCategoryCheckboxes();
+
+      // Listen for escape key on document when modal is open
+      document.addEventListener("keydown", (event) => {
+        if (
+          event.key === "Escape" &&
+          followModal.overlay.classList.contains("active")
+        ) {
+          closeFollowModal();
+        }
+      });
+
+      // ===== Add to Cart =====
+      const addToCartBtn = document.getElementById("add-to-cart-btn");
+      const cartBadge = document.querySelector(".icon-button--badge");
+      let itemAdded = false;
+
+      addToCartBtn.addEventListener("click", function () {
+        if (!itemAdded) {
+          const currentCount = parseInt(
+            cartBadge.getAttribute("data-badge"),
+            10
+          );
+          cartBadge.setAttribute("data-badge", currentCount + 1);
+          addToCartBtn.textContent = "View Cart";
+          itemAdded = true;
+        } else {
+          window.location.href = "/cart";
+        }
+      });
+
+      // ===== Gallery Swipe =====
+      const gallery = document.getElementById("gallery");
+      const track = document.getElementById("gallery-track");
+      const dots = document.querySelectorAll(".gallery__dot");
+      const imageCount = 5;
+      let currentIndex = 0;
+      let startX = 0;
+      let currentX = 0;
+      let isDragging = false;
+
+      function updateGallery(index, animate = true) {
+        currentIndex = Math.max(0, Math.min(index, imageCount - 1));
+
+        if (!animate) {
+          track.style.transition = "none";
+        } else {
+          track.style.transition = "transform 0.3s ease-out";
+        }
+
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("gallery__dot--active", i === currentIndex);
+        });
+      }
+
+      function handleDragStart(x) {
+        startX = x;
+        currentX = x;
+        isDragging = true;
+        track.style.transition = "none";
+      }
+
+      function handleDragMove(x) {
+        if (!isDragging) return;
+        currentX = x;
+        const diff = currentX - startX;
+        const offset = -currentIndex * 100 + (diff / gallery.offsetWidth) * 100;
+        track.style.transform = `translateX(${offset}%)`;
+      }
+
+      function handleDragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+
+        const diff = currentX - startX;
+        const threshold = gallery.offsetWidth * 0.15;
+
+        if (diff > threshold && currentIndex > 0) {
+          updateGallery(currentIndex - 1);
+        } else if (diff < -threshold && currentIndex < imageCount - 1) {
+          updateGallery(currentIndex + 1);
+        } else {
+          updateGallery(currentIndex);
+        }
+
+        startX = 0;
+        currentX = 0;
+      }
+
+      // Touch events
+      gallery.addEventListener(
+        "touchstart",
+        (e) => {
+          handleDragStart(e.touches[0].clientX);
+        },
+        { passive: true }
+      );
+
+      gallery.addEventListener(
+        "touchmove",
+        (e) => {
+          handleDragMove(e.touches[0].clientX);
+        },
+        { passive: true }
+      );
+
+      gallery.addEventListener("touchend", handleDragEnd);
+
+      // Mouse events (desktop)
+      gallery.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        handleDragStart(e.clientX);
+      });
+
+      gallery.addEventListener("mousemove", (e) => {
+        handleDragMove(e.clientX);
+      });
+
+      gallery.addEventListener("mouseup", handleDragEnd);
+      gallery.addEventListener("mouseleave", handleDragEnd);
+
+      // Dot click navigation
+      dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => updateGallery(i));
+      });
+    </script>
+  </body>
+</html>

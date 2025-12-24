@@ -1,0 +1,5326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>STŌR — POS Checkout</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+      /* ===== Theme Variables ===== */
+      :root {
+        /* Colors - Core Palette */
+        --color-canvas: #fffcf9;
+        --color-surface: #fff9f4;
+        --color-surface-raised: #fff7f1;
+        --color-background: #f5f0eb;
+        --color-background-subtle: #f9f5f1;
+        --color-white: #ffffff;
+
+        /* Colors - Text Hierarchy */
+        --color-text-primary: #4d3f33;
+        --color-text-secondary: #937b65;
+        --color-text-tertiary: #a89d94;
+        --color-text-whisper: #c4b5a8;
+        --color-text-ghost: #d9cfc6;
+        --color-text-inverse: #fffcf9;
+
+        /* Colors - Accent */
+        --color-accent-primary: #b38b6d;
+        --color-accent-secondary: #c4a27a;
+        --color-accent-nude: #e6d4c6;
+        --color-accent-blush: #e8d5cc;
+        --color-accent-clay: #d4b8a0;
+        --color-accent-sand: #f0e6dd;
+
+        /* Colors - Interactive States */
+        --color-interactive-hover: #a67d5f;
+        --color-interactive-pressed: #967052;
+
+        /* Colors - Borders */
+        --color-border-invisible: rgba(196, 162, 122, 0.04);
+        --color-border-light: rgba(196, 162, 122, 0.08);
+        --color-border-medium: rgba(196, 162, 122, 0.15);
+        --color-border-strong: rgba(196, 162, 122, 0.25);
+        --color-border-focused: rgba(179, 139, 109, 0.4);
+
+        /* Colors - Overlays */
+        --color-overlay-subtle: rgba(196, 162, 122, 0.03);
+        --color-overlay-light: rgba(196, 162, 122, 0.06);
+        --color-overlay-medium: rgba(196, 162, 122, 0.1);
+        --color-overlay-heavy: rgba(77, 63, 51, 0.4);
+        --color-overlay-pressed: rgba(179, 139, 109, 0.15);
+        --color-overlay-destructive: rgba(198, 123, 92, 0.08);
+
+        /* Colors - Semantic */
+        --color-semantic-error: #c67b5c;
+        --color-semantic-success: #8fa67a;
+
+        /* Spacing Scale (8px base) */
+        --space-1: 4px;
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 20px;
+        --space-6: 24px;
+        --space-8: 32px;
+        --space-12: 48px;
+
+        /* Spacing - Semantic Aliases */
+        --space-micro: var(--space-1);
+        --space-tiny: var(--space-2);
+        --space-small: var(--space-3);
+        --space-base: var(--space-4);
+        --space-medium: var(--space-5);
+        --space-large: var(--space-6);
+        --space-gutter: var(--space-6);
+        --space-xlarge: var(--space-8);
+        --space-xxlarge: var(--space-12);
+
+        /* Heights */
+        --height-header: 60px;
+        --height-input: 52px;
+        --height-button: 52px;
+        --height-icon-button: 48px;
+        --height-pill: 40px;
+        --height-modal-header: 60px;
+
+        /* Icon Sizes */
+        --icon-size-small: 16px;
+        --icon-size-default: 20px;
+        --icon-size-medium: 24px;
+        --icon-size-large: 32px;
+        --icon-size-extra-large: 48px;
+
+        /* Border Radius */
+        --radius-xs: 4px;
+        --radius-sm: 8px;
+        --radius-base: 12px;
+        --radius-md: 16px;
+        --radius-lg: 20px;
+        --radius-xl: 24px;
+        --radius-full: 9999px;
+
+        /* Border Radius - Legacy Aliases */
+        --radius-micro: var(--radius-xs);
+        --radius-small: var(--radius-sm);
+        --radius-large: var(--radius-md);
+        --radius-xlarge: var(--radius-lg);
+        --radius-xxlarge: var(--radius-xl);
+        --radius-round: var(--radius-full);
+
+        /* Border Width */
+        --border-thin: 1px;
+        --border-subtle: 1.5px;
+
+        /* Typography - Font Family */
+        --font-family: "SF Pro Display", "SF Pro Text", system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+          sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+
+        /* Typography - Font Sizes */
+        --font-size-2xs: 10px;
+        --font-size-xs: 11px;
+        --font-size-sm: 13px;
+        --font-size-base: 15px;
+        --font-size-md: 16px;
+        --font-size-lg: 18px;
+        --font-size-xl: 21px;
+        --font-size-2xl: 24px;
+        --font-size-display: 40px;
+
+        /* Typography - Font Weights */
+        --font-weight-light: 300;
+        --font-weight-regular: 400;
+        --font-weight-medium: 500;
+        --font-weight-semibold: 600;
+
+        /* Typography - Line Heights */
+        --line-height-none: 1;
+        --line-height-tight: 1.2;
+        --line-height-snug: 1.35;
+        --line-height-normal: 1.5;
+        --line-height-relaxed: 1.6;
+
+        /* Typography - Letter Spacing */
+        --letter-spacing-tight: -0.02em;
+        --letter-spacing-normal: 0;
+        --letter-spacing-wide: 0.02em;
+        --letter-spacing-wider: 0.05em;
+        --letter-spacing-widest: 0.1em;
+
+        /* Typography - Legacy Aliases */
+        --font-size-screen-header: var(--font-size-md);
+        --font-size-modal-header: var(--font-size-md);
+        --font-size-list-title: var(--font-size-md);
+        --font-size-list-subtitle: var(--font-size-sm);
+
+        /* Shadows (warm-tinted) */
+        --shadow-sm: 0 1px 3px rgba(77, 63, 51, 0.06),
+          0 1px 2px rgba(77, 63, 51, 0.04);
+        --shadow-md: 0 10px 15px -3px rgba(77, 63, 51, 0.06),
+          0 4px 6px -2px rgba(77, 63, 51, 0.03);
+        --shadow-lg: 0 -8px 40px rgba(77, 63, 51, 0.3);
+        --shadow-focus: 0 0 0 2px var(--color-canvas),
+          0 0 0 5px rgba(179, 139, 109, 0.4);
+        --shadow-focus-error: 0 0 0 2px var(--color-canvas),
+          0 0 0 5px var(--color-semantic-error);
+
+        /* Transitions */
+        --duration-fast: 100ms;
+        --duration-normal: 200ms;
+        --duration-slow: 300ms;
+        --ease-out: cubic-bezier(0, 0, 0.2, 1);
+        --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+        --transition-colors: color var(--duration-fast) var(--ease-out),
+          background-color var(--duration-fast) var(--ease-out),
+          border-color var(--duration-fast) var(--ease-out);
+
+        /* Z-Index Scale */
+        --z-below: -1;
+        --z-base: 0;
+        --z-raised: 1;
+        --z-dropdown: 10;
+        --z-sticky: 20;
+        --z-header: 30;
+        --z-overlay: 40;
+        --z-modal: 50;
+        --z-toast: 60;
+        --z-tooltip: 70;
+        --z-max: 100;
+
+        /* Safe Area */
+        --safe-top: env(safe-area-inset-top, 0px);
+        --safe-bottom: env(safe-area-inset-bottom, 0px);
+        --max-width: 480px;
+      }
+
+      /* ===== Base Styles ===== */
+      [hidden] {
+        display: none !important;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      html,
+      body {
+        background: var(--color-canvas);
+        color: var(--color-text-primary);
+        font-family: var(--font-family);
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+      }
+
+      body {
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+
+      /* ===== Layout ===== */
+      .container {
+        max-width: var(--max-width);
+        margin-inline: auto;
+        height: 100vh;
+        height: 100dvh;
+        background: var(--color-canvas);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      button:focus,
+      a:focus,
+      [tabindex]:focus {
+        outline: none;
+      }
+
+      :focus-visible {
+        box-shadow: var(--shadow-focus);
+      }
+
+      a:focus-visible,
+      [tabindex]:focus-visible {
+        border-radius: var(--radius-sm);
+      }
+
+      /* ===== Accessibility ===== */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      /* ===== Header ===== */
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: var(--z-header);
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        height: calc(var(--height-header) + var(--safe-top));
+        padding: var(--safe-top) var(--space-gutter) 0;
+        background: var(--color-canvas);
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+      }
+
+      .header__left {
+        justify-self: start;
+        margin-left: -14px;
+      }
+
+      .header__center {
+        justify-self: center;
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+      }
+
+      .header__right {
+        justify-self: end;
+        margin-right: -14px;
+      }
+
+      /* ===== Icon Button ===== */
+      .icon-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: var(--height-icon-button);
+        height: var(--height-icon-button);
+        min-width: var(--height-icon-button);
+        min-height: var(--height-icon-button);
+        padding: 0;
+        background: transparent;
+        border: none;
+        border-radius: var(--radius-sm);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .icon-button:hover {
+        background: var(--color-overlay-light);
+      }
+
+      .icon-button:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      .icon-button i {
+        font-size: var(--icon-size-default);
+        line-height: 1;
+      }
+
+      /* ===== Content ===== */
+      .content {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ===== Action Row ===== */
+      .action-section {
+        padding: var(--space-base) var(--space-gutter);
+        background: var(--color-canvas);
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+        flex-shrink: 0;
+      }
+
+      .action-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-small);
+      }
+
+      .action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-tiny);
+        height: var(--height-pill);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        color: var(--color-text-primary);
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wide);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        font-family: inherit;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .action-btn i {
+        font-size: var(--icon-size-default);
+      }
+
+      .action-btn:hover {
+        border-color: var(--color-border-strong);
+      }
+
+      .action-btn:active {
+        transform: scale(0.98);
+      }
+
+      /* ===== Cart Items ===== */
+      .cart-items {
+        padding: var(--space-large);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .cart-item {
+        display: flex;
+        gap: var(--space-base);
+        align-items: flex-start;
+        padding-bottom: var(--space-base);
+      }
+
+      .cart-item:last-child {
+        padding-bottom: 0;
+      }
+
+      .cart-item__image {
+        width: 80px;
+        height: 80px;
+        border-radius: var(--radius-base);
+        overflow: hidden;
+        background: var(--color-surface);
+        border: var(--border-thin) solid var(--color-border-medium);
+        flex-shrink: 0;
+      }
+
+      .cart-item__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .cart-item__image--custom {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--color-background);
+      }
+
+      .cart-item__image--custom i {
+        font-size: var(--icon-size-medium);
+        color: var(--color-text-tertiary);
+      }
+
+      .cart-item__text {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-micro);
+        flex: 1;
+        min-width: 0;
+      }
+
+      .cart-item__title {
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-regular);
+        line-height: 1.4;
+        color: var(--color-text-primary);
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .cart-item__subtitle {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.2px;
+        line-height: 1.4;
+        color: var(--color-text-tertiary);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .cart-item__actions {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: var(--space-micro);
+        flex-shrink: 0;
+      }
+
+      .cart-item__price {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .cart-item__remove {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        border-radius: var(--radius-sm);
+        color: var(--color-text-tertiary);
+        cursor: pointer;
+        margin-right: -10px;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .cart-item__remove:hover {
+        color: var(--color-text-secondary);
+        background: var(--color-overlay-light);
+      }
+
+      .cart-item__remove:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      .cart-item__remove i {
+        font-size: var(--icon-size-default);
+      }
+
+      /* ===== Empty State ===== */
+      .empty-state {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--space-xxlarge) var(--space-gutter);
+      }
+
+      .empty-state::before {
+        content: "";
+        flex: 1;
+      }
+
+      .empty-state::after {
+        content: "";
+        flex: 2;
+      }
+
+      .empty-state__icon-container {
+        margin-bottom: var(--space-base);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .empty-state__icon-container i {
+        font-size: var(--icon-size-large);
+        color: var(--color-text-tertiary);
+      }
+
+      .empty-state__title {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        line-height: var(--line-height-none);
+        letter-spacing: var(--letter-spacing-normal);
+        color: var(--color-text-primary);
+        margin: 0 0 var(--space-tiny) 0;
+        text-align: center;
+      }
+
+      .empty-state__hint {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+        letter-spacing: var(--letter-spacing-normal);
+        color: var(--color-text-secondary);
+        text-align: center;
+        margin: 0;
+      }
+
+      /* ===== Sticky CTA ===== */
+      .sticky-cta {
+        position: sticky;
+        bottom: 0;
+        z-index: var(--z-sticky);
+        padding: var(--space-large);
+        padding-bottom: calc(var(--space-large) + var(--safe-bottom));
+        background: var(--color-surface);
+        border-top: var(--border-thin) solid var(--color-border-medium);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-base);
+      }
+
+      /* ===== Summary Rows ===== */
+      .summary-rows {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: var(--space-base);
+        padding: var(--space-small) 0;
+      }
+
+      .summary-row:first-child {
+        padding-top: 0;
+      }
+
+      .summary-row__label {
+        font-size: var(--font-size-base);
+        color: var(--color-text-secondary);
+        flex-shrink: 0;
+        min-width: 80px;
+      }
+
+      .summary-row__value {
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        text-align: right;
+        flex: 1;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .summary-row--total {
+        padding-top: var(--space-small);
+      }
+
+      .summary-row--total .summary-row__label {
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+      }
+
+      /* ===== Button ===== */
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-tiny);
+        width: 100%;
+        height: var(--height-button);
+        padding: 0 var(--space-large);
+        font-family: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        text-decoration: none;
+        border: var(--border-subtle) solid transparent;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+
+      .button:active {
+        transform: scale(0.98);
+      }
+
+      .button--primary {
+        background: var(--color-accent-primary);
+        color: var(--color-text-inverse);
+        border-color: var(--color-accent-primary);
+      }
+
+      .button--primary:hover:not(:disabled) {
+        background: var(--color-interactive-hover);
+        border-color: var(--color-interactive-hover);
+      }
+
+      .button--primary:active:not(:disabled) {
+        background: var(--color-interactive-pressed);
+        border-color: var(--color-interactive-pressed);
+      }
+
+      .button--secondary {
+        background: var(--color-accent-nude);
+        color: var(--color-text-primary);
+        border-color: var(--color-accent-nude);
+      }
+
+      .button--secondary:hover:not(:disabled) {
+        background: var(--color-accent-blush);
+        border-color: var(--color-accent-blush);
+      }
+
+      .button--secondary:active:not(:disabled) {
+        background: var(--color-accent-clay);
+        border-color: var(--color-accent-clay);
+      }
+
+      .button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      /* ===== Modal ===== */
+      .select-modal {
+        position: fixed;
+        inset: 0;
+        z-index: var(--z-modal);
+        pointer-events: none;
+      }
+
+      .select-modal.active {
+        pointer-events: auto;
+      }
+
+      .select-modal__backdrop {
+        position: fixed;
+        inset: 0;
+        background: var(--color-overlay-heavy);
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .select-modal.active .select-modal__backdrop {
+        opacity: 1;
+      }
+
+      .select-modal__container {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        max-width: 480px;
+        margin: 0 auto;
+        transform: translateY(100%);
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .select-modal.active .select-modal__container {
+        transform: translateY(0);
+      }
+
+      .select-modal__sheet {
+        background: var(--color-canvas);
+        border: var(--border-thin) solid var(--color-border-light);
+        border-top-left-radius: var(--radius-xlarge);
+        border-top-right-radius: var(--radius-xlarge);
+        overflow: hidden;
+        max-height: 90vh;
+        max-height: 90dvh;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: var(--safe-bottom);
+      }
+
+      .select-modal__header {
+        display: grid;
+        grid-template-columns: 40px 1fr 40px;
+        align-items: center;
+        height: var(--height-modal-header);
+        padding: 0 var(--space-large);
+        border-bottom: var(--border-thin) solid var(--color-border-light);
+        background: var(--color-canvas);
+        flex-shrink: 0;
+      }
+
+      .select-modal__header-left {
+        justify-self: start;
+      }
+
+      .select-modal__header-center {
+        justify-self: center;
+        text-align: center;
+      }
+
+      .select-modal__header-title {
+        font-size: var(--font-size-modal-header);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        line-height: var(--line-height-snug);
+        text-transform: uppercase;
+        color: var(--color-text-primary);
+        margin: 0;
+      }
+
+      .select-modal__header-right {
+        justify-self: end;
+      }
+
+      .select-modal__close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        cursor: pointer;
+        color: var(--color-text-tertiary);
+        border-radius: var(--radius-small);
+      }
+
+      .select-modal__close i {
+        font-size: var(--icon-size-default);
+        line-height: 1;
+      }
+
+      .select-modal__close:hover {
+        background: var(--color-overlay-light);
+      }
+
+      .select-modal__close:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      .select-modal__body {
+        padding: var(--space-large);
+        background: var(--color-canvas);
+        overflow-y: auto;
+        flex: 1;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .select-modal__footer {
+        border-top: var(--border-thin) solid var(--color-border-light);
+        background: var(--color-canvas);
+        padding: var(--space-large);
+        flex-shrink: 0;
+      }
+
+      /* ===== Form Elements ===== */
+      .form-group {
+        margin-bottom: var(--space-large);
+      }
+
+      .form-group:last-child {
+        margin-bottom: 0;
+      }
+
+      .form-label {
+        display: block;
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: var(--letter-spacing-widest);
+        text-transform: uppercase;
+        line-height: var(--line-height-normal);
+        color: var(--color-text-secondary);
+        margin-bottom: var(--space-small);
+      }
+
+      /* ===== Price Options ===== */
+      .price-presets {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-small);
+        margin-bottom: var(--space-small);
+      }
+
+      .price-preset {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--height-input);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        font-family: inherit;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: all var(--duration-fast) var(--ease-out);
+      }
+
+      .price-preset:active {
+        opacity: 0.8;
+      }
+
+      .price-preset.selected {
+        border-color: var(--color-accent-nude);
+        background: var(--color-accent-sand);
+      }
+
+      /* ===== Custom Price Input ===== */
+      .price-input {
+        width: 100%;
+        height: var(--height-input);
+        padding: 0 var(--space-base);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        font-family: inherit;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        text-align: center;
+        transition: border-color var(--duration-fast) var(--ease-out);
+        outline: none;
+      }
+
+      .price-input::placeholder {
+        color: var(--color-text-whisper);
+        font-weight: var(--font-weight-regular);
+      }
+
+      .price-input:focus {
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      .price-input.selected {
+        border-color: var(--color-accent-nude);
+        background: var(--color-accent-sand);
+      }
+
+      /* ===== Quantity Selector ===== */
+      .qty-selector {
+        display: flex;
+        align-items: center;
+        gap: var(--space-base);
+      }
+
+      .qty-selector__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--height-input);
+        height: var(--height-input);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-round);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+        flex-shrink: 0;
+      }
+
+      .qty-selector__button i {
+        font-size: var(--icon-size-default);
+      }
+
+      .qty-selector__button:hover:not(:disabled) {
+        border-color: var(--color-border-strong);
+      }
+
+      .qty-selector__button:active:not(:disabled) {
+        background: var(--color-overlay-pressed);
+      }
+
+      .qty-selector__button:disabled {
+        color: var(--color-text-whisper);
+        cursor: not-allowed;
+      }
+
+      .qty-selector__value {
+        flex: 1;
+        min-width: 0;
+        height: var(--height-input);
+        padding: 0;
+        font-family: inherit;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        text-align: center;
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        cursor: pointer;
+        transition: border-color var(--duration-fast) var(--ease-out);
+        outline: none;
+        -webkit-appearance: none;
+        -moz-appearance: textfield;
+      }
+
+      .qty-selector__value::-webkit-outer-spin-button,
+      .qty-selector__value::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      .qty-selector__value:focus {
+        outline: none;
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      /* ===== Photo Capture ===== */
+      .photo-capture {
+        width: 100%;
+        height: 114px;
+        border-radius: var(--radius-base);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        background: var(--color-canvas);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all var(--duration-fast) var(--ease-out);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .photo-capture:hover {
+        border-color: var(--color-border-strong);
+      }
+
+      .photo-capture:active {
+        opacity: 0.8;
+      }
+
+      .photo-capture i {
+        font-size: var(--icon-size-medium);
+        color: var(--color-text-primary);
+      }
+
+      .photo-capture--captured {
+        width: 100%;
+        height: 114px;
+        border-radius: var(--radius-base);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        background: var(--color-canvas);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .photo-capture--captured .photo-thumbnail {
+        width: 80px;
+        height: 80px;
+        border-radius: var(--radius-base);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .photo-capture--captured .photo-thumbnail img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .photo-capture__remove {
+        position: absolute;
+        top: var(--space-micro);
+        right: var(--space-micro);
+        width: 24px;
+        height: 24px;
+        border-radius: var(--radius-sm);
+        background: rgba(77, 63, 51, 0.75);
+        border: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .photo-capture__remove:hover {
+        background: rgba(77, 63, 51, 0.9);
+      }
+
+      .photo-capture__remove i {
+        font-size: var(--icon-size-small);
+        color: var(--color-text-inverse);
+      }
+
+      /* ===== Discount Row ===== */
+      .discount-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-small) 0;
+      }
+
+      .discount-row__label {
+        font-size: var(--font-size-base);
+        color: var(--color-text-secondary);
+      }
+
+      .discount-row__add {
+        font-family: inherit;
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-accent-primary);
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: var(--transition-colors);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .discount-row__add:hover {
+        color: var(--color-interactive-hover);
+      }
+
+      .discount-row__add:active {
+        color: var(--color-interactive-pressed);
+      }
+
+      .discount-row__value {
+        font-family: inherit;
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-accent-primary);
+        font-variant-numeric: tabular-nums;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: var(--transition-colors);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .discount-row__value:hover {
+        color: var(--color-interactive-hover);
+      }
+
+      .discount-row__value:active {
+        color: var(--color-interactive-pressed);
+      }
+
+      .discount-row__placeholder {
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+      }
+
+      /* ===== Discount Modal Elements ===== */
+      .discount-type-toggle {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-small);
+        margin-bottom: var(--space-small);
+      }
+
+      .discount-type-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--height-input);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        font-family: inherit;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: all var(--duration-fast) var(--ease-out);
+      }
+
+      .discount-type-btn:active {
+        opacity: 0.8;
+      }
+
+      .discount-type-btn.selected {
+        border-color: var(--color-accent-nude);
+        background: var(--color-accent-sand);
+      }
+
+      .discount-input {
+        width: 100%;
+        height: var(--height-input);
+        padding: 0 var(--space-base);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        font-family: inherit;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        text-align: center;
+        transition: border-color var(--duration-fast) var(--ease-out);
+        outline: none;
+      }
+
+      .discount-input::placeholder {
+        color: var(--color-text-whisper);
+        font-weight: var(--font-weight-regular);
+      }
+
+      .discount-input:focus {
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      .form-input {
+        width: 100%;
+        height: var(--height-input);
+        padding: 0 var(--space-base);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        font-family: inherit;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        transition: border-color var(--duration-fast) var(--ease-out);
+        outline: none;
+      }
+
+      .form-input::placeholder {
+        color: var(--color-text-whisper);
+        font-weight: var(--font-weight-regular);
+      }
+
+      .form-input:focus {
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      .button--tertiary-destructive {
+        background: transparent;
+        color: var(--color-semantic-error);
+        border-color: transparent;
+      }
+
+      .button--tertiary-destructive:hover:not(:disabled) {
+        background: var(--color-overlay-destructive);
+      }
+
+      .select-modal__footer--stacked {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-small);
+      }
+
+      /* ===== Payment Flow (unified payment + processing) ===== */
+      .payment-flow {
+        position: absolute;
+        inset: 0;
+        z-index: var(--z-overlay);
+        background: var(--color-canvas);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .payment-flow .header {
+        position: relative;
+        z-index: var(--z-header);
+        height: calc(var(--height-header) + var(--safe-top));
+        padding-top: var(--safe-top);
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .payment-flow .header__title {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+      }
+
+      .payment-flow .close-btn {
+        position: absolute;
+        top: calc(var(--safe-top) + 6px);
+        right: var(--space-base);
+        z-index: var(--z-modal);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: var(--height-icon-button);
+        height: var(--height-icon-button);
+        background: transparent;
+        border: none;
+        border-radius: var(--radius-sm);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        transition: var(--transition-colors), opacity 200ms var(--ease-out);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .payment-flow .close-btn:hover {
+        background: var(--color-overlay-light);
+      }
+
+      .payment-flow .close-btn:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      .payment-flow .close-btn i {
+        font-size: var(--icon-size-default);
+        line-height: 1;
+      }
+
+      /* Hide close button when processing slide is visible but not complete */
+      .payment-flow:has(.processing-slide.visible:not(.complete)) .close-btn {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* Show close button when processing is complete */
+      .payment-flow:has(.processing-slide.complete) .close-btn {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .payment-flow .content-wrapper {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Payment Slide (slides up and out) */
+      .payment-flow .payment-slide {
+        position: absolute;
+        inset: 0;
+        transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        flex-direction: column;
+        background: var(--color-canvas);
+      }
+
+      .payment-flow .payment-slide.slid-up {
+        transform: translateY(-100%);
+      }
+
+      /* Processing Slide (slides up into view) */
+      .payment-flow .processing-slide {
+        position: absolute;
+        inset: 0;
+        transform: translateY(100%);
+        transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        flex-direction: column;
+        background: var(--color-canvas);
+      }
+
+      .payment-flow .processing-slide.visible {
+        transform: translateY(0);
+      }
+
+      /* Payment Slide Content */
+      .payment-slide__body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 0 var(--space-gutter);
+      }
+
+      .payment-slide__body::before {
+        content: "";
+        flex: 1;
+      }
+
+      .payment-slide__body::after {
+        content: "";
+        flex: 2;
+      }
+
+      .payment-slide__content {
+        flex-shrink: 0;
+      }
+
+      .payment-total {
+        text-align: center;
+        margin-bottom: var(--space-xlarge);
+      }
+
+      .payment-total__amount {
+        font-size: var(--font-size-display);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-tight);
+        font-variant-numeric: tabular-nums;
+        line-height: var(--line-height-none);
+        color: var(--color-text-primary);
+      }
+
+      .payment-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: var(--space-large) var(--space-base);
+        background: var(--color-background-subtle);
+        border-radius: var(--radius-base);
+      }
+
+      .payment-card__icon {
+        font-size: var(--icon-size-extra-large);
+        color: var(--color-accent-primary);
+        line-height: 1;
+        margin-bottom: var(--space-small);
+      }
+
+      .payment-card__text {
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        margin-bottom: var(--space-small);
+      }
+
+      .text-action {
+        font-family: inherit;
+        font-size: var(--font-size-base);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-accent-primary);
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        transition: var(--transition-colors);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      .text-action:hover {
+        color: var(--color-interactive-hover);
+      }
+
+      .text-action:active {
+        color: var(--color-interactive-pressed);
+      }
+
+      .preset-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-small);
+      }
+
+      .preset {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: var(--height-button);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        font-family: inherit;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        transition: all var(--duration-fast) var(--ease-out);
+      }
+
+      .preset:active {
+        opacity: 0.8;
+      }
+
+      .preset.selected {
+        border-color: var(--color-accent-nude);
+        background: var(--color-accent-sand);
+      }
+
+      /* Cash Other Input */
+      .cash-other-row {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-small);
+        margin-top: var(--space-small);
+      }
+
+      .cash-other-input {
+        width: 100%;
+        height: var(--height-input);
+        padding: 0 var(--space-base);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        font-family: inherit;
+        font-size: var(--font-size-lg);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        text-align: center;
+        outline: none;
+        transition: border-color var(--duration-fast) var(--ease-out);
+      }
+
+      .cash-other-input::placeholder {
+        color: var(--color-text-whisper);
+        font-weight: var(--font-weight-regular);
+      }
+
+      .cash-other-input:hover:not(:focus):not(:disabled) {
+        border-color: var(--color-border-strong);
+      }
+
+      .cash-other-input:focus {
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      .cash-other-input.selected {
+        border-color: var(--color-accent-nude);
+        background: var(--color-accent-sand);
+      }
+
+      .cash-confirm-btn {
+        width: 100%;
+        height: var(--height-button);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        border: var(--border-subtle) solid var(--color-accent-primary);
+        border-radius: var(--radius-sm);
+        background: var(--color-accent-primary);
+        color: var(--color-text-inverse);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .cash-confirm-btn:hover {
+        background: var(--color-interactive-hover);
+        border-color: var(--color-interactive-hover);
+      }
+
+      .cash-confirm-btn:active {
+        transform: scale(0.98);
+        background: var(--color-interactive-pressed);
+        border-color: var(--color-interactive-pressed);
+      }
+
+      .cash-confirm-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .cash-confirm-btn:disabled:hover {
+        background: var(--color-accent-primary);
+        border-color: var(--color-accent-primary);
+      }
+
+      .cash-confirm-btn:disabled:active {
+        transform: none;
+      }
+
+      /* Processing Slide Content */
+      .processing-slide__body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--space-gutter);
+        /* Account for absolute footer: gutter + button + gutter + safe-bottom */
+        padding-bottom: calc(
+          var(--space-gutter) * 2 + var(--height-button) + var(--safe-bottom)
+        );
+      }
+
+      .processing-slide__body::before {
+        content: "";
+        flex: 1;
+      }
+
+      .processing-slide__body::after {
+        content: "";
+        flex: 2;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .processing__icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: var(--space-base);
+      }
+
+      .processing__icon i {
+        font-size: 48px;
+        line-height: 1;
+      }
+
+      .processing__icon--success i {
+        color: var(--color-semantic-success);
+      }
+
+      .processing__spinner {
+        width: 48px;
+        height: 48px;
+        border: 3px solid var(--color-border-medium);
+        border-top-color: var(--color-accent-primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .processing__amount {
+        font-size: var(--font-size-display);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-tight);
+        color: var(--color-text-primary);
+        font-variant-numeric: tabular-nums;
+        line-height: var(--line-height-none);
+        margin-bottom: var(--space-small);
+      }
+
+      .processing__status {
+        font-size: var(--font-size-md);
+        color: var(--color-text-secondary);
+      }
+
+      /* Completion Elements (revealed after processing) */
+
+      /* Change and receipt row - flows below status, reserves space even when hidden */
+      .completion-actions {
+        width: 100%;
+        margin-top: var(--space-large);
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 300ms var(--ease-out), visibility 0ms 300ms;
+        pointer-events: none;
+      }
+
+      .processing-slide.complete .completion-actions {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 300ms var(--ease-out), visibility 0ms 0ms;
+        pointer-events: auto;
+      }
+
+      /* New sale button - positioned at bottom */
+      .completion-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: var(--space-gutter);
+        padding-bottom: calc(var(--space-gutter) + var(--safe-bottom));
+        opacity: 0;
+        transform: translateY(8px);
+        transition: opacity 300ms var(--ease-out),
+          transform 300ms var(--ease-out);
+        pointer-events: none;
+      }
+
+      .processing-slide.complete .completion-footer {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .completion__change {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--color-accent-sand);
+        border-radius: var(--radius-base);
+        padding: var(--space-base) var(--space-large);
+        margin-bottom: var(--space-base);
+      }
+
+      .processing-slide.has-change .completion__change {
+        display: flex;
+      }
+
+      .completion__change-label {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+      }
+
+      .completion__change-value {
+        font-size: var(--font-size-xl);
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-text-primary);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .receipt-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-small);
+      }
+
+      .receipt-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-tiny);
+        height: var(--height-pill);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        color: var(--color-text-primary);
+        font-family: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wide);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .receipt-btn i {
+        font-size: var(--icon-size-default);
+      }
+
+      .receipt-btn:hover {
+        border-color: var(--color-border-strong);
+      }
+
+      .receipt-btn:active {
+        transform: scale(0.98);
+      }
+
+      .receipt-btn--sent i {
+        color: var(--color-semantic-success);
+      }
+
+      .new-sale-btn {
+        width: 100%;
+        height: var(--height-button);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        border: var(--border-subtle) solid var(--color-accent-primary);
+        border-radius: var(--radius-sm);
+        background: var(--color-accent-primary);
+        color: var(--color-text-inverse);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .new-sale-btn:hover {
+        background: var(--color-interactive-hover);
+        border-color: var(--color-interactive-hover);
+      }
+
+      .new-sale-btn:active {
+        transform: scale(0.98);
+        background: var(--color-interactive-pressed);
+        border-color: var(--color-interactive-pressed);
+      }
+
+      /* Manual Entry Slide */
+      .payment-flow .manual-entry-slide {
+        position: absolute;
+        inset: 0;
+        transform: translateY(100%);
+        transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        flex-direction: column;
+        background: var(--color-canvas);
+      }
+
+      .payment-flow .manual-entry-slide.visible {
+        transform: translateY(0);
+      }
+
+      .payment-flow .manual-entry-slide.slid-up {
+        transform: translateY(-100%);
+      }
+
+      .manual-entry-slide__body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: var(--space-gutter) var(--space-gutter) 0;
+        overflow-y: auto;
+      }
+
+      .manual-entry__amount {
+        text-align: center;
+        padding: var(--space-large) 0;
+        margin-bottom: var(--space-base);
+      }
+
+      .manual-entry__amount-value {
+        font-size: var(--font-size-display);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-tight);
+        font-variant-numeric: tabular-nums;
+        line-height: var(--line-height-none);
+        color: var(--color-text-primary);
+      }
+
+      .manual-entry__form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-large);
+      }
+
+      .manual-entry__form .form-group {
+        margin-bottom: 0;
+      }
+
+      .manual-entry__row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-small);
+      }
+
+      .manual-entry__input {
+        width: 100%;
+        height: var(--height-input);
+        padding: 0 var(--space-base);
+        background: var(--color-canvas);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        color: var(--color-text-primary);
+        font-family: var(--font-family);
+        transition: border-color 150ms ease;
+        outline: none;
+      }
+
+      .manual-entry__input::placeholder {
+        color: var(--color-text-whisper);
+      }
+
+      .manual-entry__input:hover:not(:focus):not(:disabled) {
+        border-color: var(--color-border-strong);
+      }
+
+      .manual-entry__input:focus {
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      .manual-entry__input.error {
+        border-color: var(--color-semantic-error);
+      }
+
+      .manual-entry__input.error:focus {
+        border-color: var(--color-semantic-error);
+        box-shadow: var(--shadow-focus-error);
+      }
+
+      .manual-entry__error {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        letter-spacing: 0.2px;
+        line-height: var(--line-height-none);
+        color: var(--color-semantic-error);
+        margin-top: var(--space-tiny);
+        display: none;
+      }
+
+      .manual-entry__error.visible {
+        display: block;
+      }
+
+      .manual-entry__spacer {
+        flex: 1;
+      }
+
+      .manual-entry__secure {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-tiny);
+        font-size: var(--font-size-xs);
+        color: var(--color-text-tertiary);
+        margin-top: var(--space-base);
+      }
+
+      .manual-entry__secure i {
+        font-size: var(--icon-size-small);
+      }
+
+      .manual-entry__footer {
+        padding: var(--space-gutter);
+        padding-bottom: calc(var(--space-gutter) + var(--safe-bottom));
+        background: var(--color-canvas);
+      }
+
+      .manual-entry__charge-btn {
+        width: 100%;
+        height: var(--height-button);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: inherit;
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        letter-spacing: var(--letter-spacing-wider);
+        text-transform: uppercase;
+        border: var(--border-subtle) solid var(--color-accent-primary);
+        border-radius: var(--radius-sm);
+        background: var(--color-accent-primary);
+        color: var(--color-text-inverse);
+        cursor: pointer;
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .manual-entry__charge-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      .manual-entry__charge-btn:hover:not(:disabled) {
+        background: var(--color-interactive-hover);
+        border-color: var(--color-interactive-hover);
+      }
+
+      .manual-entry__charge-btn:active:not(:disabled) {
+        transform: scale(0.98);
+        background: var(--color-interactive-pressed);
+        border-color: var(--color-interactive-pressed);
+      }
+
+      /* ===== Overlay (shared) ===== */
+      .overlay {
+        position: absolute;
+        inset: 0;
+        z-index: var(--z-toast);
+        display: flex;
+        flex-direction: column;
+        background: var(--color-canvas);
+      }
+
+      .overlay .header {
+        position: relative;
+        z-index: var(--z-header);
+      }
+
+      /* ===== Camera View ===== */
+      .camera-view {
+        flex: 1;
+        background: var(--color-canvas);
+        padding: var(--space-gutter);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-base);
+      }
+
+      .viewfinder-box {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: var(--radius-base);
+        border: var(--border-thin) solid var(--color-border-medium);
+        background: var(--color-background);
+        overflow: hidden;
+      }
+
+      .viewfinder-box__feed {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+      }
+
+      .viewfinder-hint {
+        text-align: center;
+        font-size: var(--font-size-sm);
+        color: var(--color-text-secondary);
+      }
+
+      /* Camera Controls */
+      .camera-controls {
+        position: absolute;
+        bottom: var(--space-large);
+        left: var(--space-gutter);
+        right: var(--space-gutter);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: var(--safe-bottom);
+      }
+
+      .camera-controls__spacer {
+        width: var(--height-icon-button);
+        aspect-ratio: 1;
+      }
+
+      /* Torch Button */
+      .torch-button {
+        width: var(--height-icon-button);
+        aspect-ratio: 1;
+        border-radius: var(--radius-full);
+        background-color: var(--color-background);
+        border: var(--border-thin) solid var(--color-border-medium);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .torch-button i {
+        font-size: var(--icon-size-medium);
+        color: var(--color-text-whisper);
+      }
+
+      .torch-button--active i {
+        color: var(--color-accent-primary);
+      }
+
+      /* Capture Button */
+      .capture-button {
+        width: 72px;
+        height: 72px;
+        border-radius: var(--radius-full);
+        background-color: var(--color-background);
+        border: var(--border-thin) solid var(--color-border-medium);
+        cursor: pointer;
+        transition: transform 0.1s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .capture-button:active {
+        transform: scale(0.95);
+      }
+
+      .capture-button__inner {
+        width: 58px;
+        height: 58px;
+        border-radius: var(--radius-full);
+        background-color: rgba(255, 249, 244, 0.5);
+      }
+
+      /* ===== Search Screen ===== */
+      .search-screen {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .search-bar {
+        padding: var(--space-base) var(--space-gutter);
+        border-bottom: var(--border-thin) solid var(--color-border-medium);
+        flex-shrink: 0;
+      }
+
+      .search-input-wrapper {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: var(--space-small);
+        height: var(--height-input);
+        padding: 0 var(--space-base);
+        border: var(--border-subtle) solid var(--color-border-medium);
+        border-radius: var(--radius-base);
+        background: var(--color-canvas);
+      }
+
+      .search-input-wrapper:focus-within {
+        border-color: var(--color-border-focused);
+        box-shadow: var(--shadow-focus);
+      }
+
+      .search-input-wrapper > i {
+        color: var(--color-text-tertiary);
+        font-size: var(--icon-size-default);
+      }
+
+      .search-input {
+        border: none;
+        background: transparent;
+        font-family: inherit;
+        font-size: var(--font-size-md);
+        color: var(--color-text-primary);
+        width: 100%;
+      }
+
+      .search-input:focus,
+      .search-input:focus-visible {
+        outline: none;
+        box-shadow: none;
+      }
+
+      .search-input::placeholder {
+        color: var(--color-text-whisper);
+      }
+
+      .search-clear {
+        width: 24px;
+        height: 24px;
+        display: inline-grid;
+        place-items: center;
+        border: 0;
+        background: transparent;
+        border-radius: var(--radius-sm);
+        padding: 0;
+        cursor: pointer;
+        color: var(--color-text-tertiary);
+        transition: var(--transition-colors);
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .search-clear:hover {
+        color: var(--color-text-secondary);
+        background: var(--color-overlay-light);
+      }
+
+      .search-clear:active {
+        background: var(--color-overlay-pressed);
+      }
+
+      /* ===== Results Grid ===== */
+      .results {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: none;
+      }
+
+      .grid {
+        padding: var(--space-base) var(--space-gutter) var(--space-large);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-large);
+      }
+
+      .grid__item {
+        display: grid;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .grid__item:active {
+        opacity: 0.8;
+      }
+
+      .grid__image {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        background: var(--color-background);
+        border: var(--border-thin) solid var(--color-border-medium);
+      }
+
+      .grid__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .grid__title {
+        margin-top: var(--space-micro);
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+        color: var(--color-text-primary);
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        overflow: hidden;
+        align-self: start;
+      }
+
+      .grid__meta {
+        margin-top: var(--space-micro);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .grid__price {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-text-primary);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .grid__condition {
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* ===== Empty Results ===== */
+      .empty-results {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: var(--space-xxlarge) var(--space-gutter);
+      }
+
+      .empty-results::before {
+        content: "";
+        flex: 1;
+      }
+
+      .empty-results::after {
+        content: "";
+        flex: 2;
+      }
+
+      .empty-results__icon-container {
+        margin-bottom: var(--space-base);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .empty-results__icon-container i {
+        font-size: var(--icon-size-large);
+        color: var(--color-text-tertiary);
+      }
+
+      .empty-results__title {
+        font-size: var(--font-size-md);
+        font-weight: var(--font-weight-medium);
+        line-height: var(--line-height-none);
+        letter-spacing: var(--letter-spacing-normal);
+        color: var(--color-text-primary);
+        margin: 0 0 var(--space-tiny) 0;
+        text-align: center;
+      }
+
+      .empty-results__hint {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-normal);
+        letter-spacing: var(--letter-spacing-normal);
+        color: var(--color-text-secondary);
+        text-align: center;
+        margin: 0;
+      }
+
+      .empty-results .button {
+        margin-top: var(--space-medium);
+        width: auto;
+      }
+
+      /* Secondary Button for overlays */
+      .button--secondary {
+        background: var(--color-accent-nude);
+        color: var(--color-text-primary);
+        border-color: var(--color-accent-nude);
+      }
+
+      .button--secondary:hover {
+        background: var(--color-accent-blush);
+        border-color: var(--color-accent-blush);
+      }
+
+      .button--secondary:active {
+        background: var(--color-accent-clay);
+        border-color: var(--color-accent-clay);
+      }
+
+      /* ===== Photo Flow Animation ===== */
+      .photo-flow .content-wrapper {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .photo-flow .camera-slide {
+        position: absolute;
+        inset: 0;
+        transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .photo-flow .camera-slide.slid-up {
+        transform: translateY(-100%);
+      }
+
+      .photo-flow .results-slide {
+        position: absolute;
+        inset: 0;
+        transform: translateY(100%);
+        transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+        display: flex;
+        flex-direction: column;
+        background: var(--color-canvas);
+      }
+
+      .photo-flow .results-slide.visible {
+        transform: translateY(0);
+      }
+
+      .photo-flow .results-slide .results {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: none;
+      }
+
+      .photo-flow .results-slide .empty-results {
+        flex: 1;
+      }
+
+      .photo-flow .camera-view {
+        flex: 1;
+        position: relative;
+      }
+
+      .photo-flow .camera-controls {
+        position: absolute;
+        bottom: var(--space-large);
+        left: var(--space-gutter);
+        right: var(--space-gutter);
+      }
+
+      /* ===== QR Flow Layout ===== */
+      .qr-content {
+        flex: 1;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .qr-content .camera-view {
+        flex: 1;
+        position: relative;
+      }
+
+      .qr-content .camera-controls {
+        position: absolute;
+        bottom: var(--space-large);
+        left: var(--space-gutter);
+        right: var(--space-gutter);
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      // Store inventory (from store-new.html)
+      const ITEMS = [
+        {
+          id: "1",
+          title: "Floral Midi Dress",
+          priceValue: 45,
+          condition: "New",
+        },
+        {
+          id: "2",
+          title: "Vintage Silk Dress",
+          priceValue: 65,
+          condition: "Like New",
+        },
+        {
+          id: "3",
+          title: "Summer Maxi Dress",
+          priceValue: 38,
+          condition: "Excellent",
+        },
+        { id: "4", title: "Evening Gown", priceValue: 120, condition: "New" },
+        {
+          id: "5",
+          title: "Cotton Day Dress",
+          priceValue: 28,
+          condition: "Good",
+        },
+        { id: "6", title: "Linen Blouse", priceValue: 32, condition: "New" },
+        {
+          id: "7",
+          title: "Silk Camisole",
+          priceValue: 42,
+          condition: "Like New",
+        },
+        {
+          id: "8",
+          title: "Cashmere Sweater",
+          priceValue: 85,
+          condition: "Excellent",
+        },
+        { id: "9", title: "Wool Cardigan", priceValue: 68, condition: "New" },
+        {
+          id: "10",
+          title: "Cotton T-Shirt",
+          priceValue: 18,
+          condition: "Good",
+        },
+        { id: "11", title: "Denim Jeans", priceValue: 55, condition: "New" },
+        {
+          id: "12",
+          title: "Linen Pants",
+          priceValue: 48,
+          condition: "Like New",
+        },
+        {
+          id: "13",
+          title: "Wool Trousers",
+          priceValue: 72,
+          condition: "Excellent",
+        },
+        {
+          id: "14",
+          title: "Leather Skirt",
+          priceValue: 95,
+          condition: "Excellent",
+        },
+        { id: "15", title: "Velvet Sofa", priceValue: 850, condition: "New" },
+        {
+          id: "16",
+          title: "Leather Couch",
+          priceValue: 650,
+          condition: "Like New",
+        },
+        {
+          id: "17",
+          title: "Sectional Sofa",
+          priceValue: 480,
+          condition: "Excellent",
+        },
+        {
+          id: "18",
+          title: "Modern Loveseat",
+          priceValue: 320,
+          condition: "Good",
+        },
+        {
+          id: "19",
+          title: "Dining Chair Set",
+          priceValue: 180,
+          condition: "New",
+        },
+        {
+          id: "20",
+          title: "Office Chair",
+          priceValue: 125,
+          condition: "Like New",
+        },
+        {
+          id: "21",
+          title: "Accent Chair",
+          priceValue: 95,
+          condition: "Excellent",
+        },
+        { id: "22", title: "Leather Belt", priceValue: 42, condition: "New" },
+        {
+          id: "23",
+          title: "Silk Scarf",
+          priceValue: 35,
+          condition: "Like New",
+        },
+        {
+          id: "24",
+          title: "Canvas Tote Bag",
+          priceValue: 28,
+          condition: "Excellent",
+        },
+        { id: "25", title: "Ceramic Vase", priceValue: 48, condition: "New" },
+        {
+          id: "26",
+          title: "Brass Watering Can",
+          priceValue: 38,
+          condition: "Like New",
+        },
+        {
+          id: "27",
+          title: "Wooden Picture Frame",
+          priceValue: 22,
+          condition: "Excellent",
+        },
+      ];
+
+      // Cart state
+      let nextItemId = 1;
+      let addedInventoryIds = new Set(); // Track which inventory items have been added
+
+      // Discount state
+      let discountType = "dollar"; // 'dollar' or 'percent'
+      let discountValue = 0;
+      let discountAmount = 0;
+
+      // Format currency with commas
+      function formatCurrency(value) {
+        return value.toLocaleString("en-US", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        });
+      }
+
+      function updateCartDisplay() {
+        const emptyState = document.querySelector(".empty-state");
+        const cartItems = document.querySelector(".cart-items");
+        const items = document.querySelectorAll(".cart-item");
+
+        let subtotal = 0;
+        let itemCount = 0;
+        items.forEach((item) => {
+          const price = parseFloat(item.getAttribute("data-price"));
+          const quantity = parseInt(item.getAttribute("data-quantity")) || 1;
+          subtotal += price;
+          itemCount += quantity;
+        });
+
+        // Calculate discount
+        if (discountType === "percent" && discountValue > 0) {
+          discountAmount = subtotal * (discountValue / 100);
+        } else if (discountType === "dollar" && discountValue > 0) {
+          discountAmount = Math.min(discountValue, subtotal);
+        } else {
+          discountAmount = 0;
+        }
+
+        const taxableAmount = subtotal - discountAmount;
+        const taxRate = 0.0825; // 8.25%
+        const tax = taxableAmount * taxRate;
+        const total = taxableAmount + tax;
+
+        const itemLabel = itemCount === 1 ? "item" : "items";
+        document.getElementById(
+          "subtotal-label"
+        ).textContent = `Subtotal • ${itemCount} ${itemLabel}`;
+        document.getElementById("subtotal").textContent = `$${formatCurrency(
+          subtotal
+        )}`;
+        document.getElementById("tax").textContent = `$${formatCurrency(tax)}`;
+        document.getElementById("total").textContent = `$${formatCurrency(
+          total
+        )}`;
+        document.getElementById(
+          "charge-btn"
+        ).textContent = `Collect $${formatCurrency(total)}`;
+        document.getElementById("charge-btn").disabled = itemCount === 0;
+
+        // Update discount row display
+        updateDiscountRowDisplay(itemCount);
+
+        if (itemCount === 0) {
+          emptyState.removeAttribute("hidden");
+          cartItems.setAttribute("hidden", "");
+        } else {
+          emptyState.setAttribute("hidden", "");
+          cartItems.removeAttribute("hidden");
+        }
+      }
+
+      function removeItem(id) {
+        const item = document.querySelector(`.cart-item[data-id="${id}"]`);
+        if (item) {
+          // Release the inventory ID if this was an inventory item
+          const inventoryId = item.getAttribute("data-inventory-id");
+          if (inventoryId) {
+            addedInventoryIds.delete(inventoryId);
+          }
+          item.remove();
+          updateCartDisplay();
+        }
+      }
+
+      function addRandomItem() {
+        // Filter out items that have already been added
+        const availableItems = ITEMS.filter(
+          (item) => !addedInventoryIds.has(item.id)
+        );
+
+        if (availableItems.length === 0) {
+          return; // No items left to add
+        }
+
+        const randomItem =
+          availableItems[Math.floor(Math.random() * availableItems.length)];
+        addedInventoryIds.add(randomItem.id); // Mark as added
+
+        const cartItems = document.querySelector(".cart-items");
+        const cartItemId = nextItemId++;
+        const seed = encodeURIComponent(`${randomItem.title}-${randomItem.id}`);
+
+        const itemHTML = `
+          <div class="cart-item" data-id="${cartItemId}" data-inventory-id="${
+          randomItem.id
+        }" data-price="${randomItem.priceValue}" data-quantity="1">
+            <div class="cart-item__image">
+              <img
+                src="https://picsum.photos/seed/${seed}/200/200"
+                alt="${randomItem.title}"
+              />
+            </div>
+            <div class="cart-item__text">
+              <div class="cart-item__title">${randomItem.title}</div>
+              <div class="cart-item__subtitle">${randomItem.condition}</div>
+            </div>
+            <div class="cart-item__actions">
+              <div class="cart-item__price">$${formatCurrency(
+                randomItem.priceValue
+              )}</div>
+              <button
+                class="cart-item__remove"
+                aria-label="Remove"
+                onclick="removeItem(${cartItemId})"
+              >
+                <i class="ph ph-trash" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        `;
+
+        cartItems.insertAdjacentHTML("beforeend", itemHTML);
+        updateCartDisplay();
+
+        // Scroll to show the newly added item
+        const content = document.querySelector(".content");
+        content.scrollTo({ top: content.scrollHeight, behavior: "smooth" });
+      }
+
+      // Modal
+      function openAddItemModal() {
+        const modal = document.getElementById("addItemModal");
+        modal.classList.add("active");
+        resetModal();
+      }
+
+      function closeAddItemModal() {
+        const modal = document.getElementById("addItemModal");
+        modal.classList.remove("active");
+
+        // Debounce collect button to prevent accidental double-tap
+        const chargeBtn = document.getElementById("charge-btn");
+        chargeBtn.dataset.debounced = "true";
+        setTimeout(() => {
+          delete chargeBtn.dataset.debounced;
+        }, 300);
+      }
+
+      // Form state
+      let selectedPrice = 0;
+      let quantity = 1;
+      let capturedPhoto = null;
+
+      function resetModal() {
+        selectedPrice = 0;
+        quantity = 1;
+        capturedPhoto = null;
+        prevPriceRaw = "";
+        document
+          .querySelectorAll(".price-preset")
+          .forEach((b) => b.classList.remove("selected"));
+        document.getElementById("price-input").value = "";
+        document.getElementById("price-input").classList.remove("selected");
+        document.getElementById("qty-value").value = "1";
+        document.getElementById("qty-minus").disabled = true;
+        resetPhotoCapture();
+        updatePreview();
+      }
+
+      function resetPhotoCapture() {
+        const container = document.getElementById("photo-container");
+        container.innerHTML = `
+          <button
+            class="photo-capture"
+            type="button"
+            id="photo-btn"
+            aria-label="Add photo"
+            onclick="capturePhoto()"
+          >
+            <i class="ph ph-light ph-camera" aria-hidden="true"></i>
+          </button>
+        `;
+      }
+
+      function capturePhoto() {
+        // Open photo flow in quick item capture mode
+        openPhotoFlow("quickItem");
+      }
+
+      function removePhoto() {
+        capturedPhoto = null;
+        resetPhotoCapture();
+      }
+
+      function selectPreset(value, e) {
+        const presets = document.querySelectorAll(".price-preset");
+        const priceInput = document.getElementById("price-input");
+
+        presets.forEach((b) => b.classList.remove("selected"));
+        e.target.classList.add("selected");
+        priceInput.value = "";
+        priceInput.classList.remove("selected");
+        selectedPrice = parseFloat(value);
+        updatePreview();
+      }
+
+      let prevPriceRaw = "";
+
+      function handlePriceInput(e) {
+        const presets = document.querySelectorAll(".price-preset");
+        const priceInput = e.target;
+
+        // Strip everything except digits and decimal
+        let raw = priceInput.value.replace(/[^0-9.]/g, "");
+
+        // Handle multiple decimals - keep only first
+        let parts = raw.split(".");
+        if (parts.length > 2) {
+          raw = parts[0] + "." + parts.slice(1).join("");
+          parts = raw.split(".");
+        }
+
+        // Limit integer part to 4 digits
+        if (parts[0] && parts[0].length > 4) {
+          parts[0] = parts[0].slice(0, 4);
+        }
+
+        // Limit decimal places to 2
+        if (parts.length === 2 && parts[1].length > 2) {
+          parts[1] = parts[1].slice(0, 2);
+        }
+
+        // Add leading zero if starts with decimal, unless user is deleting it
+        if (parts[0] === "" && parts.length === 2) {
+          const deletingZero = prevPriceRaw.startsWith("0.");
+          if (!deletingZero) {
+            parts[0] = "0";
+          }
+        }
+
+        // Rebuild raw
+        raw = parts.length === 2 ? parts[0] + "." + parts[1] : parts[0];
+
+        // Update display
+        if (raw) {
+          // Format with commas
+          let formatted = raw;
+          if (parts[0]) {
+            const intFormatted = parseInt(parts[0]).toLocaleString();
+            formatted =
+              parts.length === 2 ? intFormatted + "." + parts[1] : intFormatted;
+          }
+          priceInput.value = "$" + formatted;
+          presets.forEach((b) => b.classList.remove("selected"));
+          priceInput.classList.add("selected");
+          selectedPrice = parseFloat(raw) || 0;
+        } else {
+          priceInput.value = "";
+          priceInput.classList.remove("selected");
+          selectedPrice = 0;
+        }
+
+        // Track raw value for next comparison
+        prevPriceRaw = raw;
+
+        updatePreview();
+      }
+
+      function adjustQty(delta) {
+        quantity = Math.max(1, Math.min(99, quantity + delta));
+        document.getElementById("qty-value").value = quantity;
+        document.getElementById("qty-minus").disabled = quantity <= 1;
+        updatePreview();
+      }
+
+      function updatePreview() {
+        const addBtn = document.getElementById("add-btn");
+        addBtn.disabled = selectedPrice <= 0;
+      }
+
+      function addItemToCart() {
+        if (selectedPrice <= 0) return;
+
+        const total = selectedPrice * quantity;
+        const id = nextItemId++;
+
+        const subtitle = `${quantity} × $${formatCurrency(selectedPrice)}`;
+
+        const imageHtml = capturedPhoto
+          ? `<div class="cart-item__image"><img src="${capturedPhoto}" alt="" /></div>`
+          : `<div class="cart-item__image cart-item__image--custom"><i class="ph ph-tag" aria-hidden="true"></i></div>`;
+
+        const itemHtml = `
+  <div class="cart-item" data-id="${id}" data-price="${total}" data-quantity="${quantity}">
+    ${imageHtml}
+    <div class="cart-item__text">
+      <div class="cart-item__title">Quick Item</div>
+      <div class="cart-item__subtitle">${subtitle}</div>
+    </div>
+    <div class="cart-item__actions">
+      <div class="cart-item__price">$${formatCurrency(total)}</div>
+      <button class="cart-item__remove" aria-label="Remove" onclick="removeItem(${id})">
+        <i class="ph ph-trash" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+`;
+
+        document
+          .querySelector(".cart-items")
+          .insertAdjacentHTML("beforeend", itemHtml);
+        updateCartDisplay();
+        closeAddItemModal();
+
+        // Scroll to show the newly added item
+        const content = document.querySelector(".content");
+        content.scrollTo({ top: content.scrollHeight, behavior: "smooth" });
+      }
+
+      // Discount Modal Functions
+      function updateDiscountRowDisplay(itemCount = 0) {
+        const discountRow = document.getElementById("discount-row");
+
+        if (discountValue > 0 && discountAmount > 0) {
+          // Active discount
+          let labelText = "Discount";
+          if (discountType === "percent") {
+            labelText = `Discount (${discountValue}%)`;
+          }
+          discountRow.innerHTML = `
+            <span class="discount-row__label">${labelText}</span>
+            <button class="discount-row__value" type="button" onclick="openDiscountModal()">−$${formatCurrency(
+              discountAmount
+            )}</button>
+          `;
+        } else if (itemCount === 0) {
+          // Empty cart — show dash
+          discountRow.innerHTML = `
+            <span class="discount-row__label">Discount</span>
+            <span class="discount-row__placeholder">–</span>
+          `;
+        } else {
+          // Has items, no discount — show Add
+          discountRow.innerHTML = `
+            <span class="discount-row__label">Discount</span>
+            <button class="discount-row__add" type="button" onclick="openDiscountModal()">Add</button>
+          `;
+        }
+      }
+
+      function openDiscountModal() {
+        const modal = document.getElementById("discountModal");
+        modal.classList.add("active");
+
+        // If no existing discount, default to dollar
+        if (discountValue <= 0) {
+          discountType = "dollar";
+        }
+
+        // Update type button states
+        document.querySelectorAll(".discount-type-btn").forEach((btn) => {
+          btn.classList.toggle("selected", btn.dataset.type === discountType);
+        });
+
+        const input = document.getElementById("discount-input");
+
+        // Set placeholder based on type
+        input.placeholder = discountType === "percent" ? "0%" : "$0.00";
+
+        if (discountValue > 0 && discountType) {
+          input.value =
+            discountType === "percent"
+              ? discountValue + "%"
+              : "$" + formatCurrency(discountValue);
+          document
+            .getElementById("remove-discount-btn")
+            .removeAttribute("hidden");
+        } else {
+          input.value = "";
+          document
+            .getElementById("remove-discount-btn")
+            .setAttribute("hidden", "");
+        }
+
+        updateApplyDiscountBtn();
+
+        // Auto-focus the amount input
+        input.focus();
+      }
+
+      function closeDiscountModal() {
+        const modal = document.getElementById("discountModal");
+        modal.classList.remove("active");
+      }
+
+      function selectDiscountType(type, e) {
+        discountType = type;
+        document.querySelectorAll(".discount-type-btn").forEach((btn) => {
+          btn.classList.toggle("selected", btn.dataset.type === type);
+        });
+
+        // Update placeholder based on type
+        const input = document.getElementById("discount-input");
+        input.placeholder = type === "percent" ? "0%" : "$0.00";
+
+        // Format input with symbol, cap if needed
+        let raw = parseFloat(input.value.replace(/[^0-9.]/g, "")) || 0;
+
+        if (raw > 0) {
+          if (type === "percent" && raw > 100) {
+            raw = 100;
+          } else if (type === "dollar") {
+            const subtotal = getSubtotal();
+            if (raw > subtotal) {
+              raw = subtotal;
+            }
+          }
+          input.value =
+            type === "percent" ? raw + "%" : "$" + formatCurrency(raw);
+        }
+
+        updateApplyDiscountBtn();
+      }
+
+      function getSubtotal() {
+        const items = document.querySelectorAll(".cart-item");
+        let subtotal = 0;
+        items.forEach((item) => {
+          subtotal += parseFloat(item.getAttribute("data-price")) || 0;
+        });
+        return subtotal;
+      }
+
+      function handleDiscountInput(e) {
+        const input = e.target;
+        let raw = input.value.replace(/[^0-9.]/g, "");
+
+        // Handle multiple decimals
+        const parts = raw.split(".");
+        if (parts.length > 2) {
+          raw = parts[0] + "." + parts.slice(1).join("");
+        }
+
+        input.value = raw;
+        updateApplyDiscountBtn();
+      }
+
+      function handleDiscountFocus(e) {
+        const input = e.target;
+        // Strip symbols on focus
+        input.value = input.value.replace(/[^0-9.]/g, "");
+        // Select all
+        setTimeout(() => input.select(), 0);
+      }
+
+      function handleDiscountBlur(e) {
+        const input = e.target;
+        let raw = parseFloat(input.value.replace(/[^0-9.]/g, "")) || 0;
+
+        // Cap and format on blur if type selected and value exists
+        if (raw > 0 && discountType) {
+          if (discountType === "percent" && raw > 100) {
+            raw = 100;
+          } else if (discountType === "dollar") {
+            const subtotal = getSubtotal();
+            if (raw > subtotal) {
+              raw = subtotal;
+            }
+          }
+          input.value =
+            discountType === "percent" ? raw + "%" : "$" + formatCurrency(raw);
+        }
+      }
+
+      function updateApplyDiscountBtn() {
+        const input = document.getElementById("discount-input");
+        const raw = input.value.replace(/[^0-9.]/g, "");
+        const btn = document.getElementById("apply-discount-btn");
+        btn.disabled = !discountType || !raw || parseFloat(raw) <= 0;
+      }
+
+      function applyDiscount() {
+        const input = document.getElementById("discount-input");
+        const raw = input.value.replace(/[^0-9.]/g, "");
+        discountValue = parseFloat(raw) || 0;
+
+        // Cap values
+        if (discountType === "percent" && discountValue > 100) {
+          discountValue = 100;
+        } else if (discountType === "dollar") {
+          const subtotal = getSubtotal();
+          if (discountValue > subtotal) {
+            discountValue = subtotal;
+          }
+        }
+
+        updateCartDisplay();
+        closeDiscountModal();
+      }
+
+      function removeDiscount() {
+        discountType = null;
+        discountValue = 0;
+        discountAmount = 0;
+        updateCartDisplay();
+        closeDiscountModal();
+      }
+
+      // ===== Payment Flow Functions =====
+      function openPaymentFlow() {
+        const total = document.getElementById("total").textContent;
+        document.getElementById("payment-total-amount").textContent = total;
+        populateCashPresets();
+
+        // Reset slides to initial state
+        document.getElementById("payment-slide").classList.remove("slid-up");
+        const processingSlide = document.getElementById("processing-slide");
+        processingSlide.classList.remove("visible", "complete", "has-change");
+        document.getElementById("payment-flow-title").textContent = "Payment";
+
+        document.getElementById("payment-flow").hidden = false;
+      }
+
+      function closePaymentFlow() {
+        document.getElementById("payment-flow").hidden = true;
+        // Reset slides
+        document.getElementById("payment-slide").classList.remove("slid-up");
+        document
+          .getElementById("manual-entry-slide")
+          .classList.remove("visible", "slid-up");
+        const processingSlide = document.getElementById("processing-slide");
+        processingSlide.classList.remove("visible", "complete", "has-change");
+        // Clear preset selection
+        document
+          .querySelectorAll("#cash-preset-grid .preset")
+          .forEach((p) => p.classList.remove("selected"));
+        // Reset cash other input
+        const cashOtherInput = document.getElementById("cash-other-input");
+        cashOtherInput.value = "";
+        cashOtherInput.classList.remove("selected");
+        document.getElementById("cash-confirm-btn").disabled = true;
+        // Reset manual entry form
+        document.getElementById("card-number-input").value = "";
+        document.getElementById("expiry-input").value = "";
+        document.getElementById("cvv-input").value = "";
+        document.getElementById("zip-input").value = "";
+        clearManualErrors();
+        // Reset processing state
+        processingType = null;
+        processingTotal = 0;
+        tenderedCash = 0;
+        processingState = 0;
+        processingComplete = false;
+        prevCashRaw = "";
+        // Reset header
+        document.getElementById("payment-flow-title").textContent = "Payment";
+        // Reset receipt buttons
+        resetReceiptButtons();
+      }
+
+      function populateCashPresets() {
+        const totalText = document.getElementById("total").textContent;
+        const totalValue = parseFloat(
+          totalText.replace("$", "").replace(",", "")
+        );
+
+        const presets = ["Exact"];
+        const amounts = new Set();
+
+        // Maximum reasonable amount (next $100 increment that covers the total)
+        const maxAmount = Math.ceil(totalValue / 100) * 100;
+
+        // Standard bill denominations
+        const billDenominations = [1, 5, 10, 20, 50, 100];
+
+        // Round up using each bill denomination
+        for (const bill of billDenominations) {
+          const nextAmount = Math.ceil(totalValue / bill) * bill;
+          if (nextAmount > totalValue && nextAmount <= maxAmount) {
+            amounts.add(nextAmount);
+          }
+        }
+
+        // Sort amounts and add to presets (up to 5 amounts + Exact = 6 total)
+        const sortedAmounts = Array.from(amounts).sort((a, b) => a - b);
+        for (const amount of sortedAmounts) {
+          if (presets.length < 6) {
+            presets.push(`$${amount.toLocaleString()}`);
+          }
+        }
+
+        const grid = document.getElementById("cash-preset-grid");
+        grid.innerHTML = presets
+          .map(
+            (preset) =>
+              `<button class="preset" onclick="selectCashPreset(this)">${preset}</button>`
+          )
+          .join("");
+      }
+
+      function selectCashPreset(btn) {
+        // Clear other input
+        const otherInput = document.getElementById("cash-other-input");
+        otherInput.value = "";
+        otherInput.classList.remove("selected");
+
+        // Select this preset
+        document
+          .querySelectorAll("#cash-preset-grid .preset")
+          .forEach((p) => p.classList.remove("selected"));
+        btn.classList.add("selected");
+
+        // Enable confirm button
+        document.getElementById("cash-confirm-btn").disabled = false;
+      }
+
+      let prevCashRaw = "";
+
+      function handleCashOtherInput(e) {
+        const input = e.target;
+
+        // Strip everything except digits and decimal
+        let raw = input.value.replace(/[^0-9.]/g, "");
+
+        // Handle multiple decimals - keep only first
+        let parts = raw.split(".");
+        if (parts.length > 2) {
+          raw = parts[0] + "." + parts.slice(1).join("");
+          parts = raw.split(".");
+        }
+
+        // Limit integer part to 4 digits
+        if (parts[0] && parts[0].length > 4) {
+          parts[0] = parts[0].slice(0, 4);
+        }
+
+        if (parts.length === 2 && parts[1].length > 2) {
+          parts[1] = parts[1].slice(0, 2);
+        }
+
+        // Add leading zero if starts with decimal, unless user is deleting it
+        if (parts[0] === "" && parts.length === 2) {
+          const deletingZero = prevCashRaw.startsWith("0.");
+          if (!deletingZero) {
+            parts[0] = "0";
+          }
+        }
+
+        // Rebuild raw
+        raw = parts.length === 2 ? parts[0] + "." + parts[1] : parts[0];
+
+        // Update display and state
+        const confirmBtn = document.getElementById("cash-confirm-btn");
+        const totalText = document.getElementById("total").textContent;
+        const totalValue = parseFloat(
+          totalText.replace("$", "").replace(",", "")
+        );
+
+        if (raw) {
+          // Format with commas
+          let formatted = raw;
+          if (parts[0]) {
+            const intFormatted = parseInt(parts[0]).toLocaleString();
+            formatted =
+              parts.length === 2 ? intFormatted + "." + parts[1] : intFormatted;
+          }
+          input.value = "$" + formatted;
+          input.classList.add("selected");
+          document
+            .querySelectorAll("#cash-preset-grid .preset")
+            .forEach((p) => p.classList.remove("selected"));
+
+          // Only enable confirm if entered amount >= total due
+          const enteredValue = parseFloat(raw) || 0;
+          confirmBtn.disabled = enteredValue < totalValue;
+        } else {
+          input.value = "";
+          input.classList.remove("selected");
+          // Only enable if a preset is selected
+          const hasPresetSelected =
+            document.querySelector("#cash-preset-grid .preset.selected") !==
+            null;
+          confirmBtn.disabled = !hasPresetSelected;
+        }
+
+        prevCashRaw = raw;
+      }
+
+      function confirmCash() {
+        const totalText = document.getElementById("total").textContent;
+        const totalValue = parseFloat(
+          totalText.replace("$", "").replace(",", "")
+        );
+
+        let tenderedAmount;
+
+        // Check if other input has value
+        const otherInput = document.getElementById("cash-other-input");
+        const otherValue = otherInput.value.replace(/[^0-9.]/g, "");
+
+        if (otherValue) {
+          tenderedAmount = parseFloat(otherValue);
+        } else {
+          // Get selected preset
+          const selectedPreset = document.querySelector(
+            "#cash-preset-grid .preset.selected"
+          );
+          if (!selectedPreset) return;
+
+          const presetText = selectedPreset.textContent;
+          if (presetText === "Exact") {
+            tenderedAmount = totalValue;
+          } else {
+            tenderedAmount = parseFloat(
+              presetText.replace("$", "").replace(",", "")
+            );
+          }
+        }
+
+        // Trigger processing
+        triggerProcessing("cash", totalValue, tenderedAmount);
+      }
+
+      // ===== Processing Functions =====
+      let processingType = null;
+      let processingTotal = 0;
+      let tenderedCash = 0;
+      let processingState = 0;
+      let processingComplete = false;
+
+      const cardStates = ["authorizing", "processing", "approved", "all set"];
+      const cashStates = ["recording", "processing", "recorded", "all set"];
+
+      function triggerProcessing(type, total = null, tendered = 0) {
+        // Get total if not provided
+        if (total === null) {
+          const totalText = document.getElementById("total").textContent;
+          total = parseFloat(totalText.replace("$", "").replace(",", ""));
+        }
+
+        processingType = type;
+        processingTotal = total;
+        tenderedCash = tendered;
+        processingState = 0;
+        processingComplete = false;
+
+        // Reset completion state
+        const slide = document.getElementById("processing-slide");
+        slide.classList.remove("complete", "has-change");
+
+        // Pre-determine if change will be needed (reserves layout space)
+        if (type === "cash" && tendered >= total) {
+          const change = tendered - total;
+          document.getElementById(
+            "completion-change"
+          ).textContent = `$${formatCurrency(change)}`;
+          slide.classList.add("has-change");
+        }
+
+        // Set amount
+        document.getElementById(
+          "processing-amount"
+        ).textContent = `$${formatCurrency(total)}`;
+
+        // Set initial state
+        updateProcessingState();
+
+        // Trigger slide animation
+        document.getElementById("payment-slide").classList.add("slid-up");
+        document.getElementById("processing-slide").classList.add("visible");
+      }
+
+      function handleProcessingClick(event) {
+        // Don't cycle if clicking buttons or if already complete
+        if (event.target.closest("button")) return;
+        if (processingComplete) return;
+
+        cycleProcessingState();
+      }
+
+      function cycleProcessingState() {
+        const states = processingType === "card" ? cardStates : cashStates;
+        processingState++;
+
+        if (processingState < states.length) {
+          updateProcessingState();
+        }
+      }
+
+      function updateProcessingState() {
+        const states = processingType === "card" ? cardStates : cashStates;
+        const state = states[processingState];
+
+        const slide = document.getElementById("processing-slide");
+        const icon = document.getElementById("processing-icon");
+        const status = document.getElementById("processing-status");
+
+        icon.className = "processing__icon";
+
+        switch (state) {
+          case "authorizing":
+            icon.innerHTML = '<div class="processing__spinner"></div>';
+            status.textContent = "Authorizing...";
+            break;
+          case "recording":
+            icon.innerHTML = '<div class="processing__spinner"></div>';
+            status.textContent = "Recording...";
+            break;
+          case "processing":
+            icon.innerHTML = '<div class="processing__spinner"></div>';
+            status.textContent = "Processing...";
+            break;
+          case "approved":
+            icon.classList.add("processing__icon--success");
+            icon.innerHTML = '<i class="ph ph-fill ph-check-circle"></i>';
+            status.textContent = "Approved";
+            break;
+          case "recorded":
+            icon.classList.add("processing__icon--success");
+            icon.innerHTML = '<i class="ph ph-fill ph-check-circle"></i>';
+            status.textContent = "Recorded";
+            break;
+          case "all set":
+            icon.classList.add("processing__icon--success");
+            icon.innerHTML = '<i class="ph ph-fill ph-check-circle"></i>';
+            status.textContent = "All set";
+            showCompletion();
+            break;
+        }
+      }
+
+      function showCompletion() {
+        processingComplete = true;
+
+        const slide = document.getElementById("processing-slide");
+        slide.classList.add("complete");
+
+        // Clear cart
+        document
+          .querySelectorAll(".cart-item")
+          .forEach((item) => item.remove());
+        discountType = null;
+        discountValue = 0;
+        discountAmount = 0;
+        updateCartDisplay();
+      }
+
+      function startNewSale(event) {
+        event.stopPropagation();
+
+        // Close payment flow (also resets receipt buttons)
+        closePaymentFlow();
+      }
+
+      // ===== Receipt Functions =====
+      function resetReceiptButtons() {
+        // Reset Print
+        const printBtn = document.getElementById("print-btn");
+        const printIcon = document.getElementById("print-icon");
+        printBtn.classList.remove("receipt-btn--sent");
+        printIcon.className = "ph ph-printer";
+
+        // Reset Email
+        const emailBtn = document.getElementById("email-btn");
+        const emailIcon = document.getElementById("email-icon");
+        emailBtn.classList.remove("receipt-btn--sent");
+        emailIcon.className = "ph ph-envelope-simple";
+
+        // Reset Text
+        const textBtn = document.getElementById("text-btn");
+        const textIcon = document.getElementById("text-icon");
+        textBtn.classList.remove("receipt-btn--sent");
+        textIcon.className = "ph ph-chat-circle-text";
+      }
+
+      function handlePrint() {
+        const btn = document.getElementById("print-btn");
+        const icon = document.getElementById("print-icon");
+
+        // Show sent state
+        btn.classList.add("receipt-btn--sent");
+        icon.className = "ph ph-check";
+      }
+
+      function openEmailModal() {
+        document.getElementById("emailModal").classList.add("active");
+        document.getElementById("email-input").focus();
+      }
+
+      function closeEmailModal() {
+        document.getElementById("emailModal").classList.remove("active");
+        document.getElementById("email-input").value = "";
+        document.getElementById("send-email-btn").disabled = true;
+      }
+
+      function validateEmailInput() {
+        const input = document.getElementById("email-input");
+        const btn = document.getElementById("send-email-btn");
+        btn.disabled = !input.value.trim();
+      }
+
+      function sendEmailReceipt() {
+        const btn = document.getElementById("email-btn");
+        const icon = document.getElementById("email-icon");
+
+        btn.classList.add("receipt-btn--sent");
+        icon.className = "ph ph-check";
+
+        closeEmailModal();
+      }
+
+      function openTextModal() {
+        document.getElementById("textModal").classList.add("active");
+        document.getElementById("text-input").focus();
+      }
+
+      function closeTextModal() {
+        document.getElementById("textModal").classList.remove("active");
+        document.getElementById("text-input").value = "";
+        document.getElementById("send-text-btn").disabled = true;
+      }
+
+      function validateTextInput() {
+        const input = document.getElementById("text-input");
+        const btn = document.getElementById("send-text-btn");
+
+        // Strip non-numeric characters
+        let digits = input.value.replace(/[^0-9]/g, "");
+
+        // Limit to 10 digits
+        digits = digits.substring(0, 10);
+
+        // Format as (555) 123-4567
+        let formatted = "";
+        if (digits.length > 0) {
+          formatted = "(" + digits.substring(0, 3);
+        }
+        if (digits.length >= 3) {
+          formatted += ") ";
+        }
+        if (digits.length > 3) {
+          formatted += digits.substring(3, 6);
+        }
+        if (digits.length >= 6) {
+          formatted += "-";
+        }
+        if (digits.length > 6) {
+          formatted += digits.substring(6, 10);
+        }
+
+        input.value = formatted;
+
+        // Enable button only with complete 10-digit number
+        btn.disabled = digits.length !== 10;
+      }
+
+      function sendTextReceipt() {
+        const btn = document.getElementById("text-btn");
+        const icon = document.getElementById("text-icon");
+
+        btn.classList.add("receipt-btn--sent");
+        icon.className = "ph ph-check";
+
+        closeTextModal();
+      }
+
+      // ===== Manual Card Entry Functions =====
+      function openManualEntry(event) {
+        event.stopPropagation(); // Don't trigger card tap
+
+        // Set amount
+        const total = document.getElementById(
+          "payment-total-amount"
+        ).textContent;
+        document.getElementById("manual-entry-amount").textContent = total;
+        document.getElementById(
+          "manual-charge-btn"
+        ).textContent = `Charge ${total}`;
+
+        // Clear any previous input
+        document.getElementById("card-number-input").value = "";
+        document.getElementById("expiry-input").value = "";
+        document.getElementById("cvv-input").value = "";
+        document.getElementById("zip-input").value = "";
+        clearManualErrors();
+        updateManualChargeState();
+
+        // Slide payment out, manual entry in
+        document.getElementById("payment-slide").classList.add("slid-up");
+        document.getElementById("manual-entry-slide").classList.add("visible");
+      }
+
+      function clearManualErrors() {
+        document.querySelectorAll(".manual-entry__input").forEach((input) => {
+          input.classList.remove("error");
+        });
+        document.querySelectorAll(".manual-entry__error").forEach((err) => {
+          err.classList.remove("visible");
+        });
+      }
+
+      function showManualError(inputId, errorId) {
+        document.getElementById(inputId).classList.add("error");
+        document.getElementById(errorId).classList.add("visible");
+      }
+
+      function clearManualError(inputId, errorId) {
+        document.getElementById(inputId).classList.remove("error");
+        document.getElementById(errorId).classList.remove("visible");
+      }
+
+      function updateManualChargeState() {
+        const cardNumber = document
+          .getElementById("card-number-input")
+          .value.trim();
+        const expiry = document.getElementById("expiry-input").value.trim();
+        const cvv = document.getElementById("cvv-input").value.trim();
+        const zip = document.getElementById("zip-input").value.trim();
+
+        const hasCard = cardNumber.length > 0;
+        const hasExpiry = expiry.length > 0;
+        const hasCvv = cvv.length > 0;
+        const hasZip = zip.length > 0;
+
+        document.getElementById("manual-charge-btn").disabled = !(
+          hasCard &&
+          hasExpiry &&
+          hasCvv &&
+          hasZip
+        );
+      }
+
+      function chargeManualCard() {
+        const cardNumber = document
+          .getElementById("card-number-input")
+          .value.trim();
+        const expiry = document.getElementById("expiry-input").value.trim();
+        const cvv = document.getElementById("cvv-input").value.trim();
+        const zip = document.getElementById("zip-input").value.trim();
+
+        let hasError = false;
+
+        if (cardNumber.length > 1) {
+          showManualError("card-number-input", "card-number-error");
+          hasError = true;
+        }
+        if (expiry.length > 1) {
+          showManualError("expiry-input", "expiry-error");
+          hasError = true;
+        }
+        if (cvv.length > 1) {
+          showManualError("cvv-input", "cvv-error");
+          hasError = true;
+        }
+        if (zip.length > 1) {
+          showManualError("zip-input", "zip-error");
+          hasError = true;
+        }
+
+        if (hasError) return;
+
+        // Slide manual entry up and off screen
+        document.getElementById("manual-entry-slide").classList.add("slid-up");
+
+        // Get total and trigger card processing
+        const totalText = document.getElementById(
+          "payment-total-amount"
+        ).textContent;
+        const total = parseFloat(totalText.replace("$", "").replace(",", ""));
+        triggerProcessing("card", total, 0);
+      }
+
+      // Wire up manual entry input formatting
+      document.addEventListener("DOMContentLoaded", function () {
+        const cardNumberInput = document.getElementById("card-number-input");
+        const expiryInput = document.getElementById("expiry-input");
+        const cvvInput = document.getElementById("cvv-input");
+        const zipInput = document.getElementById("zip-input");
+
+        // Auto-format card number: XXXX XXXX XXXX XXXX
+        cardNumberInput.addEventListener("input", (e) => {
+          let value = e.target.value.replace(/\D/g, "");
+          let formatted = value.match(/.{1,4}/g)?.join(" ") || "";
+          e.target.value = formatted;
+          clearManualError("card-number-input", "card-number-error");
+          updateManualChargeState();
+        });
+
+        // Auto-format expiry: MM / YY
+        expiryInput.addEventListener("input", (e) => {
+          let value = e.target.value.replace(/\D/g, "");
+          if (value.length > 2) {
+            value = value.slice(0, 2) + " / " + value.slice(2, 4);
+          }
+          e.target.value = value;
+          clearManualError("expiry-input", "expiry-error");
+          updateManualChargeState();
+        });
+
+        // CVV: digits only
+        cvvInput.addEventListener("input", (e) => {
+          e.target.value = e.target.value.replace(/\D/g, "");
+          clearManualError("cvv-input", "cvv-error");
+          updateManualChargeState();
+        });
+
+        // Zip: digits only
+        zipInput.addEventListener("input", (e) => {
+          e.target.value = e.target.value.replace(/\D/g, "");
+          clearManualError("zip-input", "zip-error");
+          updateManualChargeState();
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        updateCartDisplay();
+
+        // Wire up charge button
+        document
+          .getElementById("charge-btn")
+          .addEventListener("click", function () {
+            if (!this.disabled && !this.dataset.debounced) {
+              openPaymentFlow();
+            }
+          });
+
+        const qtyInput = document.getElementById("qty-value");
+
+        // Select all on focus
+        qtyInput.addEventListener("focus", function () {
+          setTimeout(() => {
+            this.select();
+          }, 0);
+        });
+
+        // Sync quantity variable when user types
+        qtyInput.addEventListener("input", function () {
+          const val = parseInt(this.value) || 0;
+          quantity = Math.max(1, Math.min(99, val));
+          document.getElementById("qty-minus").disabled = quantity <= 1;
+          updatePreview();
+        });
+
+        // Clean up value on blur
+        qtyInput.addEventListener("blur", function () {
+          if (!this.value || parseInt(this.value) < 1) {
+            quantity = 1;
+            this.value = "1";
+          }
+          document.getElementById("qty-minus").disabled = quantity <= 1;
+        });
+      });
+
+      // ===== Overlay Flow Functions =====
+      let torchOn = false;
+      let photoResultsVisible = false;
+
+      // QR Flow
+      function openQRFlow() {
+        document.getElementById("qr-flow").hidden = false;
+      }
+
+      function closeQRFlow() {
+        document.getElementById("qr-flow").hidden = true;
+        resetTorch();
+      }
+
+      function resetTorch() {
+        if (torchOn) {
+          torchOn = false;
+          const buttons = document.querySelectorAll(".torch-button");
+          buttons.forEach((btn) => {
+            btn.classList.remove("torch-button--active");
+            const icon = btn.querySelector("i");
+            icon.className = "ph-fill ph-lightning-slash";
+          });
+        }
+      }
+
+      function simulateQRScan() {
+        addRandomItem();
+        closeQRFlow();
+      }
+
+      // Photo Flow
+      let photoSearchResults = [];
+      let photoFlowContext = null; // null = inventory search, 'quickItem' = modal capture
+
+      function openPhotoFlow(context = null) {
+        photoFlowContext = context;
+        document.getElementById("photo-flow").hidden = false;
+        resetPhotoFlow();
+      }
+
+      function closePhotoFlow() {
+        document.getElementById("photo-flow").hidden = true;
+        resetPhotoFlow();
+        resetTorch();
+        photoFlowContext = null;
+      }
+
+      function resetPhotoFlow() {
+        const camera = document.getElementById("photo-camera-slide");
+        const results = document.getElementById("photo-results-slide");
+        const emptyState = document.getElementById("photo-empty-state");
+        const resultsGrid = document.getElementById("photo-results-scroll");
+
+        camera.classList.remove("slid-up");
+        results.classList.remove("visible");
+        emptyState.hidden = true;
+        resultsGrid.hidden = false;
+        photoResultsVisible = false;
+        photoSearchResults = [];
+
+        camera.style.transform = "";
+        results.style.transform = "";
+      }
+
+      function selectRandomPhotoResults() {
+        // Filter out items already in cart
+        const availableItems = ITEMS.filter(
+          (item) => !addedInventoryIds.has(item.id)
+        );
+
+        if (availableItems.length === 0) {
+          photoSearchResults = [];
+          return;
+        }
+
+        // Randomly select 1-15 items (or fewer if not enough available)
+        const maxCount = Math.min(15, availableItems.length);
+        const count = Math.floor(Math.random() * maxCount) + 1; // 1 to maxCount
+
+        // Shuffle and take first `count` items
+        const shuffled = [...availableItems].sort(() => Math.random() - 0.5);
+        photoSearchResults = shuffled.slice(0, count);
+      }
+
+      function populatePhotoResults() {
+        const grid = document.getElementById("photo-results-grid");
+        grid.innerHTML = photoSearchResults
+          .map((item) => {
+            const seed = encodeURIComponent(`${item.title}-${item.id}`);
+            return `
+          <div class="grid__item" onclick="addItemFromSearch('${
+            item.id
+          }', 'photo')">
+            <div class="grid__image">
+              <img src="https://picsum.photos/seed/${seed}/200/200" alt="" />
+            </div>
+            <div class="grid__title">${item.title}</div>
+            <div class="grid__meta">
+              <div class="grid__price">$${item.priceValue.toFixed(2)}</div>
+              <div class="grid__condition">${item.condition}</div>
+            </div>
+          </div>
+        `;
+          })
+          .join("");
+      }
+
+      // Photo capture
+      let captureStartTime = 0;
+      let captureTimeout = null;
+      let isDraggingResults = false; // Flag to prevent capture during drag
+
+      function startCapture(e) {
+        if (photoResultsVisible) return;
+        if (isDraggingResults) return;
+        e.preventDefault();
+        captureStartTime = Date.now();
+
+        // Auto-trigger empty state after 500ms hold
+        captureTimeout = setTimeout(() => {
+          capturePhotoForSearch(true);
+        }, 500);
+      }
+
+      function endCapture(e) {
+        if (photoResultsVisible) return;
+        if (isDraggingResults) {
+          isDraggingResults = false;
+          return;
+        }
+        e.preventDefault();
+
+        clearTimeout(captureTimeout);
+
+        const holdDuration = Date.now() - captureStartTime;
+
+        // Only trigger results on short tap (hold didn't auto-fire)
+        if (holdDuration < 500 && captureStartTime > 0) {
+          capturePhotoForSearch(false);
+        }
+        captureStartTime = 0;
+      }
+
+      function cancelCapture() {
+        clearTimeout(captureTimeout);
+        captureStartTime = 0;
+      }
+
+      function capturePhotoForSearch(showEmpty = false) {
+        if (photoResultsVisible) return;
+
+        // If capturing for quick item modal, just grab photo and return
+        if (photoFlowContext === "quickItem") {
+          capturePhotoForQuickItem();
+          return;
+        }
+
+        photoResultsVisible = true;
+
+        const emptyState = document.getElementById("photo-empty-state");
+        const resultsGrid = document.getElementById("photo-results-scroll");
+
+        if (showEmpty) {
+          photoSearchResults = [];
+          emptyState.hidden = false;
+          resultsGrid.hidden = true;
+        } else {
+          selectRandomPhotoResults();
+          // Show empty state if no available items (all in cart)
+          if (photoSearchResults.length === 0) {
+            emptyState.hidden = false;
+            resultsGrid.hidden = true;
+          } else {
+            emptyState.hidden = true;
+            resultsGrid.hidden = false;
+            populatePhotoResults();
+          }
+        }
+
+        showPhotoResults();
+      }
+
+      function capturePhotoForQuickItem() {
+        // Generate random photo and return to modal
+        const randomSeed = `quick-${Date.now()}-${Math.random()
+          .toString(36)
+          .slice(2, 8)}`;
+        capturedPhoto = `https://picsum.photos/seed/${randomSeed}/200/200`;
+
+        const container = document.getElementById("photo-container");
+        container.innerHTML = `
+          <div class="photo-capture--captured">
+            <div class="photo-thumbnail">
+              <img src="${capturedPhoto}" alt="" />
+              <button
+                class="photo-capture__remove"
+                type="button"
+                aria-label="Remove photo"
+                onclick="removePhoto()"
+              >
+                <i class="ph ph-x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        `;
+
+        closePhotoFlow();
+      }
+
+      function showPhotoResults() {
+        const camera = document.getElementById("photo-camera-slide");
+        const results = document.getElementById("photo-results-slide");
+
+        camera.classList.add("slid-up");
+        results.classList.add("visible");
+
+        setTimeout(equalizeGridTitles, 50);
+      }
+
+      function hidePhotoResults() {
+        const camera = document.getElementById("photo-camera-slide");
+        const results = document.getElementById("photo-results-slide");
+
+        camera.classList.remove("slid-up");
+        results.classList.remove("visible");
+        camera.style.transform = "";
+        results.style.transform = "";
+        photoResultsVisible = false;
+      }
+
+      // Pull-to-dismiss for Photo Results
+      (function () {
+        document.addEventListener("DOMContentLoaded", function () {
+          const camera = document.getElementById("photo-camera-slide");
+          const results = document.getElementById("photo-results-slide");
+          const scrollContainer = document.getElementById(
+            "photo-results-scroll"
+          );
+
+          if (!camera || !results || !scrollContainer) return;
+
+          let startY = 0;
+          let currentPull = 0;
+          let isPulling = false;
+          let isAtTop = false;
+          let hasScrolledDown = false;
+          let isMouseDown = false;
+          let scrollStartY = 0;
+          let scrollStartTop = 0;
+
+          // Touch events
+          scrollContainer.addEventListener(
+            "touchstart",
+            (e) => {
+              startY = e.touches[0].clientY;
+              currentPull = 0;
+              hasScrolledDown = false;
+              isAtTop = scrollContainer.scrollTop <= 1;
+            },
+            { passive: true }
+          );
+
+          scrollContainer.addEventListener(
+            "touchmove",
+            (e) => {
+              const touchY = e.touches[0].clientY;
+              const pull = touchY - startY;
+
+              // Only set drag flag if moved more than 3 pixels
+              if (Math.abs(pull) > 3) {
+                isDraggingResults = true;
+              }
+
+              if (scrollContainer.scrollTop > 1) {
+                hasScrolledDown = true;
+              }
+
+              if (!isAtTop) {
+                isAtTop = scrollContainer.scrollTop <= 1;
+                if (isAtTop) startY = e.touches[0].clientY;
+                return;
+              }
+
+              if (hasScrolledDown) return;
+
+              if (pull > 0 && isAtTop) {
+                isPulling = true;
+                currentPull = pull;
+                const dampedPull = pull * 0.5;
+                camera.style.transition = "none";
+                results.style.transition = "none";
+                camera.style.transform = `translateY(calc(-100% + ${dampedPull}px))`;
+                results.style.transform = `translateY(${dampedPull}px)`;
+                e.preventDefault();
+              }
+            },
+            { passive: false }
+          );
+
+          scrollContainer.addEventListener(
+            "touchend",
+            () => {
+              if (isPulling) {
+                camera.style.transition = "";
+                results.style.transition = "";
+
+                if (currentPull > 60) {
+                  hidePhotoResults();
+                } else {
+                  camera.style.transform = "";
+                  results.style.transform = "";
+                }
+              }
+
+              isPulling = false;
+              isAtTop = false;
+              hasScrolledDown = false;
+              currentPull = 0;
+
+              // Reset drag flag after click event would fire
+              setTimeout(() => {
+                isDraggingResults = false;
+              }, 10);
+            },
+            { passive: true }
+          );
+
+          // Mouse events for desktop testing
+          scrollContainer.addEventListener("mousedown", (e) => {
+            isMouseDown = true;
+            scrollStartY = e.clientY;
+            scrollStartTop = scrollContainer.scrollTop;
+            startY = e.clientY;
+            currentPull = 0;
+            hasScrolledDown = false;
+            isAtTop = scrollContainer.scrollTop <= 1;
+            scrollContainer.style.cursor = "grabbing";
+            scrollContainer.style.userSelect = "none";
+            e.preventDefault();
+          });
+
+          window.addEventListener("mousemove", (e) => {
+            if (!isMouseDown) return;
+
+            const deltaY = scrollStartY - e.clientY;
+            const newScrollTop = scrollStartTop + deltaY;
+
+            // Only set drag flag if moved more than 3 pixels
+            if (Math.abs(deltaY) > 3) {
+              isDraggingResults = true;
+            }
+
+            if (newScrollTop > 0 && deltaY > 0) {
+              hasScrolledDown = true;
+            }
+
+            if (
+              isAtTop &&
+              !hasScrolledDown &&
+              scrollContainer.scrollTop <= 1 &&
+              e.clientY > startY
+            ) {
+              const pull = e.clientY - startY;
+
+              if (pull > 0) {
+                isPulling = true;
+                currentPull = pull;
+                const dampedPull = pull * 0.5;
+                camera.style.transition = "none";
+                results.style.transition = "none";
+                camera.style.transform = `translateY(calc(-100% + ${dampedPull}px))`;
+                results.style.transform = `translateY(${dampedPull}px)`;
+              }
+            } else if (!isPulling) {
+              scrollContainer.scrollTop = newScrollTop;
+            }
+          });
+
+          window.addEventListener("mouseup", () => {
+            if (!isMouseDown) return;
+
+            scrollContainer.style.cursor = "";
+            scrollContainer.style.userSelect = "";
+
+            if (isPulling) {
+              camera.style.transition = "";
+              results.style.transition = "";
+
+              if (currentPull > 60) {
+                hidePhotoResults();
+              } else {
+                camera.style.transform = "";
+                results.style.transform = "";
+              }
+            }
+
+            isPulling = false;
+            isAtTop = false;
+            hasScrolledDown = false;
+            isMouseDown = false;
+            currentPull = 0;
+
+            // Reset drag flag after click event would fire
+            setTimeout(() => {
+              isDraggingResults = false;
+            }, 10);
+          });
+        });
+      })();
+
+      // Pull-to-dismiss for Photo Empty State
+      (function () {
+        document.addEventListener("DOMContentLoaded", function () {
+          const camera = document.getElementById("photo-camera-slide");
+          const results = document.getElementById("photo-results-slide");
+          const emptyState = document.getElementById("photo-empty-state");
+
+          if (!camera || !results || !emptyState) return;
+
+          let startY = 0;
+          let currentPull = 0;
+          let isPulling = false;
+          let isMouseDown = false;
+
+          emptyState.addEventListener(
+            "touchstart",
+            (e) => {
+              startY = e.touches[0].clientY;
+              currentPull = 0;
+            },
+            { passive: true }
+          );
+
+          emptyState.addEventListener(
+            "touchmove",
+            (e) => {
+              const touchY = e.touches[0].clientY;
+              const pull = touchY - startY;
+
+              if (pull > 0) {
+                isPulling = true;
+                isDraggingResults = true;
+                currentPull = pull;
+                const dampedPull = pull * 0.5;
+                camera.style.transition = "none";
+                results.style.transition = "none";
+                camera.style.transform = `translateY(calc(-100% + ${dampedPull}px))`;
+                results.style.transform = `translateY(${dampedPull}px)`;
+                e.preventDefault();
+              }
+            },
+            { passive: false }
+          );
+
+          emptyState.addEventListener("touchend", () => {
+            if (!isPulling) return;
+
+            camera.style.transition = "";
+            results.style.transition = "";
+
+            if (currentPull > 60) {
+              hidePhotoResults();
+            } else {
+              camera.style.transform = "";
+              results.style.transform = "";
+            }
+
+            isPulling = false;
+            currentPull = 0;
+
+            // Reset drag flag after click event would fire
+            setTimeout(() => {
+              isDraggingResults = false;
+            }, 10);
+          });
+
+          // Mouse events for desktop testing
+          emptyState.addEventListener("mousedown", (e) => {
+            isMouseDown = true;
+            startY = e.clientY;
+            currentPull = 0;
+            emptyState.style.cursor = "grabbing";
+            e.preventDefault();
+          });
+
+          window.addEventListener("mousemove", (e) => {
+            if (!isMouseDown) return;
+
+            const pull = e.clientY - startY;
+
+            if (pull > 0) {
+              isPulling = true;
+              isDraggingResults = true;
+              currentPull = pull;
+              const dampedPull = pull * 0.5;
+              camera.style.transition = "none";
+              results.style.transition = "none";
+              camera.style.transform = `translateY(calc(-100% + ${dampedPull}px))`;
+              results.style.transform = `translateY(${dampedPull}px)`;
+            }
+          });
+
+          window.addEventListener("mouseup", () => {
+            if (!isMouseDown) return;
+
+            emptyState.style.cursor = "";
+
+            if (isPulling) {
+              camera.style.transition = "";
+              results.style.transition = "";
+
+              if (currentPull > 60) {
+                hidePhotoResults();
+              } else {
+                camera.style.transform = "";
+                results.style.transform = "";
+              }
+            }
+
+            isPulling = false;
+            isMouseDown = false;
+            currentPull = 0;
+
+            // Reset drag flag after click event would fire
+            setTimeout(() => {
+              isDraggingResults = false;
+            }, 10);
+          });
+        });
+      })();
+
+      // Drag-to-scroll for Text Search Results (desktop testing)
+      (function () {
+        document.addEventListener("DOMContentLoaded", function () {
+          const scrollContainer = document.getElementById(
+            "text-search-results"
+          );
+
+          if (!scrollContainer) return;
+
+          let isMouseDown = false;
+          let scrollStartY = 0;
+          let scrollStartTop = 0;
+
+          // Touch events - set flag on move with threshold, let native scroll handle it
+          let touchStartY = 0;
+          scrollContainer.addEventListener(
+            "touchstart",
+            (e) => {
+              touchStartY = e.touches[0].clientY;
+            },
+            { passive: true }
+          );
+
+          scrollContainer.addEventListener(
+            "touchmove",
+            (e) => {
+              const deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+              if (deltaY > 3) {
+                isDraggingResults = true;
+              }
+            },
+            { passive: true }
+          );
+
+          scrollContainer.addEventListener(
+            "touchend",
+            () => {
+              setTimeout(() => {
+                isDraggingResults = false;
+              }, 10);
+            },
+            { passive: true }
+          );
+
+          scrollContainer.addEventListener("mousedown", (e) => {
+            isMouseDown = true;
+            scrollStartY = e.clientY;
+            scrollStartTop = scrollContainer.scrollTop;
+            scrollContainer.style.cursor = "grabbing";
+            scrollContainer.style.userSelect = "none";
+            e.preventDefault();
+          });
+
+          window.addEventListener("mousemove", (e) => {
+            if (!isMouseDown) return;
+            const deltaY = scrollStartY - e.clientY;
+
+            // Only set drag flag if moved more than 3 pixels
+            if (Math.abs(deltaY) > 3) {
+              isDraggingResults = true;
+            }
+
+            scrollContainer.scrollTop = scrollStartTop + deltaY;
+          });
+
+          window.addEventListener("mouseup", () => {
+            if (!isMouseDown) return;
+            scrollContainer.style.cursor = "";
+            scrollContainer.style.userSelect = "";
+            isMouseDown = false;
+
+            // Reset drag flag after click event would fire
+            setTimeout(() => {
+              isDraggingResults = false;
+            }, 10);
+          });
+        });
+      })();
+
+      // Drag-to-scroll for POS cart content (desktop testing)
+      (function () {
+        document.addEventListener("DOMContentLoaded", function () {
+          const scrollContainer = document.querySelector(
+            ".container > .content"
+          );
+
+          if (!scrollContainer) return;
+
+          let isMouseDown = false;
+          let scrollStartY = 0;
+          let scrollStartTop = 0;
+
+          scrollContainer.addEventListener("mousedown", (e) => {
+            // Don't interfere with button clicks
+            if (e.target.closest("button")) return;
+
+            isMouseDown = true;
+            scrollStartY = e.clientY;
+            scrollStartTop = scrollContainer.scrollTop;
+            scrollContainer.style.cursor = "grabbing";
+            scrollContainer.style.userSelect = "none";
+            e.preventDefault();
+          });
+
+          window.addEventListener("mousemove", (e) => {
+            if (!isMouseDown) return;
+            const deltaY = scrollStartY - e.clientY;
+            scrollContainer.scrollTop = scrollStartTop + deltaY;
+          });
+
+          window.addEventListener("mouseup", () => {
+            if (!isMouseDown) return;
+            scrollContainer.style.cursor = "";
+            scrollContainer.style.userSelect = "";
+            isMouseDown = false;
+          });
+        });
+      })();
+
+      // Text Flow
+      function openTextFlow() {
+        document.getElementById("text-flow").hidden = false;
+        document.getElementById("text-search-input").value = "";
+        document.getElementById("text-search-results").hidden = true;
+        document.getElementById("text-search-empty").hidden = true;
+        document.getElementById("text-search-clear").hidden = true;
+        setTimeout(() => {
+          document.getElementById("text-search-input").focus();
+        }, 100);
+      }
+
+      function closeTextFlow() {
+        document.getElementById("text-flow").hidden = true;
+      }
+
+      function handleTextSearch() {
+        const input = document.getElementById("text-search-input");
+        const results = document.getElementById("text-search-results");
+        const empty = document.getElementById("text-search-empty");
+        const clearBtn = document.getElementById("text-search-clear");
+
+        const query = input.value.trim().toLowerCase();
+
+        // Show/hide clear button
+        clearBtn.hidden = query.length === 0;
+
+        if (query.length === 0) {
+          results.hidden = true;
+          empty.hidden = true;
+          return;
+        }
+
+        // Filter items - exclude items already in cart
+        const matches = ITEMS.filter(
+          (item) =>
+            !addedInventoryIds.has(item.id) &&
+            (item.title.toLowerCase().includes(query) ||
+              item.condition.toLowerCase().includes(query))
+        );
+
+        if (matches.length === 0) {
+          results.hidden = true;
+          empty.hidden = false;
+        } else {
+          empty.hidden = true;
+          results.hidden = false;
+          populateTextResults(matches);
+        }
+      }
+
+      function populateTextResults(items) {
+        const grid = document.getElementById("text-results-grid");
+        grid.innerHTML = items
+          .map((item) => {
+            const seed = encodeURIComponent(`${item.title}-${item.id}`);
+            return `
+          <div class="grid__item" onclick="addItemFromSearch('${
+            item.id
+          }', 'text')">
+            <div class="grid__image">
+              <img src="https://picsum.photos/seed/${seed}/200/200" alt="" />
+            </div>
+            <div class="grid__title">${item.title}</div>
+            <div class="grid__meta">
+              <div class="grid__price">$${item.priceValue.toFixed(2)}</div>
+              <div class="grid__condition">${item.condition}</div>
+            </div>
+          </div>
+        `;
+          })
+          .join("");
+
+        setTimeout(equalizeGridTitles, 0);
+      }
+
+      function clearTextSearch() {
+        const input = document.getElementById("text-search-input");
+        input.value = "";
+        handleTextSearch();
+        input.focus();
+      }
+
+      // Add item from search results
+      function addItemFromSearch(itemId, flowType) {
+        // Don't add if we were dragging
+        if (isDraggingResults) {
+          return;
+        }
+
+        const item = ITEMS.find((i) => i.id === itemId);
+        if (!item) return;
+
+        // Check if already added
+        if (addedInventoryIds.has(item.id)) {
+          // Close flow without adding duplicate
+          if (flowType === "photo") {
+            closePhotoFlow();
+          } else if (flowType === "text") {
+            closeTextFlow();
+          }
+          return;
+        }
+
+        addedInventoryIds.add(item.id); // Mark as added
+
+        const cartItemsEl = document.querySelector(".cart-items");
+        const cartItemId = nextItemId++;
+        const seed = encodeURIComponent(`${item.title}-${item.id}`);
+
+        const itemHTML = `
+          <div class="cart-item" data-id="${cartItemId}" data-inventory-id="${
+          item.id
+        }" data-price="${item.priceValue}" data-quantity="1">
+            <div class="cart-item__image">
+              <img
+                src="https://picsum.photos/seed/${seed}/200/200"
+                alt="${item.title}"
+              />
+            </div>
+            <div class="cart-item__text">
+              <div class="cart-item__title">${item.title}</div>
+              <div class="cart-item__subtitle">${item.condition}</div>
+            </div>
+            <div class="cart-item__actions">
+              <div class="cart-item__price">$${formatCurrency(
+                item.priceValue
+              )}</div>
+              <button
+                class="cart-item__remove"
+                aria-label="Remove"
+                onclick="removeItem(${cartItemId})"
+              >
+                <i class="ph ph-trash" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        `;
+
+        cartItemsEl.insertAdjacentHTML("beforeend", itemHTML);
+        updateCartDisplay();
+
+        // Close the flow
+        if (flowType === "photo") {
+          closePhotoFlow();
+        } else if (flowType === "text") {
+          closeTextFlow();
+        }
+
+        // Scroll to show the newly added item
+        setTimeout(() => {
+          const content = document.querySelector(".content");
+          content.scrollTo({ top: content.scrollHeight, behavior: "smooth" });
+        }, 100);
+      }
+
+      // Torch toggle
+      function toggleTorch() {
+        torchOn = !torchOn;
+        const buttons = document.querySelectorAll(".torch-button");
+
+        buttons.forEach((btn) => {
+          const icon = btn.querySelector("i");
+
+          if (torchOn) {
+            btn.classList.add("torch-button--active");
+            icon.className = "ph-fill ph-lightning";
+          } else {
+            btn.classList.remove("torch-button--active");
+            icon.className = "ph-fill ph-lightning-slash";
+          }
+        });
+      }
+
+      // Grid title equalization
+      function getLineHeightPixels(element) {
+        const computedStyle = getComputedStyle(element);
+        const fontSize = parseFloat(computedStyle.fontSize) || 16;
+        const lineHeight = computedStyle.lineHeight;
+        if (!lineHeight || lineHeight === "normal") return fontSize * 1.4;
+        if (lineHeight.endsWith("px")) return parseFloat(lineHeight);
+        const number = parseFloat(lineHeight);
+        return !Number.isNaN(number) ? number * fontSize : fontSize * 1.4;
+      }
+
+      function countLinesForTitle(element) {
+        const clone = element.cloneNode(true);
+        clone.style.position = "absolute";
+        clone.style.visibility = "hidden";
+        clone.style.pointerEvents = "none";
+        clone.style.left = "-99999px";
+        clone.style.top = "0";
+        clone.style.width = element.clientWidth + "px";
+        clone.style.display = "block";
+        clone.style.overflow = "visible";
+        clone.style.margin = "0";
+        clone.style.padding = "0";
+        clone.style.border = "0";
+        clone.style.setProperty("-webkit-line-clamp", "unset");
+        clone.style.setProperty("-webkit-box-orient", "unset");
+
+        element.parentNode.appendChild(clone);
+        const lineHeight = getLineHeightPixels(element);
+        const lines = Math.max(1, Math.round(clone.scrollHeight / lineHeight));
+        clone.remove();
+        return Math.min(2, lines);
+      }
+
+      function equalizeGridTitles() {
+        const containers = document.querySelectorAll(".grid");
+
+        containers.forEach((container) => {
+          if (container.offsetParent === null) return;
+
+          const items = Array.from(container.querySelectorAll(".grid__item"));
+          if (!items.length) return;
+
+          items.forEach((item) => {
+            const title = item.querySelector(".grid__title");
+            if (title) title.style.minHeight = "";
+          });
+
+          const rows = new Map();
+          items.forEach((item) => {
+            const top = Math.round(item.offsetTop);
+            if (!rows.has(top)) rows.set(top, []);
+            rows.get(top).push(item);
+          });
+
+          rows.forEach((rowItems) => {
+            let maxLines = 1;
+            rowItems.forEach((item) => {
+              const title = item.querySelector(".grid__title");
+              if (title) {
+                maxLines = Math.max(maxLines, countLinesForTitle(title));
+              }
+            });
+            const sample = rowItems[0].querySelector(".grid__title");
+            const lineHeight = sample ? getLineHeightPixels(sample) : 0;
+            const targetMinimumPixels = lineHeight * maxLines;
+            rowItems.forEach((item) => {
+              const title = item.querySelector(".grid__title");
+              if (title) title.style.minHeight = targetMinimumPixels + "px";
+            });
+          });
+        });
+      }
+    </script>
+
+    <div class="container">
+      <header class="header">
+        <div class="header__left">
+          <button class="icon-button" aria-label="Menu" type="button">
+            <i class="ph ph-list" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="header__center">Point of Sale</div>
+        <div class="header__right">
+          <button
+            class="icon-button"
+            aria-label="Add item"
+            type="button"
+            onclick="openAddItemModal()"
+          >
+            <i class="ph ph-plus" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="action-section">
+        <div class="action-row">
+          <button class="action-btn" type="button" onclick="openQRFlow()">
+            <i class="ph ph-qr-code" aria-hidden="true"></i>
+            QR
+          </button>
+          <button class="action-btn" type="button" onclick="openPhotoFlow()">
+            <i class="ph ph-camera" aria-hidden="true"></i>
+            Photo
+          </button>
+          <button class="action-btn" type="button" onclick="openTextFlow()">
+            <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+            Text
+          </button>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="empty-state" id="empty-state">
+          <div class="empty-state__icon-container">
+            <i class="ph ph-light ph-basket" aria-hidden="true"></i>
+          </div>
+          <h2 class="empty-state__title">No items yet</h2>
+          <!-- <p class="empty-state__hint">Tap QR, photo, or text to add items</p> -->
+          <p class="empty-state__hint">
+            Tap QR, photo, or text to add items from your inventory, or tap + to
+            add a quick item
+          </p>
+        </div>
+
+        <div class="cart-items" hidden></div>
+      </div>
+
+      <div class="sticky-cta">
+        <div class="summary-rows">
+          <div class="summary-row">
+            <span class="summary-row__label" id="subtotal-label"
+              >Subtotal • 0 items</span
+            >
+            <span class="summary-row__value" id="subtotal">$120.00</span>
+          </div>
+          <div class="discount-row" id="discount-row">
+            <span class="discount-row__label">Discount</span>
+            <button
+              class="discount-row__add"
+              type="button"
+              onclick="openDiscountModal()"
+            >
+              Add
+            </button>
+          </div>
+          <div class="summary-row">
+            <span class="summary-row__label">Tax (8.25%)</span>
+            <span class="summary-row__value" id="tax">$9.90</span>
+          </div>
+          <div class="summary-row summary-row--total">
+            <span class="summary-row__label">Total</span>
+            <span class="summary-row__value" id="total">$129.90</span>
+          </div>
+        </div>
+        <button class="button button--primary" type="button" id="charge-btn">
+          Collect $129.90
+        </button>
+      </div>
+
+      <!-- ===== QR Scanner Overlay ===== -->
+      <div class="overlay" id="qr-flow" hidden>
+        <header class="header">
+          <div class="header__left"></div>
+          <div class="header__center">QR</div>
+          <div class="header__right">
+            <button
+              class="icon-button"
+              aria-label="Close"
+              type="button"
+              onclick="closeQRFlow()"
+            >
+              <i class="ph ph-x" aria-hidden="true"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="qr-content">
+          <div class="camera-view">
+            <div
+              class="viewfinder-box"
+              onclick="simulateQRScan()"
+              style="cursor: pointer"
+            >
+              <div class="viewfinder-box__feed"></div>
+            </div>
+            <div class="viewfinder-hint">Align QR code within frame</div>
+          </div>
+
+          <div class="camera-controls">
+            <button
+              class="torch-button"
+              type="button"
+              aria-label="Toggle flash"
+              onclick="toggleTorch()"
+            >
+              <i class="ph-fill ph-lightning-slash" aria-hidden="true"></i>
+            </button>
+            <div class="capture-button" style="visibility: hidden">
+              <div class="capture-button__inner"></div>
+            </div>
+            <div class="camera-controls__spacer"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Photo Search Overlay ===== -->
+      <div class="overlay photo-flow" id="photo-flow" hidden>
+        <header class="header">
+          <div class="header__left"></div>
+          <div class="header__center">Photo</div>
+          <div class="header__right">
+            <button
+              class="icon-button"
+              aria-label="Close"
+              type="button"
+              onclick="closePhotoFlow()"
+            >
+              <i class="ph ph-x" aria-hidden="true"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="content-wrapper">
+          <!-- Camera (slides up on capture) -->
+          <div class="camera-slide" id="photo-camera-slide">
+            <div class="camera-view">
+              <div class="viewfinder-box">
+                <div class="viewfinder-box__feed"></div>
+              </div>
+              <div class="viewfinder-hint">Position item within frame</div>
+            </div>
+
+            <div class="camera-controls">
+              <button
+                class="torch-button"
+                type="button"
+                aria-label="Toggle flash"
+                onclick="toggleTorch()"
+              >
+                <i class="ph-fill ph-lightning-slash" aria-hidden="true"></i>
+              </button>
+              <button
+                class="capture-button"
+                type="button"
+                aria-label="Capture photo"
+                onmousedown="startCapture(event)"
+                onmouseup="endCapture(event)"
+                onmouseleave="cancelCapture()"
+                ontouchstart="startCapture(event)"
+                ontouchend="endCapture(event)"
+              >
+                <div class="capture-button__inner"></div>
+              </button>
+              <div class="camera-controls__spacer"></div>
+            </div>
+          </div>
+
+          <!-- Results (revealed when camera slides up) -->
+          <div class="results-slide" id="photo-results-slide">
+            <div class="empty-results" id="photo-empty-state" hidden>
+              <div class="empty-results__icon-container">
+                <i
+                  class="ph ph-light ph-magnifying-glass"
+                  aria-hidden="true"
+                ></i>
+              </div>
+              <h2 class="empty-results__title">No Matches Found</h2>
+              <p class="empty-results__hint">
+                This item might not be in your inventory
+              </p>
+            </div>
+            <div class="results" id="photo-results-scroll">
+              <div class="grid" id="photo-results-grid"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Text Search Overlay ===== -->
+      <div class="overlay" id="text-flow" hidden>
+        <header class="header">
+          <div class="header__left"></div>
+          <div class="header__center">Search</div>
+          <div class="header__right">
+            <button
+              class="icon-button"
+              aria-label="Close"
+              type="button"
+              onclick="closeTextFlow()"
+            >
+              <i class="ph ph-x" aria-hidden="true"></i>
+            </button>
+          </div>
+        </header>
+
+        <div class="search-screen">
+          <div class="search-bar">
+            <div class="search-input-wrapper">
+              <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+              <input
+                type="text"
+                class="search-input"
+                id="text-search-input"
+                placeholder="Search inventory..."
+                oninput="handleTextSearch()"
+              />
+              <button
+                class="search-clear"
+                type="button"
+                aria-label="Clear"
+                id="text-search-clear"
+                onclick="clearTextSearch()"
+                hidden
+              >
+                <i class="ph ph-x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="results" id="text-search-results" hidden>
+            <div class="grid" id="text-results-grid"></div>
+          </div>
+
+          <div class="empty-results" id="text-search-empty" hidden>
+            <div class="empty-results__icon-container">
+              <i class="ph ph-light ph-magnifying-glass" aria-hidden="true"></i>
+            </div>
+            <h2 class="empty-results__title">No Matches Found</h2>
+            <p class="empty-results__hint">
+              This item might not be in your inventory
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Quick Item Modal -->
+    <div class="select-modal" id="addItemModal">
+      <div class="select-modal__backdrop" onclick="closeAddItemModal()"></div>
+      <div class="select-modal__container">
+        <div class="select-modal__sheet">
+          <div class="select-modal__header">
+            <div class="select-modal__header-left"></div>
+            <div class="select-modal__header-center">
+              <h2 class="select-modal__header-title">Add Quick Item</h2>
+            </div>
+            <div class="select-modal__header-right">
+              <button
+                class="select-modal__close"
+                aria-label="Close"
+                onclick="closeAddItemModal()"
+              >
+                <i class="ph ph-light ph-x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="select-modal__body">
+            <div class="form-group">
+              <label class="form-label">Price</label>
+              <div class="price-presets">
+                <button
+                  type="button"
+                  class="price-preset"
+                  data-value="1"
+                  onclick="selectPreset(1, event)"
+                >
+                  $1
+                </button>
+                <button
+                  type="button"
+                  class="price-preset"
+                  data-value="2"
+                  onclick="selectPreset(2, event)"
+                >
+                  $2
+                </button>
+                <button
+                  type="button"
+                  class="price-preset"
+                  data-value="3"
+                  onclick="selectPreset(3, event)"
+                >
+                  $3
+                </button>
+                <button
+                  type="button"
+                  class="price-preset"
+                  data-value="5"
+                  onclick="selectPreset(5, event)"
+                >
+                  $5
+                </button>
+              </div>
+              <input
+                type="text"
+                inputmode="decimal"
+                class="price-input"
+                id="price-input"
+                placeholder="Other"
+                maxlength="9"
+                oninput="handlePriceInput(event)"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Quantity</label>
+              <div class="qty-selector">
+                <button
+                  class="qty-selector__button"
+                  type="button"
+                  onclick="adjustQty(-1)"
+                  id="qty-minus"
+                  disabled
+                >
+                  <i class="ph ph-minus" aria-hidden="true"></i>
+                </button>
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  class="qty-selector__value"
+                  id="qty-value"
+                  value="1"
+                  maxlength="2"
+                />
+                <button
+                  class="qty-selector__button"
+                  type="button"
+                  onclick="adjustQty(1)"
+                  id="qty-plus"
+                >
+                  <i class="ph ph-plus" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Photo</label>
+              <div id="photo-container">
+                <button
+                  class="photo-capture"
+                  type="button"
+                  id="photo-btn"
+                  aria-label="Add photo"
+                  onclick="capturePhoto()"
+                >
+                  <i class="ph ph-light ph-camera" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="select-modal__footer">
+            <button
+              class="button button--primary"
+              type="button"
+              onclick="addItemToCart()"
+              id="add-btn"
+              disabled
+            >
+              Add to Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Discount Modal -->
+    <div class="select-modal" id="discountModal">
+      <div class="select-modal__backdrop" onclick="closeDiscountModal()"></div>
+      <div class="select-modal__container">
+        <div class="select-modal__sheet">
+          <div class="select-modal__header">
+            <div class="select-modal__header-left"></div>
+            <div class="select-modal__header-center">
+              <h2 class="select-modal__header-title">Add Discount</h2>
+            </div>
+            <div class="select-modal__header-right">
+              <button
+                class="select-modal__close"
+                aria-label="Close"
+                onclick="closeDiscountModal()"
+              >
+                <i class="ph ph-light ph-x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="select-modal__body">
+            <div class="form-group">
+              <label class="form-label">Amount</label>
+              <input
+                type="text"
+                inputmode="decimal"
+                class="discount-input"
+                id="discount-input"
+                placeholder="$0.00"
+                maxlength="6"
+                oninput="handleDiscountInput(event)"
+                onfocus="handleDiscountFocus(event)"
+                onblur="handleDiscountBlur(event)"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Type</label>
+              <div class="discount-type-toggle">
+                <button
+                  type="button"
+                  class="discount-type-btn selected"
+                  data-type="dollar"
+                  onclick="selectDiscountType('dollar', event)"
+                >
+                  $
+                </button>
+                <button
+                  type="button"
+                  class="discount-type-btn"
+                  data-type="percent"
+                  onclick="selectDiscountType('percent', event)"
+                >
+                  %
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="select-modal__footer select-modal__footer--stacked">
+            <button
+              class="button button--primary"
+              type="button"
+              onclick="applyDiscount()"
+              id="apply-discount-btn"
+              disabled
+            >
+              Apply Discount
+            </button>
+            <button
+              class="button button--tertiary-destructive"
+              type="button"
+              onclick="removeDiscount()"
+              id="remove-discount-btn"
+              hidden
+            >
+              Remove Discount
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Email Receipt Modal -->
+    <div class="select-modal" id="emailModal">
+      <div class="select-modal__backdrop" onclick="closeEmailModal()"></div>
+      <div class="select-modal__container">
+        <div class="select-modal__sheet">
+          <div class="select-modal__header">
+            <div class="select-modal__header-left"></div>
+            <div class="select-modal__header-center">
+              <h2 class="select-modal__header-title">Email Receipt</h2>
+            </div>
+            <div class="select-modal__header-right">
+              <button
+                class="select-modal__close"
+                aria-label="Close"
+                onclick="closeEmailModal()"
+              >
+                <i class="ph ph-light ph-x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="select-modal__body">
+            <div class="form-group">
+              <label class="form-label">Email Address</label>
+              <input
+                type="email"
+                class="form-input"
+                id="email-input"
+                placeholder="email@example.com"
+                oninput="validateEmailInput()"
+              />
+            </div>
+          </div>
+          <div class="select-modal__footer">
+            <button
+              class="button button--primary"
+              type="button"
+              onclick="sendEmailReceipt()"
+              id="send-email-btn"
+              disabled
+            >
+              Send Receipt
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text Receipt Modal -->
+    <div class="select-modal" id="textModal">
+      <div class="select-modal__backdrop" onclick="closeTextModal()"></div>
+      <div class="select-modal__container">
+        <div class="select-modal__sheet">
+          <div class="select-modal__header">
+            <div class="select-modal__header-left"></div>
+            <div class="select-modal__header-center">
+              <h2 class="select-modal__header-title">Text Receipt</h2>
+            </div>
+            <div class="select-modal__header-right">
+              <button
+                class="select-modal__close"
+                aria-label="Close"
+                onclick="closeTextModal()"
+              >
+                <i class="ph ph-light ph-x" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="select-modal__body">
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input
+                type="tel"
+                inputmode="numeric"
+                class="form-input"
+                id="text-input"
+                placeholder="(555) 123-4567"
+                oninput="validateTextInput()"
+              />
+            </div>
+          </div>
+          <div class="select-modal__footer">
+            <button
+              class="button button--primary"
+              type="button"
+              onclick="sendTextReceipt()"
+              id="send-text-btn"
+              disabled
+            >
+              Send Receipt
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Flow (unified payment + processing) -->
+    <div class="payment-flow" id="payment-flow" hidden>
+      <header class="header">
+        <div class="header__title" id="payment-flow-title">Payment</div>
+      </header>
+      <button
+        class="close-btn"
+        id="payment-flow-close"
+        onclick="closePaymentFlow()"
+      >
+        <i class="ph ph-x"></i>
+      </button>
+
+      <div class="content-wrapper">
+        <!-- Payment Slide (slides up and out) -->
+        <div class="payment-slide" id="payment-slide">
+          <div class="payment-slide__body">
+            <div class="payment-slide__content">
+              <div class="payment-total">
+                <div class="payment-total__amount" id="payment-total-amount">
+                  $129.90
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Card</label>
+                <div class="payment-card">
+                  <i
+                    class="ph ph-contactless-payment payment-card__icon"
+                    onclick="triggerProcessing('card')"
+                    style="cursor: pointer"
+                  ></i>
+                  <div class="payment-card__text">Tap card to phone</div>
+                  <button class="text-action" onclick="openManualEntry(event)">
+                    Enter manually
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Cash</label>
+                <div class="preset-grid" id="cash-preset-grid">
+                  <!-- Presets will be populated by JS -->
+                </div>
+                <div class="cash-other-row">
+                  <input
+                    type="text"
+                    inputmode="decimal"
+                    class="cash-other-input"
+                    id="cash-other-input"
+                    placeholder="Other"
+                    maxlength="9"
+                    oninput="handleCashOtherInput(event)"
+                  />
+                  <button
+                    type="button"
+                    class="cash-confirm-btn"
+                    id="cash-confirm-btn"
+                    disabled
+                    onclick="confirmCash()"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manual Entry Slide -->
+        <div class="manual-entry-slide" id="manual-entry-slide">
+          <div class="manual-entry-slide__body">
+            <div class="manual-entry__amount">
+              <div class="manual-entry__amount-value" id="manual-entry-amount">
+                $129.90
+              </div>
+            </div>
+
+            <div class="manual-entry__form">
+              <div class="form-group">
+                <label class="form-label">Card Number</label>
+                <input
+                  type="text"
+                  id="card-number-input"
+                  class="manual-entry__input"
+                  inputmode="numeric"
+                  placeholder="1234 5678 9012 3456"
+                  maxlength="19"
+                />
+                <div class="manual-entry__error" id="card-number-error">
+                  Invalid card number
+                </div>
+              </div>
+
+              <div class="manual-entry__row">
+                <div class="form-group">
+                  <label class="form-label">Expiry</label>
+                  <input
+                    type="text"
+                    id="expiry-input"
+                    class="manual-entry__input"
+                    inputmode="numeric"
+                    placeholder="MM / YY"
+                    maxlength="7"
+                  />
+                  <div class="manual-entry__error" id="expiry-error">
+                    Card expired
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">CVV</label>
+                  <input
+                    type="text"
+                    id="cvv-input"
+                    class="manual-entry__input"
+                    inputmode="numeric"
+                    placeholder="123"
+                    maxlength="4"
+                  />
+                  <div class="manual-entry__error" id="cvv-error">
+                    Invalid CVV
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Billing Zip</label>
+                <input
+                  type="text"
+                  id="zip-input"
+                  class="manual-entry__input"
+                  inputmode="numeric"
+                  placeholder="00000"
+                  maxlength="5"
+                />
+                <div class="manual-entry__error" id="zip-error">
+                  Invalid zip code
+                </div>
+              </div>
+            </div>
+
+            <div class="manual-entry__spacer"></div>
+            <div class="manual-entry__secure">
+              <i class="ph ph-lock-simple"></i>
+              Secured with encryption
+            </div>
+          </div>
+          <div class="manual-entry__footer">
+            <button
+              class="manual-entry__charge-btn"
+              type="button"
+              id="manual-charge-btn"
+              disabled
+              onclick="chargeManualCard()"
+            >
+              Charge $129.90
+            </button>
+          </div>
+        </div>
+
+        <!-- Processing Slide (slides up into view) -->
+        <div class="processing-slide" id="processing-slide">
+          <div
+            class="processing-slide__body"
+            onclick="handleProcessingClick(event)"
+            style="cursor: pointer"
+          >
+            <div class="processing__icon" id="processing-icon">
+              <div class="processing__spinner"></div>
+            </div>
+            <div class="processing__amount" id="processing-amount">$129.90</div>
+            <div class="processing__status" id="processing-status">
+              Authorizing...
+            </div>
+
+            <!-- Change and receipt - flows below status, inside the flex container -->
+            <div class="completion-actions">
+              <div class="completion__change">
+                <span class="completion__change-label">Change</span>
+                <span class="completion__change-value" id="completion-change"
+                  >$0.00</span
+                >
+              </div>
+              <div class="receipt-row">
+                <button
+                  class="receipt-btn"
+                  type="button"
+                  id="print-btn"
+                  onclick="handlePrint()"
+                >
+                  <i class="ph ph-printer" id="print-icon"></i>
+                  Print
+                </button>
+                <button
+                  class="receipt-btn"
+                  type="button"
+                  id="email-btn"
+                  onclick="openEmailModal()"
+                >
+                  <i class="ph ph-envelope-simple" id="email-icon"></i>
+                  Email
+                </button>
+                <button
+                  class="receipt-btn"
+                  type="button"
+                  id="text-btn"
+                  onclick="openTextModal()"
+                >
+                  <i class="ph ph-chat-circle-text" id="text-icon"></i>
+                  Text
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- New sale button - positioned at bottom -->
+          <div class="completion-footer">
+            <button
+              class="new-sale-btn"
+              type="button"
+              onclick="startNewSale(event)"
+            >
+              New Sale
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
